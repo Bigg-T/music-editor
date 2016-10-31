@@ -9,7 +9,7 @@ import java.util.TreeMap;
  */
 public class BasicMusicEditor implements IBasicMusicEditor<Note> {
   private TreeMap<Integer, ArrayList<Pitch>> piece;
-  private int tempo;
+  private final int tempo;
 
   BasicMusicEditor(int tempo) {
     this.piece = new TreeMap<>();

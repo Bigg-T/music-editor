@@ -1,5 +1,7 @@
 package cs3500.music.model;
 
+import cs3500.music.util.MusicUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -53,7 +55,8 @@ final class Pitch {
    * @return return true if the note is added
    */
   boolean add(Note note) {
-    if (note == null) {
+
+    if (note == null && (!note.samePitch(this.pitch))) {
       throw new IllegalArgumentException("Null note, can't add to list");
     }
 

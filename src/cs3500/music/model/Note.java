@@ -1,11 +1,14 @@
 package cs3500.music.model;
 
+import com.sun.istack.internal.NotNull;
 import cs3500.music.util.MusicUtils;
 
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
+
+import static cs3500.music.util.Utils.requireNonNull;
 
 /**
  * This represent the a music cs3500.music.model.Note.
@@ -26,11 +29,10 @@ public class Note {
    * @param startDuration at what beat the note start
    * @param numBeat       the duration of this note
    */
-  Note(NoteName noteName, int octave, int startDuration, int numBeat, int volume, int channel) {
-    requireNonNull(noteName);
+  Note(@NotNull NoteName noteName, int octave, int startDuration, int numBeat, int volume, int channel) {
     requirePosNum(octave);
-
-    this.noteName = noteName;
+    this.noteName = requireNonNull(noteName, "Null object.");
+    ;
     this.octave = octave;
     this.duration = new Duration(startDuration, numBeat);
     this.volume = volume;
@@ -65,17 +67,6 @@ public class Note {
   }
 
   /**
-   * Throw IllegalArgs when the object is null.
-   *
-   * @param o the object
-   */
-  private void requireNonNull(Object o) {
-    if (o == null) {
-      throw new IllegalArgumentException("Null object.");
-    }
-  }
-
-  /**
    * Throws a Illegal exception argument if the int is not positive.
    *
    * @param num a number
@@ -84,6 +75,20 @@ public class Note {
     if (num < 1) {
       throw new IllegalArgumentException("Require a positive number.");
     }
+  }
+
+  /**
+   * Return true if the given pitch is equal to the note's pitch
+   *
+   * @param pitch the pitch
+   * @return true if the pitch == to derived this note pitch
+   */
+  boolean samePitch(int pitch) {
+    return this.toPitch() == pitch;
+  }
+
+  private int toPitch() {
+    return noteName.toInt() + this.octave * 12;
   }
 
   /**
