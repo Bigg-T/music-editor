@@ -24,12 +24,12 @@ public class GuiViewFrame extends JFrame implements IGuiViewFrame {
   }
 
   @Override
-  public void initialize(){
+  public void initialize() {
     this.setVisible(true);
   }
 
   @Override
-  public Dimension getPreferredSize(){
+  public Dimension getPreferredSize() {
     return new Dimension(100, 100);
   }
 
