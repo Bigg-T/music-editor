@@ -1,6 +1,6 @@
 package cs3500.music.util;
 
-import cs3500.music.model.NoteName;
+import cs3500.music.model.*;
 
 /**
  * Created by tiger on 10/31/16.
@@ -17,4 +17,6 @@ public final class MusicUtils {
   public static int toPitch(NoteName noteName, int octave) {
     return noteName.toInt() + (octave * 12);
   }
+
+
 }

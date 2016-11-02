@@ -1,11 +1,10 @@
 package cs3500.music.util;
 
+import cs3500.music.model.NoteName;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static cs3500.music.util.Utils.padding;
-import static cs3500.music.util.Utils.stringCenter;
-import static cs3500.music.util.Utils.toPosMod;
+import static cs3500.music.util.Utils.*;
 
 /**
  * Testing Utils.
@@ -70,4 +69,22 @@ public class UtilsTest {
   public void testToPosMod4() throws Exception {
     Assert.assertEquals(1, toPosMod(-11, 10));
   }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testRequireNonNullEX() throws Exception {
+    //It't will throw Exception before running Assert
+    Assert.assertEquals(NoteName.A, requireNonNull(null, "Null object."));
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testRequireNonNullEx2() throws Exception {
+    //It't will throw Exception before running Assert
+    Assert.assertEquals(NoteName.A, requireNonNull(NoteName.A, null));
+  }
+
+  @Test
+  public void testRequireNonNull() throws Exception {
+    Assert.assertEquals(NoteName.A, requireNonNull(NoteName.A, "Null object."));
+  }
+
 }

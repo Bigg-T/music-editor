@@ -1,5 +1,7 @@
 package cs3500.music.util;
 
+import com.sun.istack.internal.NotNull;
+
 /**
  * cs3500.music.model.Utils class.
  */
@@ -66,5 +68,17 @@ public final class Utils {
       return Math.abs(num) % mod;
     }
     return num % mod;
+  }
+
+  /**
+   * Throw IllegalArgs when the object is null.
+   *
+   * @param o the object
+   */
+  public static <T> T requireNonNull(T o, String msg) {
+    if (o == null|| msg == null) {
+      throw new IllegalArgumentException(msg);
+    }
+    return o;
   }
 }

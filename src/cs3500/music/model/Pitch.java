@@ -1,15 +1,16 @@
 package cs3500.music.model;
 
+import cs3500.music.util.Utils;
+import javafx.collections.transformation.SortedList;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 /**
- * INVARIANT: Since the is not possible to add duplicate notes, noteList will only have one
- * instance of each note.
+ * Created by tiger on 11/1/16.
  */
-final class Pitch {
-
+public class Pitch {
   private List<Note> noteList;
   private final int pitch;
 
@@ -53,7 +54,8 @@ final class Pitch {
    * @return return true if the note is added
    */
   boolean add(Note note) {
-    if (note == null) {
+
+    if (note == null || !(note.samePitch(this.pitch))) {
       throw new IllegalArgumentException("Null note, can't add to list");
     }
 
@@ -72,10 +74,11 @@ final class Pitch {
    * @return
    */
   boolean remove(Note note) {
-    if (note == null) {
-      throw new IllegalArgumentException("Null note.");
-    }
-    return noteList.remove(note);
+    note = Utils.requireNonNull(note, "Null Note.");
+    return noteList.contains(note) && noteList.remove(note);
   }
 
+  boolean edit(Note note, int pitch, int volume) {
+    return false;
+  }
 }

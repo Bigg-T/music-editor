@@ -10,7 +10,7 @@ import java.util.Objects;
 /**
  * This represent the a music cs3500.music.model.Note.
  */
-public class Note {
+class Note implements INote {
 
   private final NoteName noteName;
   private final int octave;
@@ -28,7 +28,6 @@ public class Note {
    */
   Note(NoteName noteName, int octave, int startDuration, int numBeat, int volume, int channel) {
     requireNonNull(noteName);
-    requirePosNum(octave);
 
     this.noteName = noteName;
     this.octave = octave;
@@ -37,22 +36,35 @@ public class Note {
     this.channel = channel;
   }
 
-  /**
-   * Encapsulate field.
-   *
-   * @return the NoteName
-   */
-  private NoteName getNoteName() {
+  @Override
+  public NoteName getNoteName() {
     return noteName;
   }
 
-  /**
-   * Encapsulate field.
-   *
-   * @return the octave.
-   */
-  private int getOctave() {
+  @Override
+  public int getOctave() {
     return octave;
+  }
+
+  @Override
+  public int getChannel() { return channel; }
+
+  @Override
+  public int getVolume() { return volume; }
+
+  @Override
+  public boolean isUnmodNote() {
+    return false;
+  }
+
+  @Override
+  public int getStartDuration()  {
+    return this.duration.start;
+  }
+
+  @Override
+  public int getBeat()  {
+    return this.duration.beat;
   }
 
   /**
@@ -136,7 +148,26 @@ public class Note {
 
   @Override
   public int hashCode() {
-    return Objects.hash(noteName, duration, octave, this.toString(), this.channel, this.volume);
+    return Objects.hash(noteName, duration.getBeat(), duration.getStart(), octave,
+            this.toString(), this.channel, this.volume);
+  }
+
+  /**
+   * Return true if the given pitch is equal to the note's pitch
+   *
+   * @param pitch the pitch
+   * @return true if the pitch == to derived this note pitch
+   */
+  boolean samePitch(int pitch) {
+    return this.toPitch() == pitch;
+  }
+
+  /**
+   * Return the int representation of the pitch of this note.
+   * @return int representation of pitch
+   */
+  int toPitch() {
+    return noteName.toInt() + this.octave * 12;
   }
 
   //@Todo clean  up the code with lambda/stream, shorter and concise
@@ -211,11 +242,10 @@ public class Note {
     }
 
     /**
-     * Encapsulate field.
-     *
-     * @return the beat start at
+     * Gets this start.
+     * @return  This start
      */
-    private int getStart() {
+    public int getStart() {
       return start;
     }
 
@@ -233,7 +263,7 @@ public class Note {
      *
      * @return the duration
      */
-    private int getBeat() {
+    public int getBeat() {
       return beat;
     }
 
