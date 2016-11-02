@@ -3,11 +3,11 @@ package cs3500.music.model;
 /**
  * For the purposes of creating an unmodifiable note.
  */
-public class UnmodNote implements INote {
+public class ViewNote implements INote {
 
   Note note;
 
-  public UnmodNote(Note note)  {
+  public ViewNote(Note note)  {
     this.note = note;
   }
 

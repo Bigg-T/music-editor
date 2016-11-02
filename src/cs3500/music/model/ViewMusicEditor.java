@@ -7,9 +7,9 @@ import java.util.List;
 /**
  * Created by tiger on 11/2/16.
  */
-public class UnmodMusicEditor implements IBasicMusicEditor<INote> {
+public class ViewMusicEditor implements IBasicMusicEditor<INote> {
   private final BasicMusicEditor musicEditor;
-  UnmodMusicEditor(BasicMusicEditor musicEditor) {
+  ViewMusicEditor(BasicMusicEditor musicEditor) {
     this.musicEditor = musicEditor;
   }
   @Override
