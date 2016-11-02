@@ -86,7 +86,7 @@ public class NoteBuilder {
   public Note build() {
     try {
       return new Note(this.noteName, this.octave, this.startDuration,
-              this.numBeats, this.channel, this.volume);
+              this.numBeats, this.volume, this.channel);
     } catch (Exception e) {
       throw new IllegalArgumentException("Note didn't construct properly.");
     }
