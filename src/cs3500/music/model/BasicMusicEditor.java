@@ -63,7 +63,6 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
   public void merge(IBasicMusicEditor<INote> piece, boolean isConsecutive) {
     piece = toBasicMusicEditor(piece);
 
-
   }
 
   BasicMusicEditor toBasicMusicEditor(IBasicMusicEditor<INote> musicEditor) {
