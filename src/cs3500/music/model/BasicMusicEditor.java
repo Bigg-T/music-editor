@@ -25,6 +25,7 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
     return (Note) note;
   }
 
+
   @Override
   public boolean add(INote note) {
 
