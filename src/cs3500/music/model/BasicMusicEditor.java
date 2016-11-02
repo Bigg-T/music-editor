@@ -69,8 +69,8 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
     if (musicEditor == null) {
       throw new IllegalArgumentException("Null MusicEditor.");
     } else if (musicEditor.isUnmodEditor()) {
-      UnmodMusicEditor unmodMusicEditor = (UnmodMusicEditor) musicEditor;
-      return unmodMusicEditor.toBasicMusicEditor(musicEditor);
+      ViewMusicEditor viewMusicEditor = (ViewMusicEditor) musicEditor;
+      return viewMusicEditor.toBasicMusicEditor(musicEditor);
     }
     return (BasicMusicEditor) musicEditor;
   }

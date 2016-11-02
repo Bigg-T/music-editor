@@ -42,8 +42,8 @@ public interface INote {
   public int getVolume();
 
   /**
-   * Tells whether this is an UnmodNote.
-   * @return  True if this is an UnmodNote, false otherwise.
+   * Tells whether this is an ViewNote.
+   * @return  True if this is an ViewNote, false otherwise.
    */
   public boolean isUnmodNote();
 
