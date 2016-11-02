@@ -1,6 +1,5 @@
 package cs3500.music.model;
 
-import com.sun.istack.internal.NotNull;
 import cs3500.music.util.MusicUtils;
 
 import java.util.Comparator;
@@ -8,12 +7,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
-import static cs3500.music.util.Utils.requireNonNull;
-
 /**
  * This represent the a music cs3500.music.model.Note.
  */
-public class Note {
+class Note implements INote {
 
   private final NoteName noteName;
   private final int octave;
@@ -29,32 +26,45 @@ public class Note {
    * @param startDuration at what beat the note start
    * @param numBeat       the duration of this note
    */
-  Note(@NotNull NoteName noteName, int octave, int startDuration, int numBeat, int volume, int channel) {
-    requirePosNum(octave);
-    this.noteName = requireNonNull(noteName, "Null object.");
-    ;
+  Note(NoteName noteName, int octave, int startDuration, int numBeat, int volume, int channel) {
+    requireNonNull(noteName);
+
+    this.noteName = noteName;
     this.octave = octave;
     this.duration = new Duration(startDuration, numBeat);
     this.volume = volume;
     this.channel = channel;
   }
 
-  /**
-   * Encapsulate field.
-   *
-   * @return the NoteName
-   */
-  private NoteName getNoteName() {
+  @Override
+  public NoteName getNoteName() {
     return noteName;
   }
 
-  /**
-   * Encapsulate field.
-   *
-   * @return the octave.
-   */
-  private int getOctave() {
+  @Override
+  public int getOctave() {
     return octave;
+  }
+
+  @Override
+  public int getChannel() { return channel; }
+
+  @Override
+  public int getVolume() { return volume; }
+
+  @Override
+  public boolean isUnmodNote() {
+    return false;
+  }
+
+  @Override
+  public int getStartDuration()  {
+    return this.duration.start;
+  }
+
+  @Override
+  public int getBeat()  {
+    return this.duration.beat;
   }
 
   /**
@@ -67,6 +77,17 @@ public class Note {
   }
 
   /**
+   * Throw IllegalArgs when the object is null.
+   *
+   * @param o the object
+   */
+  private void requireNonNull(Object o) {
+    if (o == null) {
+      throw new IllegalArgumentException("Null object.");
+    }
+  }
+
+  /**
    * Throws a Illegal exception argument if the int is not positive.
    *
    * @param num a number
@@ -75,20 +96,6 @@ public class Note {
     if (num < 1) {
       throw new IllegalArgumentException("Require a positive number.");
     }
-  }
-
-  /**
-   * Return true if the given pitch is equal to the note's pitch
-   *
-   * @param pitch the pitch
-   * @return true if the pitch == to derived this note pitch
-   */
-  boolean samePitch(int pitch) {
-    return this.toPitch() == pitch;
-  }
-
-  private int toPitch() {
-    return noteName.toInt() + this.octave * 12;
   }
 
   /**
@@ -141,7 +148,26 @@ public class Note {
 
   @Override
   public int hashCode() {
-    return Objects.hash(noteName, duration, octave, this.toString(), this.channel, this.volume);
+    return Objects.hash(noteName, duration.getBeat(), duration.getStart(), octave,
+            this.toString(), this.channel, this.volume);
+  }
+
+  /**
+   * Return true if the given pitch is equal to the note's pitch
+   *
+   * @param pitch the pitch
+   * @return true if the pitch == to derived this note pitch
+   */
+  boolean samePitch(int pitch) {
+    return this.toPitch() == pitch;
+  }
+
+  /**
+   * Return the int representation of the pitch of this note.
+   * @return int representation of pitch
+   */
+  int toPitch() {
+    return noteName.toInt() + this.octave * 12;
   }
 
   //@Todo clean  up the code with lambda/stream, shorter and concise
@@ -216,11 +242,10 @@ public class Note {
     }
 
     /**
-     * Encapsulate field.
-     *
-     * @return the beat start at
+     * Gets this start.
+     * @return  This start
      */
-    private int getStart() {
+    public int getStart() {
       return start;
     }
 
@@ -238,7 +263,7 @@ public class Note {
      *
      * @return the duration
      */
-    private int getBeat() {
+    public int getBeat() {
       return beat;
     }
 
