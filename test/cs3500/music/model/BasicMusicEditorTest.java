@@ -11,24 +11,119 @@ public class BasicMusicEditorTest {
 
   Note note0 = new NoteBuilder().setNoteName(NoteName.C).setOctave(4).setStartDuration(2).
           setNumBeats(2).setChannel(0).setVolume(5).build();
-  Note note0Copy = new NoteBuilder().setNoteName(NoteName.C).setOctave(4).setStartDuration(2).
-          setNumBeats(2).setChannel(0).setVolume(5).build();
   Note note1 = new NoteBuilder().setNoteName(NoteName.A).setOctave(4).setStartDuration(2).
           setNumBeats(2).setChannel(0).setVolume(5).build();
-  Note note2 = new NoteBuilder().setNoteName(NoteName.CX).setOctave(4).setStartDuration(2).
-          setNumBeats(2).setChannel(0).setVolume(5).build();
+  Note note2 = new NoteBuilder().setNoteName(NoteName.C).setOctave(4).setStartDuration(2).
+          setNumBeats(4).setChannel(0).setVolume(10).build();
   Note note3 = new NoteBuilder().setNoteName(NoteName.A).setOctave(3).setStartDuration(1).
           setNumBeats(1).setChannel(0).setVolume(5).build();
 
-  IBasicMusicEditor<INote> musicEditor = new BasicMusicEditor(120);
+  IBasicMusicEditor<INote> musicEditor;
 
-  public void testAdd()  {
+  @Before
+  public void setUp() throws Exception {
+   this.musicEditor = new BasicMusicEditor(120);
+  }
+
+  // tests adding a note
+  @Test
+  public void testAdd() throws Exception {
+    this.setUp();
     assertEquals(true, musicEditor.add(note0));
   }
 
-  public void testRemove()  {
+  // tests removing a note
+  @Test
+  public void testRemove() throws Exception {
+    this.setUp();
+    musicEditor.add(note0);
     assertEquals(true, musicEditor.remove(note0));
     assertEquals(false, musicEditor.remove(note1));
+  }
+
+  // tests editing a note
+  @Test
+  public void testEdit() throws Exception  {
+    this.setUp();
+    musicEditor.add(note0);
+    musicEditor.edit(note0, 4, 10);
+    assertEquals(true, musicEditor.remove(note2));
+  }
+
+  // tests merging two editors consecutively
+  @Test
+  public void testMergeConsec() throws Exception  {
+    this.setUp();
+    IBasicMusicEditor<INote> newEditor = new BasicMusicEditor(100);
+    musicEditor.add(note0);
+    newEditor.add(note1);
+    Note noteAfterMove = new NoteBuilder().setNoteName(NoteName.C).setOctave(4).setChannel(0).
+            setVolume(5).setStartDuration(4).setNumBeats(2).build();
+    //assertEquals(true, musicEditor.remove(noteAfterMove));
+  }
+
+  // tests merging two editors simultaneously
+  @Test
+  public void testMergeSimul() throws Exception  {
+    this.setUp();
+    IBasicMusicEditor<INote> newEditor = new BasicMusicEditor(100);
+    musicEditor.add(note0);
+    newEditor.add(note1);
+    //assertEquals(true, musicEditor.remove(note1));
+  }
+
+  // tests the getAllNotesAt method
+  @Test
+  public void testGetAllNotesAt() throws Exception  {
+
+  }
+
+  // tests the getMinPitch method
+  @Test
+  public void testMinPitch() throws Exception {
+    this.setUp();
+    musicEditor.add(note0);
+    musicEditor.add(note1);
+    //assertEquals(60, musicEditor.getMinPitch());
+  }
+
+  // tests the getMaxPitch method
+  @Test
+  public void testMaxPitch() throws Exception {
+    this.setUp();
+    musicEditor.add(note0);
+    musicEditor.add(note1);
+    //assertEquals(69, musicEditor.getMaxPitch());
+  }
+
+  // tests the getTempo method
+  @Test
+  public void testGetTempo() throws Exception {
+    this.setUp();
+    //assertEquals(120, musicEditor.getTempo());
+  }
+
+  // tests the getLastBeat method
+  @Test
+  public void testGetLastBeat() throws Exception  {
+    this.setUp();
+    musicEditor.add(note0);
+    //assertEquals(4, musicEditor.getLastBeat());
+  }
+
+  // tests the getLastStartBeat method
+  @Test
+  public void testGetLastStartBeat() throws Exception  {
+    this.setUp();
+    musicEditor.add(note0);
+    //assertEquals(2, musicEditor.getLastStartBeat());
+  }
+
+  // tests the isUnmodEditor method
+  @Test
+  public void testIsUnmodEditor() throws Exception  {
+    this.setUp();
+    assertEquals(false, musicEditor.isUnmodEditor());
   }
 
 
