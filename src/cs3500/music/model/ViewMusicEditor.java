@@ -3,6 +3,7 @@ package cs3500.music.model;
 import cs3500.music.util.Utils;
 
 import java.util.List;
+import java.util.SortedMap;
 
 /**
  * Created by tiger on 11/2/16.
@@ -33,7 +34,7 @@ public class ViewMusicEditor implements IBasicMusicEditor<INote> {
   }
 
   @Override
-  public List<List<INote>> getAllNotesAt(int beatNum) {
+  public SortedMap<Integer, List<INote>> getAllNotesAt(int beatNum) {
     return null;
   }
 

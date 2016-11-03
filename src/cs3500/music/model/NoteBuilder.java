@@ -83,7 +83,7 @@ public class NoteBuilder {
    *
    * @return Note object
    */
-  public Note build() {
+  Note buildNote() {
     try {
       return new Note(this.noteName, this.octave, this.startDuration,
               this.numBeats, this.volume, this.channel);
@@ -91,6 +91,14 @@ public class NoteBuilder {
       throw new IllegalArgumentException("Note didn't construct properly.");
     }
 
+  }
+
+  ViewNote buildNote(Note note) {
+    try {
+      return new ViewNote(note);
+    } catch (Exception e) {
+      throw new IllegalArgumentException("Note didn't construct properly.");
+    }
   }
 
 

@@ -11,15 +11,15 @@ import static org.junit.Assert.*;
 public class BasicMusicEditorTest {
 
   Note note0 = new NoteBuilder().setNoteName(NoteName.C).setOctave(4).setStartDuration(2).
-          setNumBeats(2).setChannel(0).setVolume(5).build();
+          setNumBeats(2).setChannel(0).setVolume(5).buildNote();
   Note note1 = new NoteBuilder().setNoteName(NoteName.A).setOctave(4).setStartDuration(2).
-          setNumBeats(2).setChannel(0).setVolume(5).build();
+          setNumBeats(2).setChannel(0).setVolume(5).buildNote();
   Note note2 = new NoteBuilder().setNoteName(NoteName.C).setOctave(4).setStartDuration(2).
-          setNumBeats(4).setChannel(0).setVolume(10).build();
+          setNumBeats(4).setChannel(0).setVolume(10).buildNote();
   Note note3 = new NoteBuilder().setNoteName(NoteName.A).setOctave(3).setStartDuration(1).
-          setNumBeats(1).setChannel(0).setVolume(5).build();
+          setNumBeats(1).setChannel(0).setVolume(5).buildNote();
 
-  IBasicMusicEditor<INote> musicEditor;
+  private IBasicMusicEditor<INote> musicEditor;
 
   @Before
   public void setUp() throws Exception {
@@ -59,7 +59,7 @@ public class BasicMusicEditorTest {
     musicEditor.add(note0);
     newEditor.add(note1);
     Note noteAfterMove = new NoteBuilder().setNoteName(NoteName.C).setOctave(4).setChannel(0).
-            setVolume(5).setStartDuration(4).setNumBeats(2).build();
+            setVolume(5).setStartDuration(4).setNumBeats(2).buildNote();
     //assertEquals(true, musicEditor.remove(noteAfterMove));
   }
 

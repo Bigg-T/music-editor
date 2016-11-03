@@ -7,18 +7,38 @@ import static org.junit.Assert.*;
 /**
  * Created by robertcarney on 11/1/16.
  */
-public class NoteTest {
+public abstract class ViewNoteTest {
 
   private Note note0 = new NoteBuilder().setNoteName(NoteName.C).setOctave(4).setStartDuration(2).
-          setNumBeats(2).setChannel(0).setVolume(5).build();
+          setNumBeats(2).setChannel(0).setVolume(5).buildNote();
   private Note note0Copy = new NoteBuilder().setNoteName(NoteName.C).setOctave(4).setStartDuration(2).
-          setNumBeats(2).setChannel(0).setVolume(5).build();
+          setNumBeats(2).setChannel(0).setVolume(5).buildNote();
   private Note note1 = new NoteBuilder().setNoteName(NoteName.A).setOctave(4).setStartDuration(2).
-          setNumBeats(2).setChannel(0).setVolume(5).build();
+          setNumBeats(2).setChannel(0).setVolume(5).buildNote();
   private Note note2 = new NoteBuilder().setNoteName(NoteName.CX).setOctave(4).setStartDuration(2).
-          setNumBeats(2).setChannel(0).setVolume(5).build();
+          setNumBeats(2).setChannel(0).setVolume(5).buildNote();
   private Note note3 = new NoteBuilder().setNoteName(NoteName.A).setOctave(3).setStartDuration(1).
-          setNumBeats(1).setChannel(0).setVolume(5).build();
+          setNumBeats(1).setChannel(0).setVolume(5).buildNote();
+
+  protected abstract INote iNote(NoteBuilder noteBuilder);
+
+  public static final class AViewViewNote extends ViewNoteTest {
+
+    @Override
+    protected INote iNote(NoteBuilder note) {
+      return note.buildNote();
+    }
+
+  }
+
+  public static final class AViewNote extends ViewNoteTest {
+
+    @Override
+    protected INote iNote(NoteBuilder note) {
+      return note.buildNote(note.buildNote());
+    }
+
+  }
 
   @Test
   public void testNoteToString()  {
