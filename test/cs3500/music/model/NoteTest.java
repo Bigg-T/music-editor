@@ -1,5 +1,6 @@
 package cs3500.music.model;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -48,6 +49,18 @@ public class NoteTest {
   @Test
   public void testIsViewNote()  {
     assertEquals(false, note0.isViewNote());
+  }
+
+  //Note is not ViewNote
+  @Test
+  public void testIsViewNote2() throws Exception {
+    Assert.assertEquals(false, note0.isViewNote());
+  }
+
+  //ViewNote is a ViewNote
+  @Test
+  public void testIsViewNote3() throws Exception {
+    Assert.assertEquals(true, NoteBuilder.buildNote(note0).isViewNote());
   }
 
 }

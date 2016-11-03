@@ -3,10 +3,25 @@ package cs3500.music.model;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.lang.reflect.Field;
+import java.util.List;
+
 /**
  * Created by tiger on 10/31/16.
  */
 public class PitchTest {
+
+  private Note note0 = new NoteBuilder().setNoteName(NoteName.C).setOctave(0).setStartDuration(2).
+          setNumBeats(2).setChannel(0).setVolume(0).buildNote();
+  private Note note0Copy = new NoteBuilder().setNoteName(NoteName.C).setOctave(0).setStartDuration(2).
+          setNumBeats(2).setChannel(0).setVolume(1).buildNote();
+  private Note note1 = new NoteBuilder().setNoteName(NoteName.C).setOctave(0).setStartDuration(2).
+          setNumBeats(2).setChannel(0).setVolume(2).buildNote();
+  private Note note2 = new NoteBuilder().setNoteName(NoteName.C).setOctave(0).setStartDuration(2).
+          setNumBeats(2).setChannel(0).setVolume(3).buildNote();
+  private Note note3 = new NoteBuilder().setNoteName(NoteName.C).setOctave(0).setStartDuration(1).
+          setNumBeats(1).setChannel(0).setVolume(4).buildNote();
+
 
   private Pitch setUp(int pitch) {
     return new Pitch(pitch);
@@ -61,18 +76,65 @@ public class PitchTest {
     pitchCollection.add(note);
   }
 
+  @Test(expected = IllegalArgumentException.class)
+  public void testAddEx2() throws Exception {
+    Pitch pitchCollection = setUp(12);
+    pitchCollection.add(null);
+  }
+
   @Test //is item added?
   public void testAdd() throws Exception {
-    Pitch pitchCollection = setUp(12);
+    Pitch pitch = setUp(12);
     Note note = new Note(NoteName.C, 0, 12, 2, 4, 3);
-    Assert.assertEquals(true, pitchCollection.add(note));
+    Assert.assertEquals(true, pitch.add(note));
     // duplicate so does not needed to add
-    Assert.assertEquals(false, pitchCollection.add(note));
+    Assert.assertEquals(false, pitch.add(note));
+  }
+
+  //throw error, try to remove null note
+  @Test(expected = IllegalArgumentException.class)
+  public void testRemoveEx() throws Exception {
+    Pitch pitch = setUp(12);
+    Assert.assertNull("Null Note.", pitch.remove(null));
+
+  }
+
+  //able to remove
+  @Test
+  public void testRemove() throws Exception {
+    Pitch pitch = setUp(12);
+    pitch.add(note0);
+    Assert.assertEquals(true, pitch.remove(note0));
+
+  }
+
+  //try to remove note that doesn't exist
+  @Test
+  public void testRemove2() throws Exception {
+    Pitch pitch = setUp(12);
+    pitch.add(note0);
+    Assert.assertEquals(false, pitch.remove(note1));
   }
 
   @Test
-  public void testRemove() throws Exception {
+  public void edit() throws Exception {
 
   }
+
+  @Test
+  public void offsetStartBeat() throws Exception {
+
+  }
+
+  @Test
+  public void longestNoteDuration() throws Exception {
+
+  }
+
+  @Test
+  public void toINoteList() throws Exception {
+
+  }
+
 
 }

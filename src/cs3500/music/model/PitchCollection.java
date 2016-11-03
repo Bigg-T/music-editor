@@ -1,7 +1,6 @@
 package cs3500.music.model;
 
 import cs3500.music.util.Utils;
-import javafx.collections.transformation.SortedList;
 
 import java.util.List;
 import java.util.Set;
@@ -98,10 +97,20 @@ final class PitchCollection {
     }
   }
 
+
   SortedMap<Integer, List<INote>> getAllNote() {
     SortedMap<Integer, List<INote>> map = new TreeMap<>();
     this.pitchTreeMap.keySet().forEach(x -> map.put(x, this.pitchTreeMap.get(x).toINoteList()));
     return map;
+  }
+
+  public static void main(String[] args) {
+    TreeMap<Integer, Integer> test = new TreeMap<>();
+    test.put(1, 1);
+    test.put(100, 100);
+    test.put(4, 4);
+
+    test.keySet().forEach(System.out::println);
   }
 
 }

@@ -121,6 +121,11 @@ class Pitch {
     //return Note.longestNoteDuration(this.noteList).getAsInt();
   }
 
+  /**
+   * Return a list of INote.
+   *
+   * @return list a list of INote
+   */
   List<INote> toINoteList() {
     return this.noteList.stream().collect(Collectors.toList());
   }
