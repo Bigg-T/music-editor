@@ -9,15 +9,15 @@ import static org.junit.Assert.*;
  */
 public class NoteTest {
 
-  Note note0 = new NoteBuilder().setNoteName(NoteName.C).setOctave(4).setStartDuration(2).
+  private Note note0 = new NoteBuilder().setNoteName(NoteName.C).setOctave(4).setStartDuration(2).
           setNumBeats(2).setChannel(0).setVolume(5).build();
-  Note note0Copy = new NoteBuilder().setNoteName(NoteName.C).setOctave(4).setStartDuration(2).
+  private Note note0Copy = new NoteBuilder().setNoteName(NoteName.C).setOctave(4).setStartDuration(2).
           setNumBeats(2).setChannel(0).setVolume(5).build();
-  Note note1 = new NoteBuilder().setNoteName(NoteName.A).setOctave(4).setStartDuration(2).
+  private Note note1 = new NoteBuilder().setNoteName(NoteName.A).setOctave(4).setStartDuration(2).
           setNumBeats(2).setChannel(0).setVolume(5).build();
-  Note note2 = new NoteBuilder().setNoteName(NoteName.CX).setOctave(4).setStartDuration(2).
+  private Note note2 = new NoteBuilder().setNoteName(NoteName.CX).setOctave(4).setStartDuration(2).
           setNumBeats(2).setChannel(0).setVolume(5).build();
-  Note note3 = new NoteBuilder().setNoteName(NoteName.A).setOctave(3).setStartDuration(1).
+  private Note note3 = new NoteBuilder().setNoteName(NoteName.A).setOctave(3).setStartDuration(1).
           setNumBeats(1).setChannel(0).setVolume(5).build();
 
   @Test
