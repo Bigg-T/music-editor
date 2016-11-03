@@ -19,7 +19,7 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
   private Note castToNote(INote note) {
     if (note == null) {
       throw new IllegalArgumentException("Note is null.");
-    } else if (note.isUnmodNote()) {
+    } else if (note.isViewNote()) {
       throw new IllegalArgumentException("Can't modified Note.");
     }
     return (Note) note;

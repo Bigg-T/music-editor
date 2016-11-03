@@ -42,7 +42,7 @@ public class ViewNote implements INote {
   }
 
   @Override
-  public boolean isUnmodNote() {
+  public boolean isViewNote() {
     return true;
   }
 }

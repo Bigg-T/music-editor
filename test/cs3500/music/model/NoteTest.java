@@ -5,9 +5,9 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Created by robertcarney on 11/1/16.
+ * Testing for Note class.
  */
-public abstract class NoteTest {
+public class NoteTest {
 
   private Note note0 = new NoteBuilder().setNoteName(NoteName.C).setOctave(4).setStartDuration(2).
           setNumBeats(2).setChannel(0).setVolume(5).buildNote();
@@ -19,26 +19,6 @@ public abstract class NoteTest {
           setNumBeats(2).setChannel(0).setVolume(5).buildNote();
   private Note note3 = new NoteBuilder().setNoteName(NoteName.A).setOctave(3).setStartDuration(1).
           setNumBeats(1).setChannel(0).setVolume(5).buildNote();
-
-  protected abstract INote iNote(NoteBuilder noteBuilder);
-
-  public static final class AViewNote extends NoteTest {
-
-    @Override
-    protected INote iNote(NoteBuilder note) {
-      return note.buildNote();
-    }
-
-  }
-
-  public static final class ANote extends NoteTest {
-
-    @Override
-    protected INote iNote(NoteBuilder note) {
-      return note.buildNote(note.buildNote());
-    }
-
-  }
 
   @Test
   public void testNoteToString()  {
@@ -54,6 +34,7 @@ public abstract class NoteTest {
     assertEquals(false, note0.equals(note1));
   }
 
+  //@TODO need to separate theses getter to its own test
   @Test
   public void testGetters()  {
     assertEquals(NoteName.C, note0.getNoteName());
@@ -65,8 +46,8 @@ public abstract class NoteTest {
   }
 
   @Test
-  public void testIsUnmod()  {
-    assertEquals(false, note0.isUnmodNote());
+  public void testIsViewNote()  {
+    assertEquals(false, note0.isViewNote());
   }
 
 }

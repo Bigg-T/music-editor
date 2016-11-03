@@ -45,7 +45,7 @@ public interface INote {
    * Tells whether this is an ViewNote.
    * @return  True if this is an ViewNote, false otherwise.
    */
-  public boolean isUnmodNote();
+  public boolean isViewNote();
 
 
 

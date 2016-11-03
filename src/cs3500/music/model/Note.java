@@ -52,7 +52,7 @@ class Note implements INote {
   public int getVolume() { return volume; }
 
   @Override
-  public boolean isUnmodNote() {
+  public boolean isViewNote() {
     return false;
   }
 

@@ -93,7 +93,7 @@ public class NoteBuilder {
 
   }
 
-  ViewNote buildNote(Note note) {
+  static ViewNote buildNote(Note note) {
     try {
       return new ViewNote(note);
     } catch (Exception e) {
