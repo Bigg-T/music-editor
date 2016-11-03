@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 /**
  * Created by robertcarney on 11/1/16.
  */
-public abstract class ViewNoteTest {
+public abstract class NoteTest {
 
   private Note note0 = new NoteBuilder().setNoteName(NoteName.C).setOctave(4).setStartDuration(2).
           setNumBeats(2).setChannel(0).setVolume(5).buildNote();
@@ -22,7 +22,7 @@ public abstract class ViewNoteTest {
 
   protected abstract INote iNote(NoteBuilder noteBuilder);
 
-  public static final class AViewViewNote extends ViewNoteTest {
+  public static final class AViewNote extends NoteTest {
 
     @Override
     protected INote iNote(NoteBuilder note) {
@@ -31,7 +31,7 @@ public abstract class ViewNoteTest {
 
   }
 
-  public static final class AViewNote extends ViewNoteTest {
+  public static final class ANote extends NoteTest {
 
     @Override
     protected INote iNote(NoteBuilder note) {

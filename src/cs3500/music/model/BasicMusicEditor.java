@@ -70,17 +70,18 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
     thatKeys.forEach(s -> {
       PitchCollection pitchCollection = castedPiece.piece.get(s);
 
-      if (!isConsecutive) {
+      if (isConsecutive) {
+        //consecutive
+        if (this.piece.get(s) != null) {
+          this.piece.put(s, pitchCollection);
+          return;
+        }
+        this.piece.get(s).merge(pitchCollection, 0);
+      } else {
         int offset = s + getLastBeat();
         this.piece.put(s + getLastBeat(), pitchCollection.adjustBeat(offset));
         return;
       }
-      //consecutive
-      if (this.piece.get(s) != null) {
-        this.piece.put(s, pitchCollection);
-        return;
-      }
-      this.piece.get(s).merge(pitchCollection, 0);
 
     });
 
