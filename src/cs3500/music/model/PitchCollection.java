@@ -2,7 +2,11 @@ package cs3500.music.model;
 
 import cs3500.music.util.Utils;
 
+import java.util.List;
+import java.util.OptionalInt;
+import java.util.Set;
 import java.util.TreeMap;
+import java.util.stream.Stream;
 
 /**
  * INVARIANT: Since the is not possible to add duplicate notes, noteList will only have one
@@ -10,8 +14,8 @@ import java.util.TreeMap;
  */
 final class PitchCollection {
 
-  //Integer
-  TreeMap<Integer, Pitch> pitchTreeMap;
+  //Integer is a notePitch
+  private TreeMap<Integer, Pitch> pitchTreeMap;
 
   PitchCollection() {
     this.pitchTreeMap = new TreeMap<>();
@@ -43,6 +47,29 @@ final class PitchCollection {
 
     return (pitchTreeMap.get(notePitch) != null)
             && pitchTreeMap.get(notePitch).edit(note, pitch, volume);
+  }
+
+  void merge(PitchCollection thatPitchCollect, int offset) {
+    thatPitchCollect = Utils.requireNonNull(thatPitchCollect, "Null PitchCollection");
+    Set<Integer> thatKeys = thatPitchCollect.pitchTreeMap.keySet();
+
+    thatKeys.forEach(x -> {
+
+    });
+  }
+
+  PitchCollection adjustBeat(int offset) {
+    this.pitchTreeMap.values().forEach(x -> x.offsetStartBeat(offset));
+    return this;
+  }
+
+  int longestNoteDuration() {
+    try {
+      return this.pitchTreeMap.values().stream()
+              .mapToInt(Pitch::longestNoteDuration).max().getAsInt();
+    } catch (Exception e) {
+      throw new IllegalArgumentException("Number doesn't exist.");
+    }
   }
 
 }

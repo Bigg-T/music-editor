@@ -1,12 +1,13 @@
 package cs3500.music.model;
 
-import java.util.List;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * The MusicEditor.
  */
 public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
+
+  //Integer is a the starting beat of a note
   private TreeMap<Integer, PitchCollection> piece;
   private final int tempo;
 
@@ -18,8 +19,7 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
   private Note castToNote(INote note) {
     if (note == null) {
       throw new IllegalArgumentException("Note is null.");
-    }
-    else if (note.isUnmodNote()){
+    } else if (note.isUnmodNote()) {
       throw new IllegalArgumentException("Can't modified Note.");
     }
     return (Note) note;
@@ -61,12 +61,30 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
   }
 
   @Override
-  public void merge(IBasicMusicEditor<INote> piece, boolean isConsecutive) {
-    piece = toBasicMusicEditor(piece);
+  public void merge(IBasicMusicEditor<INote> thatPiece, boolean isConsecutive) {
+    BasicMusicEditor castedPiece = toBasicMusicEditor(thatPiece);
+    Set<Integer> thatKeys = castedPiece.piece.keySet();
+
+    thatKeys.forEach(s -> {
+      PitchCollection pitchCollection = castedPiece.piece.get(s);
+
+      if (!isConsecutive) {
+        int offset = s + getLastBeat();
+        this.piece.put(s + getLastBeat(), pitchCollection.adjustBeat(offset));
+        return;
+      }
+      //consecutive
+      if (this.piece.get(s) != null) {
+        this.piece.put(s, pitchCollection);
+        return;
+      }
+      this.piece.get(s).merge(pitchCollection, 0);
+
+    });
 
   }
 
-  BasicMusicEditor toBasicMusicEditor(IBasicMusicEditor<INote> musicEditor) {
+  private BasicMusicEditor toBasicMusicEditor(IBasicMusicEditor<INote> musicEditor) {
     if (musicEditor == null) {
       throw new IllegalArgumentException("Null MusicEditor.");
     } else if (musicEditor.isUnmodEditor()) {
@@ -77,7 +95,7 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
   }
 
   @Override
-  public List<List<INote>> getAllNotesAt(int beatNum) {
+  public SortedMap<Integer, List<INote>> getAllNotesAt(int beatNum) {
     return null;
   }
 
@@ -103,7 +121,8 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
 
   @Override
   public int getLastBeat() {
-    return 0;
+    int lastStartPitch = this.piece.lastKey();
+    return lastStartPitch + this.piece.get(lastStartPitch).longestNoteDuration();
   }
 
   @Override

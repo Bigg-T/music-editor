@@ -2,10 +2,9 @@ package cs3500.music.model;
 
 import cs3500.music.util.MusicUtils;
 
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 /**
  * This represent the a music cs3500.music.model.Note.
@@ -59,12 +58,16 @@ class Note implements INote {
 
   @Override
   public int getStartDuration()  {
-    return this.duration.start;
+    return this.duration.getStart();
   }
 
   @Override
   public int getBeat()  {
-    return this.duration.beat;
+    return this.duration.getBeat();
+  }
+
+  void offsetStartBeat(int offset) {
+    this.getDuration().setBeat(this.getDuration().getBeat() + offset);
   }
 
   /**
@@ -191,6 +194,16 @@ class Note implements INote {
   }
 
   /**
+   * Get the longest note duration in the note.
+   *
+   * @param notes lsit of notes
+   * @return the note with the longest duration.
+   */
+  static OptionalInt longestNoteDuration(List<Note> notes) {
+    return notes.stream().mapToInt(Note::getBeat).max();
+  }
+
+  /**
    * Comparators for cs3500.music.model.Note.
    */
   static class NoteComparators {
@@ -245,7 +258,7 @@ class Note implements INote {
      * Gets this start.
      * @return  This start
      */
-    public int getStart() {
+    private int getStart() {
       return start;
     }
 
@@ -263,7 +276,7 @@ class Note implements INote {
      *
      * @return the duration
      */
-    public int getBeat() {
+    private int getBeat() {
       return beat;
     }
 

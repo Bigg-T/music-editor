@@ -3,6 +3,7 @@ package cs3500.music.model;
 import cs3500.music.util.CompositionBuilder;
 
 import java.util.List;
+import java.util.SortedMap;
 
 /**
  * The Music editor.
@@ -47,7 +48,7 @@ public interface IBasicMusicEditor<K> {
    */
   public void merge(IBasicMusicEditor<K> piece, boolean isConsecutive);
 
-  List<List<K>> getAllNotesAt(int beatNum);
+  public SortedMap<Integer, List<INote>> getAllNotesAt(int beatNum);
 
   int getMinPitch();
 
