@@ -18,5 +18,38 @@ public final class MusicUtils {
     return noteName.toInt() + (octave * 12);
   }
 
+  public static String pitchToString(int pitch)  {
+    int note = pitch % 12;
+    int octave = (pitch - 12) / 4;
+    String noteName;
+    switch (note)  {
+      case 0:
+        noteName = "C ";
+      case 1:
+        noteName = "C♯";
+      case 2:
+        noteName = "D ";
+      case 3:
+        noteName = "D♯";
+      case 4:
+        noteName = "E ";
+      case 5:
+        noteName = "F ";
+      case 6:
+        noteName = "F♯";
+      case 7:
+        noteName = "G ";
+      case 8:
+        noteName = "G♯";
+      case 9:
+        noteName = "A ";
+      case 10:
+        noteName = "A♯";
+      default:
+        noteName = "B ";
+    }
+    return noteName + octave;
+  }
+
 
 }
