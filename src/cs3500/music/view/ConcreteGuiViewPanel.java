@@ -9,6 +9,7 @@ import java.util.SortedMap;
 
 import javax.swing.JPanel;
 
+import cs3500.music.model.IBasicMusicEditor;
 import cs3500.music.model.ViewMusicEditor;
 import cs3500.music.model.INote;
 import cs3500.music.util.MusicUtils;
@@ -18,9 +19,9 @@ import cs3500.music.util.MusicUtils;
  */
 public class ConcreteGuiViewPanel extends JPanel {
 
-  ViewMusicEditor musicEditor;
+  IBasicMusicEditor<INote> musicEditor;
 
-  ConcreteGuiViewPanel(ViewMusicEditor musicEditor)  {
+  ConcreteGuiViewPanel(IBasicMusicEditor<INote> musicEditor)  {
     this.musicEditor = musicEditor;
   }
 

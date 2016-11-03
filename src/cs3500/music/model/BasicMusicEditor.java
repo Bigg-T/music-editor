@@ -11,7 +11,7 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
   private TreeMap<Integer, PitchCollection> piece;
   private final int tempo;
 
-  BasicMusicEditor(int tempo) {
+  public BasicMusicEditor(int tempo) {
     this.piece = new TreeMap<>();
     this.tempo = tempo;
   }
@@ -69,7 +69,6 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
 
     thatKeys.forEach(s -> {
       PitchCollection pitchCollection = castedPiece.piece.get(s);
-
       if (isConsecutive) {
         //consecutive
         if (this.piece.get(s) != null) {

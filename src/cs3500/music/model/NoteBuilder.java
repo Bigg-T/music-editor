@@ -83,7 +83,7 @@ public class NoteBuilder {
    *
    * @return Note object
    */
-  Note buildNote() {
+  public Note buildNote() {
     try {
       return new Note(this.noteName, this.octave, this.startDuration,
               this.numBeats, this.volume, this.channel);

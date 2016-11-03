@@ -105,7 +105,7 @@ public class PitchTest {
     Pitch pitch = setUp(12);
     pitch.add(note0);
     Assert.assertEquals(true, pitch.remove(note0));
-
+    Assert.assertEquals(true, pitch.remove(note1));
   }
 
   //try to remove note that doesn't exist
