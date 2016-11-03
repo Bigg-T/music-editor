@@ -1,8 +1,11 @@
 package cs3500.music.model;
 
 import cs3500.music.util.Utils;
+import javafx.collections.transformation.SortedList;
 
+import java.util.List;
 import java.util.Set;
+import java.util.SortedMap;
 import java.util.TreeMap;
 
 /**
@@ -12,7 +15,7 @@ import java.util.TreeMap;
 final class PitchCollection {
 
   //Integer is a notePitch
-  private TreeMap<Integer, Pitch> pitchTreeMap;
+  private SortedMap<Integer, Pitch> pitchTreeMap;
 
   PitchCollection() {
     this.pitchTreeMap = new TreeMap<>();
@@ -94,4 +97,12 @@ final class PitchCollection {
       throw new IllegalArgumentException("List doesn't have any item.");
     }
   }
+
+  SortedMap<Integer, List<INote>> getAllNote() {
+    SortedMap<Integer, List<INote>> map = new TreeMap<>();
+    this.pitchTreeMap.keySet().forEach(x -> map.put(x, this.pitchTreeMap.get(x).toINoteList()));
+    return map;
+  }
+
 }
+

@@ -105,7 +105,7 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
 
   @Override
   public SortedMap<Integer, List<INote>> getAllNotesAt(int beatNum) {
-    return null;
+    return this.piece.get(beatNum).getAllNote();
   }
 
   @Override

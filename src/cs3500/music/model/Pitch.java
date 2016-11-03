@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.OptionalInt;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
@@ -118,5 +119,9 @@ class Pitch {
       throw new IllegalArgumentException("Number doesn't exist.");
     }
     //return Note.longestNoteDuration(this.noteList).getAsInt();
+  }
+
+  List<INote> toINoteList() {
+    return this.noteList.stream().collect(Collectors.toList());
   }
 }
