@@ -2,11 +2,8 @@ package cs3500.music.model;
 
 import cs3500.music.util.Utils;
 
-import java.util.List;
-import java.util.OptionalInt;
 import java.util.Set;
 import java.util.TreeMap;
-import java.util.stream.Stream;
 
 /**
  * INVARIANT: Since the is not possible to add duplicate notes, noteList will only have one
@@ -72,4 +69,29 @@ final class PitchCollection {
     }
   }
 
+  /**
+   * Return the min pitch.
+   *
+   * @return the min pitch
+   */
+  int getMinPitch() {
+    try {
+      return this.pitchTreeMap.keySet().stream().min(Integer::compare).get();
+    } catch (Exception e) {
+      throw new IllegalArgumentException("List doesn't have any item.");
+    }
+  }
+
+  /**
+   * Return the max pitch.
+   *
+   * @return the max pitch
+   */
+  int getMaxPitch() {
+    try {
+      return this.pitchTreeMap.keySet().stream().max(Integer::compare).get();
+    } catch (Exception e) {
+      throw new IllegalArgumentException("List doesn't have any item.");
+    }
+  }
 }

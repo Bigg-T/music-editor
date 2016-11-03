@@ -50,6 +50,7 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
     return piece.get(noteStartBeat).remove(castedNote);
   }
 
+  //@TODO need to change some logic to sustain program invar about not having duplicate
   @Override
   public boolean edit(INote note, int duration, int volume) {
     Note castedNote = this.castToNote(note);
@@ -60,6 +61,7 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
     return piece.get(noteStartBeat).edit(castedNote, duration, volume);
   }
 
+  //@TODO same problem with edit
   @Override
   public void merge(IBasicMusicEditor<INote> thatPiece, boolean isConsecutive) {
     BasicMusicEditor castedPiece = toBasicMusicEditor(thatPiece);
@@ -84,6 +86,12 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
 
   }
 
+  /**
+   * Return the casted IMusicEditor to BasicMusicEditor.
+   *
+   * @param musicEditor
+   * @return casted to basicMusicEditor
+   */
   private BasicMusicEditor toBasicMusicEditor(IBasicMusicEditor<INote> musicEditor) {
     if (musicEditor == null) {
       throw new IllegalArgumentException("Null MusicEditor.");
@@ -101,22 +109,24 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
 
   @Override
   public int getMinPitch() {
-    return 0;
+    return this.piece.values()
+            .parallelStream().mapToInt(PitchCollection::getMinPitch).min().getAsInt();
   }
 
   @Override
   public int getMaxPitch() {
-    return 0;
+    return this.piece.values()
+            .parallelStream().mapToInt(PitchCollection::getMaxPitch).max().getAsInt();
   }
 
   @Override
   public int getTempo() {
-    return 0;
+    return this.tempo;
   }
 
   @Override
   public int getLastStartBeat() {
-    return 0;
+    return this.piece.lastKey();
   }
 
   @Override
