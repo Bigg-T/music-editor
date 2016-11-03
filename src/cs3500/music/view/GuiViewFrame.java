@@ -1,23 +1,25 @@
 package cs3500.music.view;
 
 import java.awt.Dimension;
-import java.awt.event.MouseListener; // Possibly of interest for handling mouse events
+import java.awt.event.MouseListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import cs3500.music.model.ViewMusicEditor;
 
 /**
  * A skeleton Frame (i.e., a window) in Swing
  */
 public class GuiViewFrame extends JFrame implements IGuiViewFrame {
 
-  private final JPanel displayPanel; // You may want to refine this to a subtype of JPanel
+  private final ConcreteGuiViewPanel displayPanel;
 
   /**
    * Creates new GuiView
    */
-  public GuiViewFrame() {
-    this.displayPanel = new ConcreteGuiViewPanel();
+  public GuiViewFrame(ViewMusicEditor musicEditor) {
+    this.displayPanel = new ConcreteGuiViewPanel(musicEditor);
     this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     this.getContentPane().add(displayPanel);
     this.pack();
@@ -30,7 +32,7 @@ public class GuiViewFrame extends JFrame implements IGuiViewFrame {
 
   @Override
   public Dimension getPreferredSize() {
-    return new Dimension(100, 100);
+    return new Dimension(displayPanel.getEditorWidth(), displayPanel.getEditorHeight());
   }
 
 }
