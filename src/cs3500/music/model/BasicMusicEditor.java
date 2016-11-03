@@ -87,7 +87,7 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
   private BasicMusicEditor toBasicMusicEditor(IBasicMusicEditor<INote> musicEditor) {
     if (musicEditor == null) {
       throw new IllegalArgumentException("Null MusicEditor.");
-    } else if (musicEditor.isUnmodEditor()) {
+    } else if (musicEditor.isViewEditor()) {
       ViewMusicEditor viewMusicEditor = (ViewMusicEditor) musicEditor;
       return viewMusicEditor.toBasicMusicEditor(musicEditor);
     }
@@ -126,7 +126,7 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
   }
 
   @Override
-  public boolean isUnmodEditor() {
+  public boolean isViewEditor() {
     return false;
   }
 

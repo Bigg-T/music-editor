@@ -60,5 +60,5 @@ public interface IBasicMusicEditor<K> {
 
   int getLastBeat();
 
-  boolean isUnmodEditor();
+  boolean isViewEditor();
 }

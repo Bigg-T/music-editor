@@ -122,9 +122,9 @@ public class BasicMusicEditorTest {
 
   // tests the isUnmodEditor method
   @Test
-  public void testIsUnmodEditor() throws Exception  {
+  public void testIsViewEditor() throws Exception  {
     this.setUp();
-    assertEquals(false, musicEditor.isUnmodEditor());
+    assertEquals(false, musicEditor.isViewEditor());
   }
 
 

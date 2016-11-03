@@ -71,20 +71,36 @@ class Pitch {
   }
 
   /**
-   * Remove the note.
+   * Remove the given list in the list.
    *
-   * @param note
-   * @return
+   * @param note the Note
+   * @return true if the note is removed
    */
   boolean remove(Note note) {
     note = Utils.requireNonNull(note, "Null Note.");
     return noteList.contains(note) && noteList.remove(note);
   }
 
-  boolean edit(Note note, int pitch, int volume) {
+  /**
+   * EFFECT: The note will get change, but if the changed version of the note is already existed,
+   * the note will get "merge" into the existed note. This way the program invariant will hold,
+   * about note having duplicate notes.
+   *
+   * @param note     the note to be edit
+   * @param duration change note to given duration
+   * @param volume   the new volume of give note
+   * @return true if the new note is edited
+   */
+  boolean edit(Note note, int duration, int volume) {
     return false;
   }
 
+  /**
+   * The new Pitch with all the offset.
+   *
+   * @param offset the offset for start duration
+   * @return a new Pitch
+   */
   Pitch offsetStartBeat(int offset) {
     noteList.forEach(x -> x.offsetStartBeat(offset));
     return this;

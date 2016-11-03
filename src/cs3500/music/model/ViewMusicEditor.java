@@ -64,14 +64,14 @@ public class ViewMusicEditor implements IBasicMusicEditor<INote> {
   }
 
   @Override
-  public boolean isUnmodEditor() {
-    return false;
+  public boolean isViewEditor() {
+    return true;
   }
 
   //need to change to visitor pattern
   BasicMusicEditor toBasicMusicEditor(IBasicMusicEditor<INote> musicEditor) {
     musicEditor = Utils.requireNonNull(musicEditor, "Null MusicEditor");
-    if (musicEditor.isUnmodEditor()) {
+    if (musicEditor.isViewEditor()) {
       return this.musicEditor;
     }
     return (BasicMusicEditor) musicEditor;
