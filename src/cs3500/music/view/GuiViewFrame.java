@@ -6,8 +6,6 @@ import java.awt.event.MouseListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import cs3500.music.model.IBasicMusicEditor;
-import cs3500.music.model.INote;
 import cs3500.music.model.ViewMusicEditor;
 
 /**
@@ -20,10 +18,11 @@ public class GuiViewFrame extends JFrame implements IGuiViewFrame {
   /**
    * Creates new GuiView
    */
-  public GuiViewFrame(IBasicMusicEditor<INote> musicEditor) {
+  public GuiViewFrame(ViewMusicEditor musicEditor) {
     this.displayPanel = new ConcreteGuiViewPanel(musicEditor);
+    this.setTitle("Music Editor");
     this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-    this.getContentPane().add(displayPanel);
+    this.add(displayPanel);
     this.pack();
   }
 
@@ -34,7 +33,7 @@ public class GuiViewFrame extends JFrame implements IGuiViewFrame {
 
   @Override
   public Dimension getPreferredSize() {
-    return new Dimension(displayPanel.getEditorWidth(), displayPanel.getEditorHeight());
+    return new Dimension(800, 600);
   }
 
 }
