@@ -97,7 +97,6 @@ final class PitchCollection {
     }
   }
 
-
   SortedMap<Integer, List<INote>> getAllNote() {
     SortedMap<Integer, List<INote>> map = new TreeMap<>();
     this.pitchTreeMap.keySet().forEach(x -> map.put(x, this.pitchTreeMap.get(x).toINoteList()));

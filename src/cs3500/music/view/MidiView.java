@@ -8,4 +8,5 @@ import javax.sound.midi.InvalidMidiDataException;
 public interface MidiView {
 
   public void playNote() throws InvalidMidiDataException;
+  //public void test() throws InvalidMidiDataException;
 }

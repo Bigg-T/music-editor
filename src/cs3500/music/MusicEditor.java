@@ -19,10 +19,11 @@ public class MusicEditor {
     INote note1 = new NoteBuilder().setNoteName(NoteName.C).setOctave(0).setStartDuration(2).
             setNumBeats(2).setChannel(0).setVolume(2).buildNote();
     test.add(note0);
-    GuiViewFrame view = new GuiViewFrame(test);
+    //GuiViewFrame view = new GuiViewFrame(test);
     MidiView midiView = new MidiViewImpl();
-    view.initialize();
+    //view.initialize();
     midiView.playNote();
+    //midiView.test();
     // You probably need to connect these views to your model, too...
   }
 }
