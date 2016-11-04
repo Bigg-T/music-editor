@@ -98,7 +98,7 @@ public class MidiViewImpl implements MidiView {
 
     try {
       Sequencer ss = MidiSystem.getSequencer();
-      InputStream ip = new BufferedInputStream(new FileInputStream(new File("test2.mid")));
+      InputStream ip = new BufferedInputStream(new FileInputStream(new File("test.mid")));
       ss.open();
       ss.setSequence(ip);
       System.out.println(ss.getSequence().getResolution());
