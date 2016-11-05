@@ -139,5 +139,37 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
   public boolean isViewEditor() {
     return false;
   }
+  
+  public static final class BasicCompositionBuilder implements
+          CompositionBuilder<IBasicMusicEditor<INote>> {
+
+    IBasicMusicEditor<INote> musicEditor;
+
+    public BasicCompositionBuilder()  {
+
+    }
+
+    @Override
+    public IBasicMusicEditor<INote> build() {
+      return this.musicEditor;
+    }
+
+    @Override
+    public CompositionBuilder<IBasicMusicEditor<INote>> setTempo(int tempo) {
+      this.musicEditor = new BasicMusicEditor(tempo);
+      return this;
+    }
+
+    @Override
+    public CompositionBuilder<IBasicMusicEditor<INote>>
+    addNote(int start, int end, int instrument, int pitch, int volume) {
+      Note note = new NoteBuilder().setNoteName(NoteName.toNoteName(pitch % 12)).
+              setChannel(instrument).setNumBeats(end - start).setStartDuration(start).
+              setOctave((pitch - 12) / 12).buildNote();
+      this.musicEditor.add(note);
+      return this;
+    }
+
+  }
 
 }
