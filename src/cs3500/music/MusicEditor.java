@@ -1,29 +1,34 @@
 package cs3500.music;
 
-import cs3500.music.model.*;
+import cs3500.music.model.BasicMusicEditor;
+import cs3500.music.model.IBasicMusicEditor;
+import cs3500.music.model.INote;
+import cs3500.music.model.ViewMusicEditor;
+import cs3500.music.util.CompositionBuilder;
+import cs3500.music.util.MusicReader;
 import cs3500.music.view.GuiViewFrame;
 import cs3500.music.view.MidiView;
 import cs3500.music.view.MidiViewImpl;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+
 import javax.sound.midi.InvalidMidiDataException;
 
 
 public class MusicEditor {
   public static void main(String[] args) throws IOException, InvalidMidiDataException {
-    IBasicMusicEditor<INote> test = new BasicMusicEditor(1000);
-    INote note0 = new NoteBuilder().setNoteName(NoteName.C).setOctave(0).setStartDuration(0).
-            setNumBeats(5).setChannel(0).setVolume(0).buildNote();
-    INote note0Copy = new NoteBuilder().setNoteName(NoteName.C).setOctave(0).setStartDuration(2).
-            setNumBeats(2).setChannel(0).setVolume(1).buildNote();
-    INote note1 = new NoteBuilder().setNoteName(NoteName.C).setOctave(0).setStartDuration(2).
-            setNumBeats(2).setChannel(0).setVolume(2).buildNote();
-    test.add(note0);
-    //GuiViewFrame view = new GuiViewFrame(test);
+    File f = new File("mary-little-lamb.txt");
+    Readable fr = new FileReader(f);
+    CompositionBuilder<IBasicMusicEditor<INote>> compBuilder = new BasicMusicEditor.BasicCompositionBuilder();
+    IBasicMusicEditor<INote> musicEditor = MusicReader.parseFile(fr, compBuilder);
     MidiView midiView = new MidiViewImpl();
     //view.initialize();
     midiView.playNote();
-    //midiView.test();
-    // You probably need to connect these views to your model, too...
+    GuiViewFrame theView = new GuiViewFrame(musicEditor);
+    theView.initialize();
   }
 }
