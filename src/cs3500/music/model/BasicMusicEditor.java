@@ -138,6 +138,17 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
   }
 
   @Override
+  public TreeMap<Integer, SortedMap<Integer, List<INote>>> composition() {
+    TreeMap<Integer, SortedMap<Integer, List<INote>>> compos = new TreeMap<>();
+    this.piece.keySet().forEach(x -> compos.put(x, getAllNotesAt(x)));
+    return compos;
+  }
+
+  TreeMap<Integer, PitchCollection> getPiece() {
+    return this.piece;
+  }
+
+  @Override
   public boolean isViewEditor() {
     return false;
   }

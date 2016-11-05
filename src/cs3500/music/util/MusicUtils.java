@@ -68,5 +68,8 @@ public final class MusicUtils {
     return noteName + octave;
   }
 
+  public static int toTrack(int channel) {
+    return channel % 16;
+  }
 
 }

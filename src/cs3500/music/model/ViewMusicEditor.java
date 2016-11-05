@@ -4,6 +4,7 @@ import cs3500.music.util.Utils;
 
 import java.util.List;
 import java.util.SortedMap;
+import java.util.TreeMap;
 
 /**
  * Created by tiger on 11/2/16.
@@ -36,6 +37,13 @@ public class ViewMusicEditor implements IBasicMusicEditor<INote> {
   @Override
   public SortedMap<Integer, List<INote>> getAllNotesAt(int beatNum) {
     return null;
+  }
+
+  @Override
+  public TreeMap<Integer, SortedMap<Integer, List<INote>>> composition() {
+    TreeMap<Integer, SortedMap<Integer, List<INote>>> compos = new TreeMap<>();
+    this.musicEditor.getPiece().keySet().forEach(x -> compos.put(x, getAllNotesAt(x)));
+    return compos;
   }
 
   @Override

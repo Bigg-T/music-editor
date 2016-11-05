@@ -4,6 +4,7 @@ import cs3500.music.util.CompositionBuilder;
 
 import java.util.List;
 import java.util.SortedMap;
+import java.util.TreeMap;
 
 /**
  * The Music editor.
@@ -50,6 +51,12 @@ public interface IBasicMusicEditor<K> {
 
   public SortedMap<Integer, List<INote>> getAllNotesAt(int beatNum);
 
+  /**
+   * Integer -> is the beat number
+   * SortedMap Integer -> the pitch number
+   * @return
+   */
+  public TreeMap<Integer, SortedMap<Integer, List<INote>>> composition();
   int getMinPitch();
 
   int getMaxPitch();

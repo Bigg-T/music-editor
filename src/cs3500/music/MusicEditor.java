@@ -25,10 +25,10 @@ public class MusicEditor {
     Readable fr = new FileReader(f);
     CompositionBuilder<IBasicMusicEditor<INote>> compBuilder = new BasicMusicEditor.BasicCompositionBuilder();
     IBasicMusicEditor<INote> musicEditor = MusicReader.parseFile(fr, compBuilder);
-    MidiView midiView = new MidiViewImpl();
+    MidiView midiView = new MidiViewImpl(musicEditor);
     //view.initialize();
     midiView.playNote();
-    GuiViewFrame theView = new GuiViewFrame(musicEditor);
-    theView.initialize();
+    //GuiViewFrame theView = new GuiViewFrame(musicEditor);
+    //theView.initialize();
   }
 }
