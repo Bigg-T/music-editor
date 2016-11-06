@@ -168,18 +168,20 @@ public class MidiViewImpl implements MidiView {
           Track track = tracks[1];//MusicUtils.toTrack(channel)];
 
           try {
+
+
             MidiMessage start = new ShortMessage(ShortMessage.NOTE_ON, channel, pitch, 70);
             MidiMessage stop = new ShortMessage(ShortMessage.NOTE_OFF, channel, pitch, 70);
-
             //change the to organ
             MidiMessage yo = new ShortMessage(ShortMessage.PROGRAM_CHANGE, channel, 39, 50);
+
             System.out.println("Chan"+ channel);
 
             MidiEvent midiEvent = new MidiEvent(start, startBeat);
             MidiEvent midiEvent2 = new MidiEvent(stop, startBeat + note.getBeat());
             MidiEvent yoyo = new MidiEvent(yo, startBeat);
 
-            track.add(yoyo);
+            //track.add(yoyo);
             track.add(midiEvent);
             track.add(midiEvent2);
 

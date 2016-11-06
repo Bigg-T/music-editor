@@ -21,7 +21,7 @@ import javax.sound.midi.InvalidMidiDataException;
 
 public class MusicEditor {
   public static void main(String[] args) throws IOException, InvalidMidiDataException {
-    File f = new File("mystery-1.txt");
+    File f = new File("lnl.txt");
     Readable fr = new FileReader(f);
     CompositionBuilder<IBasicMusicEditor<INote>> compBuilder = new BasicMusicEditor.BasicCompositionBuilder();
     IBasicMusicEditor<INote> musicEditor = MusicReader.parseFile(fr, compBuilder);

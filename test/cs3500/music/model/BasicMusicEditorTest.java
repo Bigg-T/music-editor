@@ -19,7 +19,7 @@ public class BasicMusicEditorTest {
   Note note3 = new NoteBuilder().setNoteName(NoteName.A).setOctave(3).setStartDuration(1).
           setNumBeats(1).setChannel(0).setVolume(5).buildNote();
 
-  private IBasicMusicEditor<INote> musicEditor;
+  private BasicMusicEditor musicEditor;
 
   @Before
   public void setUp() throws Exception {
