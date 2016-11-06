@@ -21,14 +21,16 @@ import javax.sound.midi.InvalidMidiDataException;
 
 public class MusicEditor {
   public static void main(String[] args) throws IOException, InvalidMidiDataException {
-    File f = new File("mary-little-lamb.txt");
+    File f = new File("mystery-1.txt");
     Readable fr = new FileReader(f);
     CompositionBuilder<IBasicMusicEditor<INote>> compBuilder = new BasicMusicEditor.BasicCompositionBuilder();
     IBasicMusicEditor<INote> musicEditor = MusicReader.parseFile(fr, compBuilder);
+//    GuiViewFrame theView = new GuiViewFrame(musicEditor);
+//    theView.initialize();
     MidiView midiView = new MidiViewImpl(musicEditor);
     //view.initialize();
+
     midiView.playNote();
-    //GuiViewFrame theView = new GuiViewFrame(musicEditor);
-    //theView.initialize();
+
   }
 }

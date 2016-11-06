@@ -1,12 +1,10 @@
 package cs3500.music.view;
 
-import com.sun.nio.sctp.MessageInfo;
 import cs3500.music.model.IBasicMusicEditor;
 import cs3500.music.model.INote;
 import cs3500.music.util.MusicUtils;
 import cs3500.music.util.Utils;
 
-import javax.rmi.CORBA.Util;
 import javax.sound.midi.*;
 import java.io.*;
 import java.util.ArrayList;
@@ -107,10 +105,10 @@ public class MidiViewImpl implements MidiView {
     List<Patch> lp = new ArrayList<>(Arrays.asList(p));
 //    System.out.println(sequence.getResolution());
 //    System.out.println(sequence.getTickLength());
-    Sequence test = model(this.musicEditor, new Sequence(Sequence.PPQ, 480));
+    Sequence test = model(this.musicEditor, new Sequence(Sequence.PPQ, 1));
     try {
       Sequencer ss = MidiSystem.getSequencer();
-      ss.setTempoInMPQ(200000);
+      ss.setTempoInMPQ(71428);
 
       InputStream ip = new BufferedInputStream(new FileInputStream(new File("120c4-.mid")));
       ss.open();
@@ -126,20 +124,21 @@ public class MidiViewImpl implements MidiView {
       Patch[] patch = rev.getPatchList();
       System.out.println(tracks.length);
 
-      Arrays.asList(tracks[1])
-              .forEach(x -> System.out.print("Midi\n" + yo(x.size(), x)));
-
-
-      Arrays.asList(tracks).forEach(x -> System.out.println(x.ticks()));
-      Arrays.asList(patch).forEach(x -> System.out.println(x.getBank()));
+//      Arrays.asList(tracks[1])
+//              .forEach(x -> System.out.print("Midi\n" + yo(x.size(), x)));
+//
+//
+//      Arrays.asList(tracks).forEach(x -> System.out.println(x.ticks()));
+//      Arrays.asList(patch).forEach(x -> System.out.println(x.getBank()));
       System.out.println(patch.length);
       ss.start();
-
-      TimeUnit.MICROSECONDS.sleep(ss.getSequence().getMicrosecondLength());
-      //model(null, new Sequence(Sequence.PPQ, 100));
-      ss.close();
       receiver.close();
       synth.close();
+      TimeUnit.MICROSECONDS.sleep(ss.getSequence().getMicrosecondLength()/6);
+      //model(null, new Sequence(Sequence.PPQ, 100));
+
+      ss.close();
+
 
     } catch (Exception e) {
       e.printStackTrace();
@@ -163,12 +162,13 @@ public class MidiViewImpl implements MidiView {
           int pitch = MusicUtils.toPitch(note.getNoteName(), note.getOctave());
           int channel = note.getChannel();
           int volume = note.getVolume();
-          int startBeat = note.getStartDuration() * 480; //384 is the revolution
+          System.out.println(channel);
+          int startBeat = (note.getStartDuration()) + (4); //384 is the revolution
           Track track = tracks[1];//MusicUtils.toTrack(channel)];
 
           try {
-            MidiMessage start = new ShortMessage(ShortMessage.NOTE_ON, 2, pitch, 70);
-            MidiMessage stop = new ShortMessage(ShortMessage.NOTE_OFF, 2, pitch, volume);
+            MidiMessage start = new ShortMessage(ShortMessage.NOTE_ON, channel, pitch, 70);
+            MidiMessage stop = new ShortMessage(ShortMessage.NOTE_OFF, channel, pitch, 70);
 
 
             MidiEvent midiEvent = new MidiEvent(start, startBeat);
