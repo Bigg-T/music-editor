@@ -78,10 +78,10 @@ public class MidiViewImpl implements MidiView {
     this.receiver.send(start, -1);
     long timeStamp = this.synth.getMicrosecondPosition() + 200000;
     this.receiver.send(stop, timeStamp);
-
-    this.receiver.send(start2, 0);
-    timeStamp += this.synth.getMicrosecondPosition() + 200000;
-    this.receiver.send(stop2, timeStamp);
+//
+//    this.receiver.send(start2, 0);
+//    timeStamp += this.synth.getMicrosecondPosition() + 200000;
+//    this.receiver.send(stop2, timeStamp);
     //this.receiver.close(); // Only call this once you're done playing *all* notes
     //long tick = (timeStamp * 300)/ (60*1000000);
 
@@ -124,17 +124,17 @@ public class MidiViewImpl implements MidiView {
       Patch[] patch = rev.getPatchList();
       System.out.println(tracks.length);
 
-//      Arrays.asList(tracks[1])
-//              .forEach(x -> System.out.print("Midi\n" + yo(x.size(), x)));
-//
-//
-//      Arrays.asList(tracks).forEach(x -> System.out.println(x.ticks()));
-//      Arrays.asList(patch).forEach(x -> System.out.println(x.getBank()));
+      Arrays.asList(tracks[1])
+              .forEach(x -> System.out.print("Midi\n" + yo(x.size(), x)));
+
+
+      Arrays.asList(tracks).forEach(x -> System.out.println(x.ticks()));
+      Arrays.asList(patch).forEach(x -> System.out.println(x.getBank()));
       System.out.println(patch.length);
       ss.start();
       receiver.close();
       synth.close();
-      TimeUnit.MICROSECONDS.sleep(ss.getSequence().getMicrosecondLength()/6);
+      TimeUnit.MICROSECONDS.sleep(ss.getSequence().getMicrosecondLength());
       //model(null, new Sequence(Sequence.PPQ, 100));
 
       ss.close();
@@ -160,7 +160,8 @@ public class MidiViewImpl implements MidiView {
       map.values().forEach(notes -> {
         notes.forEach(note -> {
           int pitch = MusicUtils.toPitch(note.getNoteName(), note.getOctave());
-          int channel = note.getChannel();
+          //coverting 1 base index to 0 base index
+          int channel = note.getChannel() - 1;
           int volume = note.getVolume();
           System.out.println(channel);
           int startBeat = (note.getStartDuration()) + (4); //384 is the revolution
@@ -170,12 +171,18 @@ public class MidiViewImpl implements MidiView {
             MidiMessage start = new ShortMessage(ShortMessage.NOTE_ON, channel, pitch, 70);
             MidiMessage stop = new ShortMessage(ShortMessage.NOTE_OFF, channel, pitch, 70);
 
+            //change the to organ
+            MidiMessage yo = new ShortMessage(ShortMessage.PROGRAM_CHANGE, channel, 39, 50);
+            System.out.println("Chan"+ channel);
 
             MidiEvent midiEvent = new MidiEvent(start, startBeat);
-            MidiEvent midiEvent2 = new MidiEvent(start, startBeat);
+            MidiEvent midiEvent2 = new MidiEvent(stop, startBeat + note.getBeat());
+            MidiEvent yoyo = new MidiEvent(yo, startBeat);
 
+            track.add(yoyo);
             track.add(midiEvent);
             track.add(midiEvent2);
+
 
 
           } catch (Exception e) {
