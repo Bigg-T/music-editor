@@ -45,7 +45,7 @@ public class ConcreteGuiViewPanel extends JPanel {
         continue;
       }
       for (int j = musicEditor.getMinPitch(); j <= musicEditor.getMaxPitch(); j++)  {
-        int y = baseDown + ((j - musicEditor.getMinPitch()) * noteHeight);
+        int y = baseDown + ((musicEditor.getMaxPitch() - j) * noteHeight);
         if (notes.get(j) == null)  {
           continue;
         }
@@ -67,12 +67,13 @@ public class ConcreteGuiViewPanel extends JPanel {
     for (int i = 0; i < musicEditor.getLastBeat(); i += 2)  {
       for (int j = musicEditor.getMinPitch(); j <= musicEditor.getMaxPitch(); j++)  {
         int x = baseRight + (i * noteWidth);
-        int y = baseDown + ((j - musicEditor.getMinPitch()) * noteHeight);
+        int y = baseDown + ((musicEditor.getMaxPitch() - j) * noteHeight);
         g.drawRect(x, y, noteWidth * 2, noteHeight);
       }
     }
     for (int j = musicEditor.getMinPitch(); j <= musicEditor.getMaxPitch(); j++)  {
-      g.drawString(MusicUtils.pitchToString(j), 15, 60 + (noteHeight * (j - musicEditor.getMinPitch())));
+      g.drawString(MusicUtils.pitchToString(j), 15, 55 +
+              (noteHeight * (musicEditor.getMaxPitch() - j)));
     }
   }
 
