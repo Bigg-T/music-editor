@@ -108,7 +108,7 @@ public class MidiViewImpl implements MidiView {
     Sequence test = model(this.musicEditor, new Sequence(Sequence.PPQ, 1));
     try {
       Sequencer ss = MidiSystem.getSequencer();
-      ss.setTempoInMPQ(71428);
+      ss.setTempoInMPQ(musicEditor.getTempo());
 
       InputStream ip = new BufferedInputStream(new FileInputStream(new File("120c4-.mid")));
       ss.open();
