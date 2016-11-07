@@ -75,9 +75,9 @@ public class MidiViewImpl implements MidiView {
     MidiMessage start2 = new ShortMessage(ShortMessage.NOTE_ON, 3, 110, 110);
     MidiMessage stop2 = new ShortMessage(ShortMessage.NOTE_OFF, 3, 110, 110);
 //
-    this.receiver.send(start, -1);
-    long timeStamp = this.synth.getMicrosecondPosition() + 200000;
-    this.receiver.send(stop, timeStamp);
+//    this.receiver.send(start, -1);
+//    long timeStamp = this.synth.getMicrosecondPosition() + 200000;
+//    this.receiver.send(stop, timeStamp);
 //
 //    this.receiver.send(start2, 0);
 //    timeStamp += this.synth.getMicrosecondPosition() + 200000;
@@ -166,19 +166,17 @@ public class MidiViewImpl implements MidiView {
         notes.forEach(note -> {
           int pitch = MusicUtils.toPitch(note.getNoteName(), note.getOctave());
           //coverting 1 base index to 0 base index
-          int channel = note.getChannel() - 1;
+          int channel = (note.getChannel() - 1) % 16;
           int volume = note.getVolume();
           System.out.println(channel);
           int startBeat = (note.getStartDuration()) + (4); //384 is the revolution
           Track track = tracks[1];//MusicUtils.toTrack(channel)];
 
           try {
-
-
-            MidiMessage start = new ShortMessage(ShortMessage.NOTE_ON, channel, pitch, 70);
-            MidiMessage stop = new ShortMessage(ShortMessage.NOTE_OFF, channel, pitch, 70);
+            MidiMessage start = new ShortMessage(ShortMessage.NOTE_ON, channel, pitch, volume);
+            MidiMessage stop = new ShortMessage(ShortMessage.NOTE_OFF, channel, pitch, volume);
             //change the to organ
-            MidiMessage yo = new ShortMessage(ShortMessage.PROGRAM_CHANGE, channel, 39, 50);
+            MidiMessage yo = new ShortMessage(ShortMessage.PROGRAM_CHANGE, channel, note.getChannel(), 50);
 
             System.out.println("Chan"+ channel);
 

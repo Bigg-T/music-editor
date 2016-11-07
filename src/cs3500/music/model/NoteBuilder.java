@@ -5,12 +5,12 @@ package cs3500.music.model;
  */
 public class NoteBuilder {
 
-  private NoteName noteName;
-  private int octave;
-  private int startDuration;
-  private int numBeats;
-  private int channel;
-  private int volume;
+  private NoteName noteName = NoteName.C;
+  private int octave = 4;
+  private int startDuration = 0;
+  private int numBeats = 1;
+  private int channel = 1;
+  private int volume = 50;
 
   /**
    * Sets this noteName value.
@@ -18,7 +18,7 @@ public class NoteBuilder {
    * @param noteName desired noteName value
    * @return updated NoteBuilder
    */
-  public NoteBuilder setNoteName(NoteName noteName) {
+  NoteBuilder setNoteName(NoteName noteName) {
     this.noteName = noteName;
     return this;
   }
@@ -29,7 +29,7 @@ public class NoteBuilder {
    * @param octave desired NoteName value
    * @return updated NoteBuilder
    */
-  public NoteBuilder setOctave(int octave) {
+  NoteBuilder setOctave(int octave) {
     this.octave = octave;
     return this;
   }
@@ -40,7 +40,7 @@ public class NoteBuilder {
    * @param startDuration desired NoteName value
    * @return updated NoteBuilder
    */
-  public NoteBuilder setStartDuration(int startDuration) {
+  NoteBuilder setStartDuration(int startDuration) {
     this.startDuration = startDuration;
     return this;
   }
@@ -51,7 +51,7 @@ public class NoteBuilder {
    * @param numBeats desired number of beats value
    * @return updated NoteBuilder
    */
-  public NoteBuilder setNumBeats(int numBeats) {
+  NoteBuilder setNumBeats(int numBeats) {
     this.numBeats = numBeats;
     return this;
   }
@@ -62,7 +62,7 @@ public class NoteBuilder {
    * @param channel desired channel value
    * @return updated NoteBuilder
    */
-  public NoteBuilder setChannel(int channel) {
+  NoteBuilder setChannel(int channel) {
     this.channel = channel;
     return this;
   }
@@ -73,7 +73,7 @@ public class NoteBuilder {
    * @param volume desired volume value
    * @return updated NoteBuilder
    */
-  public NoteBuilder setVolume(int volume) {
+  NoteBuilder setVolume(int volume) {
     this.volume = volume;
     return this;
   }
