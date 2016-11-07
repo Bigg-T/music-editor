@@ -145,6 +145,11 @@ public class MidiViewImpl implements MidiView {
     }
 
   }
+  
+  @Override
+  public void initialize() throws Exception {
+    this.playNote();
+  }
 
   public Sequence model(IBasicMusicEditor<INote> inote, Sequence sequence) {
 
