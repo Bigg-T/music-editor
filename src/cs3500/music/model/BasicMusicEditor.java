@@ -63,7 +63,6 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
     return piece.get(noteStartBeat).edit(castedNote, duration, volume);
   }
 
-  //@TODO same problem with edit
   @Override
   public void merge(IBasicMusicEditor<INote> thatPiece, boolean isConsecutive) {
     BasicMusicEditor castedPiece = toBasicMusicEditor(thatPiece);
@@ -72,7 +71,7 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
     thatKeys.forEach(s -> {
       PitchCollection pitchCollection = castedPiece.piece.get(s);
       if (!isConsecutive) {
-        //consecutive
+        //non-consecutive
         if (this.piece.get(s) != null) {
           this.piece.put(s, pitchCollection);
           return;
@@ -80,7 +79,7 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
         this.piece.get(s).merge(pitchCollection, 0);
       } else {
         int offset = s + getLastBeat();
-        this.piece.put(s + getLastBeat(), pitchCollection.adjustBeat(offset));
+        this.piece.put(offset, pitchCollection.adjustBeat(getLastBeat()));
         return;
       }
 
