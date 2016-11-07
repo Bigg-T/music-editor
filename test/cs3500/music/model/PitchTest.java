@@ -13,14 +13,12 @@ public class PitchTest {
 
   private Note note0 = new NoteBuilder().setNoteName(NoteName.C).setOctave(0).setStartDuration(2).
           setNumBeats(2).setChannel(0).setVolume(0).buildNote();
-  private Note note0Copy = new NoteBuilder().setNoteName(NoteName.C).setOctave(0).setStartDuration(2).
-          setNumBeats(2).setChannel(0).setVolume(1).buildNote();
   private Note note1 = new NoteBuilder().setNoteName(NoteName.C).setOctave(0).setStartDuration(2).
           setNumBeats(2).setChannel(0).setVolume(2).buildNote();
   private Note note2 = new NoteBuilder().setNoteName(NoteName.C).setOctave(0).setStartDuration(2).
-          setNumBeats(2).setChannel(0).setVolume(3).buildNote();
-  private Note note3 = new NoteBuilder().setNoteName(NoteName.C).setOctave(0).setStartDuration(1).
-          setNumBeats(1).setChannel(0).setVolume(4).buildNote();
+          setNumBeats(4).setChannel(0).setVolume(10).buildNote();
+  private Note note3 = new NoteBuilder().setNoteName(NoteName.C).setOctave(0).setStartDuration(6).
+          setNumBeats(2).setChannel(0).setVolume(0).buildNote();
 
 
   private Pitch setUp(int pitch) {
@@ -82,14 +80,6 @@ public class PitchTest {
     pitchCollection.add(null);
   }
 
-  @Test //is item added?
-  public void testAdd() throws Exception {
-    Pitch pitch = setUp(12);
-    Note note = new Note(NoteName.C, 0, 12, 2, 4, 3);
-    Assert.assertEquals(true, pitch.add(note));
-    Assert.assertEquals(true, pitch.add(note));
-  }
-
   //throw error, try to remove null note
   @Test(expected = IllegalArgumentException.class)
   public void testRemoveEx() throws Exception {
@@ -104,8 +94,6 @@ public class PitchTest {
     Pitch pitch = setUp(12);
     pitch.add(note0);
     Assert.assertEquals(true, pitch.remove(note0));
-    //remove note that doesn't exist
-    Assert.assertEquals(false, pitch.remove(note1));
   }
 
   //try to remove note that doesn't exist
@@ -118,22 +106,34 @@ public class PitchTest {
 
   @Test
   public void edit() throws Exception {
-
+    Pitch pitch = setUp(12);
+    pitch.add(note0);
+    pitch.edit(note0, 4, 10);
+    Assert.assertEquals(true, pitch.remove(note2));
   }
 
   @Test
   public void offsetStartBeat() throws Exception {
-
+    Pitch pitch = setUp(12);
+    pitch.add(note0);
+    pitch.offsetStartBeat(4);
+    Assert.assertEquals(true, pitch.remove(note3));
   }
 
   @Test
   public void longestNoteDuration() throws Exception {
-
+    Pitch pitch = setUp(12);
+    pitch.add(note0);
+    pitch.add(note2);
+    Assert.assertEquals(4, pitch.longestNoteDuration());
   }
 
   @Test
   public void toINoteList() throws Exception {
-
+    Pitch pitch = setUp(12);
+    pitch.add(note0);
+    pitch.add(note2);
+    Assert.assertEquals(NoteName.C, pitch.toINoteList().get(0).getNoteName());
   }
 
 
