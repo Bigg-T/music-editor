@@ -27,6 +27,9 @@ public class ConcreteGuiViewPanel extends JPanel {
 
   ConcreteGuiViewPanel(IBasicMusicEditor<INote> musicEditor)  {
     this.musicEditor = musicEditor;
+    int width = (noteWidth * (musicEditor.getMaxPitch() - musicEditor.getMinPitch())) + 100;
+    int height = (noteHeight * musicEditor.getLastBeat()) + 80;
+    this.setPreferredSize(new Dimension(height, width));
   }
 
   @Override

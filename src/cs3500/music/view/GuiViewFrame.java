@@ -1,6 +1,6 @@
 package cs3500.music.view;
 
-import java.awt.Dimension;
+import java.awt.*;
 import java.awt.event.MouseListener;
 
 import javax.swing.JFrame;
@@ -13,7 +13,7 @@ import cs3500.music.model.ViewMusicEditor;
 /**
  * A skeleton Frame (i.e., a window) in Swing
  */
-public class GuiViewFrame extends JFrame implements IGuiViewFrame {
+public class GuiViewFrame extends JFrame implements IView {
 
   private final ConcreteGuiViewPanel displayPanel;
 
@@ -22,9 +22,11 @@ public class GuiViewFrame extends JFrame implements IGuiViewFrame {
    */
   public GuiViewFrame(IBasicMusicEditor<INote> musicEditor) {
     this.displayPanel = new ConcreteGuiViewPanel(musicEditor);
+    ScrollPane scr = new ScrollPane();
+    scr.add(displayPanel);
     this.setTitle("Music Editor");
     this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-    this.add(displayPanel);
+    this.add(scr);
     this.pack();
   }
 
