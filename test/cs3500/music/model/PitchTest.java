@@ -87,8 +87,7 @@ public class PitchTest {
     Pitch pitch = setUp(12);
     Note note = new Note(NoteName.C, 0, 12, 2, 4, 3);
     Assert.assertEquals(true, pitch.add(note));
-    // duplicate so does not needed to add
-    Assert.assertEquals(false, pitch.add(note));
+    Assert.assertEquals(true, pitch.add(note));
   }
 
   //throw error, try to remove null note
@@ -105,7 +104,8 @@ public class PitchTest {
     Pitch pitch = setUp(12);
     pitch.add(note0);
     Assert.assertEquals(true, pitch.remove(note0));
-    Assert.assertEquals(true, pitch.remove(note1));
+    //remove note that doesn't exist
+    Assert.assertEquals(false, pitch.remove(note1));
   }
 
   //try to remove note that doesn't exist

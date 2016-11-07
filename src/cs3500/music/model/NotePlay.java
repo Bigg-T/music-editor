@@ -3,7 +3,7 @@ package cs3500.music.model;
 /**
  * The representation just for printing.
  */
-enum NotePlay {
+public enum NotePlay {
   /**
    * NOTE_PLAY representing then not that started to play.
    */

@@ -70,6 +70,14 @@ class Note implements INote {
     this.getDuration().setBeat(this.getDuration().getBeat() + offset);
   }
 
+  void setVolume(int volume) {
+    this.volume = volume;
+  }
+
+  void setBeat(int duration) {
+    this.getDuration().setBeat(duration);
+  }
+
   /**
    * Encapsulate field.
    *

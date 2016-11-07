@@ -61,13 +61,8 @@ class Pitch {
     if (note == null || !(note.samePitch(this.pitch))) {
       throw new IllegalArgumentException("Null note, can't add to list");
     }
-
-    if (this.noteList.contains(note)) {
-      return false;
-    }
-
     noteList.add(note);
-    noteList.sort(Note.NoteComparators.PITCH);
+    this.sortByDuration();
     return true;
   }
 
@@ -93,7 +88,22 @@ class Pitch {
    * @return true if the new note is edited
    */
   boolean edit(Note note, int duration, int volume) {
-    return false;
+
+    note = Utils.requireNonNull(note, "Null note");
+
+    this.noteList.get(this.noteList.indexOf(note)).setBeat(duration);
+    this.noteList.get(this.noteList.indexOf(note)).setVolume(volume);
+    this.sortByDuration();
+    return true;
+  }
+
+  void merge(Pitch pitch, int offset) {
+    pitch.noteList.forEach(x -> this.add(x));
+    this.sortByDuration();
+  }
+
+  void sortByDuration() {
+    this.noteList.sort(Note.NoteComparators.DURATION);
   }
 
   /**

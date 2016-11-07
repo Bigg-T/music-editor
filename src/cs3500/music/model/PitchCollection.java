@@ -48,13 +48,18 @@ final class PitchCollection {
             && pitchTreeMap.get(notePitch).edit(note, pitch, volume);
   }
 
+  /**
+   * Merge the list together.
+   * @param thatPitchCollect
+   * @param offset
+   */
   void merge(PitchCollection thatPitchCollect, int offset) {
-    thatPitchCollect = Utils.requireNonNull(thatPitchCollect, "Null PitchCollection");
+    Utils.requireNonNull(thatPitchCollect, "Null PitchCollection.");
     Set<Integer> thatKeys = thatPitchCollect.pitchTreeMap.keySet();
 
-    thatKeys.forEach(x -> {
+    thatKeys.forEach(
+            x -> this.pitchTreeMap.get(x).merge(thatPitchCollect.pitchTreeMap.get(x), offset));
 
-    });
   }
 
   PitchCollection adjustBeat(int offset) {

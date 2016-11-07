@@ -94,14 +94,14 @@ public class BasicMusicEditorTest {
     this.setUp();
     musicEditor.add(note0);
     musicEditor.add(note1);
-    //assertEquals(69, musicEditor.getMaxPitch());
+    assertEquals(69, musicEditor.getMaxPitch());
   }
 
   // tests the getTempo method
   @Test
   public void testGetTempo() throws Exception {
     this.setUp();
-    //assertEquals(120, musicEditor.getTempo());
+    assertEquals(120, musicEditor.getTempo());
   }
 
   // tests the getLastBeat method
@@ -109,7 +109,7 @@ public class BasicMusicEditorTest {
   public void testGetLastBeat() throws Exception  {
     this.setUp();
     musicEditor.add(note0);
-    //assertEquals(4, musicEditor.getLastBeat());
+    assertEquals(4, musicEditor.getLastBeat());
   }
 
   // tests the getLastStartBeat method
@@ -117,7 +117,7 @@ public class BasicMusicEditorTest {
   public void testGetLastStartBeat() throws Exception  {
     this.setUp();
     musicEditor.add(note0);
-    //assertEquals(2, musicEditor.getLastStartBeat());
+    assertEquals(2, musicEditor.getLastStartBeat());
   }
 
   // tests the isUnmodEditor method
