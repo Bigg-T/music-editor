@@ -113,24 +113,23 @@ public class MidiViewImpl implements MidiView {
       InputStream ip = new BufferedInputStream(new FileInputStream(new File("120c4-.mid")));
       ss.open();
       ss.setSequence(test);
-      System.out.println(ss.getSequence().getResolution());
-      System.out.println(ss.getSequence().getTickLength());
-      System.out.println(ss.getSequence().getMicrosecondLength());
-      System.out.println(ss.getTempoInBPM());
-      System.out.println(ss.getTempoInMPQ());
+//      System.out.println(ss.getSequence().getResolution());
+//      System.out.println(ss.getSequence().getTickLength());
+//      System.out.println(ss.getSequence().getMicrosecondLength());
+//      System.out.println(ss.getTempoInBPM());
+//      System.out.println(ss.getTempoInMPQ());
 
       Sequence rev = ss.getSequence();
       Track[] tracks = rev.getTracks();
       Patch[] patch = rev.getPatchList();
       System.out.println(tracks.length);
 
-      Arrays.asList(tracks[1])
-              .forEach(x -> System.out.print("Midi\n" + yo(x.size(), x)));
-
-
-      Arrays.asList(tracks).forEach(x -> System.out.println(x.ticks()));
-      Arrays.asList(patch).forEach(x -> System.out.println(x.getBank()));
-      System.out.println(patch.length);
+//      Debugging
+//      Arrays.asList(tracks[1])
+//              .forEach(x -> System.out.print("Midi\n" + yo(x.size(), x)));
+//      Arrays.asList(tracks).forEach(x -> System.out.println(x.ticks()));
+//      Arrays.asList(patch).forEach(x -> System.out.println(x.getBank()));
+//      System.out.println(patch.length);
       ss.start();
       receiver.close();
       synth.close();
@@ -145,7 +144,7 @@ public class MidiViewImpl implements MidiView {
     }
 
   }
-  
+
   @Override
   public void initialize() throws Exception {
     this.playNote();
@@ -153,13 +152,8 @@ public class MidiViewImpl implements MidiView {
 
   public Sequence model(IBasicMusicEditor<INote> inote, Sequence sequence) {
 
-
     //creating 16 tracks
-    for (int i = 0; i < 10; i++) {
-      sequence.createTrack();
-    }
-    Track[] tracks = sequence.getTracks();
-
+    Track track = sequence.createTrack();
 
     inote.composition().values().parallelStream().forEach(map -> {
       map.values().forEach(notes -> {
@@ -170,42 +164,33 @@ public class MidiViewImpl implements MidiView {
           int volume = note.getVolume();
           System.out.println(channel);
           int startBeat = (note.getStartDuration()) + (4); //384 is the revolution
-          Track track = tracks[1];//MusicUtils.toTrack(channel)];
+          //MusicUtils.toTrack(channel)];
 
           try {
             MidiMessage start = new ShortMessage(ShortMessage.NOTE_ON, channel, pitch, volume);
             MidiMessage stop = new ShortMessage(ShortMessage.NOTE_OFF, channel, pitch, volume);
-            //change the to organ
-            MidiMessage yo = new ShortMessage(ShortMessage.PROGRAM_CHANGE, channel, note.getChannel(), 50);
-
-            System.out.println("Chan"+ channel);
+            //change the to specific [0,127] Instrument, instead of using default [0,15] channel
+            MidiMessage yo = new ShortMessage(ShortMessage.PROGRAM_CHANGE, channel, note.getChannel(), 0);
 
             MidiEvent midiEvent = new MidiEvent(start, startBeat);
             MidiEvent midiEvent2 = new MidiEvent(stop, startBeat + note.getBeat());
             MidiEvent yoyo = new MidiEvent(yo, startBeat);
 
-            //track.add(yoyo);
+            track.add(yoyo);
             track.add(midiEvent);
             track.add(midiEvent2);
-
-
 
           } catch (Exception e) {
             e.printStackTrace();
             throw new IllegalArgumentException("Midi broke!");
           }
-
         });
       });
     });
-
-
-    System.out.println(sequence.getTracks().length);
     return sequence;
   }
 
-  public String yo(int n, Track track) {
-
+  private String yo(int n, Track track) {
     StringBuilder b = new StringBuilder("");
     for (int i = 0; i < n; i++) {
       MidiEvent midiEvent = track.get(i);
@@ -217,7 +202,7 @@ public class MidiViewImpl implements MidiView {
     return b.toString();
   }
 
-  String y(byte[] b) {
+  private String y(byte[] b) {
     StringBuilder m = new StringBuilder("");
     for (byte u : b) {
       m.append(" " + u);
