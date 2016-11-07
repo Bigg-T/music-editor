@@ -40,12 +40,12 @@ final class PitchCollection {
     return (pitchTreeMap.get(notePitch) != null) && pitchTreeMap.get(notePitch).remove(note);
   }
 
-  boolean edit(Note note, int pitch, int volume) {
+  boolean edit(Note note, int duration, int volume) {
     note = Utils.requireNonNull(note, "Null note.");
     int notePitch = note.toPitch();
 
     return (pitchTreeMap.get(notePitch) != null)
-            && pitchTreeMap.get(notePitch).edit(note, pitch, volume);
+            && pitchTreeMap.get(notePitch).edit(note, duration, volume);
   }
 
   /**
