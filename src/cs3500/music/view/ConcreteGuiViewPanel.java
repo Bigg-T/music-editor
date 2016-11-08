@@ -1,12 +1,13 @@
 package cs3500.music.view;
 
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashSet;
+
+import java.awt.Graphics;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.util.List;
-import java.util.Objects;
 import java.util.SortedMap;
 import java.util.TreeMap;
+
 
 import javax.swing.JPanel;
 
@@ -20,15 +21,15 @@ import cs3500.music.util.MusicUtils;
  */
 public class ConcreteGuiViewPanel extends JPanel {
 
-  public static final int noteWidth = 18;
-  public static final int noteHeight = 18;
+  public static final int NOTEWIDTH = 18;
+  public static final int NOTEHEIGHT = 18;
 
   IBasicMusicEditor<INote> musicEditor;
 
   ConcreteGuiViewPanel(IBasicMusicEditor<INote> musicEditor) {
     this.musicEditor = musicEditor;
-    int width = (noteWidth * (musicEditor.getMaxPitch() - musicEditor.getMinPitch())) + 100;
-    int height = (noteHeight * musicEditor.getLastBeat()) + 80;
+    int width = (NOTEWIDTH * (musicEditor.getMaxPitch() - musicEditor.getMinPitch())) + 100;
+    int height = (NOTEHEIGHT * musicEditor.getLastBeat()) + 80;
     this.setPreferredSize(new Dimension(height, width));
   }
 
@@ -40,7 +41,7 @@ public class ConcreteGuiViewPanel extends JPanel {
     int baseDown = 40;
     g.setColor(Color.BLUE);
     for (int i = 0; i <= musicEditor.getLastStartBeat(); i++) {
-      int x = baseRight + (i * noteWidth);
+      int x = baseRight + (i * NOTEWIDTH);
       SortedMap<Integer, List<INote>> notes = new TreeMap();
       try {
         notes = musicEditor.getAllNotesAt(i);
@@ -48,7 +49,7 @@ public class ConcreteGuiViewPanel extends JPanel {
         continue;
       }
       for (int j = musicEditor.getMinPitch(); j <= musicEditor.getMaxPitch(); j++) {
-        int y = baseDown + ((musicEditor.getMaxPitch() - j) * noteHeight);
+        int y = baseDown + ((musicEditor.getMaxPitch() - j) * NOTEHEIGHT);
         if (notes.get(j) == null) {
           continue;
         } else {
@@ -57,9 +58,9 @@ public class ConcreteGuiViewPanel extends JPanel {
             if (note.getBeat() > currentMax) {
               currentMax = note.getBeat();
             }
-            g.fillRect(x, y, (noteWidth * currentMax) - 1, noteHeight);
+            g.fillRect(x, y, (NOTEWIDTH * currentMax) - 1, NOTEHEIGHT);
             g.setColor(Color.BLACK);
-            g.fillRect(x, y, noteWidth / 2, noteHeight);
+            g.fillRect(x, y, NOTEWIDTH / 2, NOTEHEIGHT);
             g.setColor(Color.BLUE);
           }
         }
@@ -68,14 +69,14 @@ public class ConcreteGuiViewPanel extends JPanel {
     g.setColor(Color.BLACK);
     for (int i = 0; i < musicEditor.getLastBeat(); i += 2) {
       for (int j = musicEditor.getMinPitch(); j <= musicEditor.getMaxPitch(); j++) {
-        int x = baseRight + (i * noteWidth);
-        int y = baseDown + ((musicEditor.getMaxPitch() - j) * noteHeight);
-        g.drawRect(x, y, noteWidth * 2, noteHeight);
+        int x = baseRight + (i * NOTEWIDTH);
+        int y = baseDown + ((musicEditor.getMaxPitch() - j) * NOTEHEIGHT);
+        g.drawRect(x, y, NOTEWIDTH * 2, NOTEHEIGHT);
       }
     }
     for (int j = musicEditor.getMinPitch(); j <= musicEditor.getMaxPitch(); j++) {
       g.drawString(MusicUtils.pitchToString(j), 15, 55 +
-              (noteHeight * (musicEditor.getMaxPitch() - j)));
+              (NOTEHEIGHT * (musicEditor.getMaxPitch() - j)));
     }
   }
 
