@@ -1,6 +1,6 @@
 package cs3500.music.util;
 
-import cs3500.music.model.*;
+import cs3500.music.model.NoteName;
 
 /**
  * Created by tiger on 10/31/16.
@@ -19,7 +19,7 @@ public final class MusicUtils {
   }
 
   /**
-   * Returns String representation of the given pitch
+   * Returns String representation of the given pitch.
    * @param pitch Pitch to be represented
    * @return      String representation
    */
