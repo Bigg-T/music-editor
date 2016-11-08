@@ -11,7 +11,8 @@ public abstract class INoteTest {
 
   private Note note0 = new NoteBuilder().setNoteName(NoteName.C).setOctave(4).setStartDuration(2).
           setNumBeats(2).setChannel(0).setVolume(5).buildNote();
-  private Note note0Copy = new NoteBuilder().setNoteName(NoteName.C).setOctave(4).setStartDuration(2).
+  private Note note0Copy = new NoteBuilder().setNoteName(NoteName.C).
+          setOctave(4).setStartDuration(2).
           setNumBeats(2).setChannel(0).setVolume(5).buildNote();
   private Note note1 = new NoteBuilder().setNoteName(NoteName.A).setOctave(4).setStartDuration(2).
           setNumBeats(2).setChannel(0).setVolume(5).buildNote();
