@@ -59,7 +59,7 @@ final class PitchCollection {
     Set<Integer> thatKeys = thatPitchCollect.pitchTreeMap.keySet();
 
     thatKeys.forEach(x
-            -> this.pitchTreeMap.get(x).merge(thatPitchCollect.pitchTreeMap.get(x), offset));
+        -> this.pitchTreeMap.get(x).merge(thatPitchCollect.pitchTreeMap.get(x), offset));
 
   }
 
