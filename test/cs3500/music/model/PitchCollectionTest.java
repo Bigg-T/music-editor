@@ -46,12 +46,6 @@ public class PitchCollectionTest {
   }
 
   @Test
-  public void merge() throws Exception {
-    this.setUp();
-
-  }
-
-  @Test
   public void adjustBeat() throws Exception {
     this.setUp();
     pc.add(note0);
