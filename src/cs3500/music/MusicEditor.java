@@ -16,6 +16,10 @@ import javax.sound.midi.InvalidMidiDataException;
 
 
 public class MusicEditor {
+  
+  /**
+   * Main method.
+   */
   public static void main(String[] args) throws IOException, InvalidMidiDataException {
     File f = null;
     try {
