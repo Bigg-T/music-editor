@@ -3,7 +3,7 @@ package cs3500.music.model;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * For the purposes of testing the BasicMusicEditor class.
@@ -23,7 +23,7 @@ public class BasicMusicEditorTest {
 
   @Before
   public void setUp() throws Exception {
-    this.musicEditor = new BasicMusicEditor(120);
+     this.musicEditor = new BasicMusicEditor(120);
   }
 
   // tests adding a note
