@@ -76,7 +76,7 @@ class Note implements INote {
    * @param offset the new starting beat
    */
   void offsetStartBeat(int offset) {
-    this.getDuration().setBeat(this.getDuration().getBeat() + offset);
+    this.getDuration().setStart(this.getDuration().getStart() + offset);
   }
 
   /**
