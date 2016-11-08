@@ -12,12 +12,11 @@ import java.util.TreeMap;
 import javax.swing.JPanel;
 
 import cs3500.music.model.IBasicMusicEditor;
-import cs3500.music.model.ViewMusicEditor;
 import cs3500.music.model.INote;
 import cs3500.music.util.MusicUtils;
 
 /**
- * A dummy view that simply draws a string
+ * View to render the piece.
  */
 public class ConcreteGuiViewPanel extends JPanel {
 
