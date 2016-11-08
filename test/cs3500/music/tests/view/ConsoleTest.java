@@ -27,6 +27,9 @@ public class ConsoleTest {
   private Reader readable;
 
   @Before
+  /**
+   * Sets up init state.
+   */
   public void setUp() throws Exception {
     try {
       f = new File("mary-little-lamb.txt");
