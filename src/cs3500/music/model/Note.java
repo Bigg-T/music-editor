@@ -178,7 +178,7 @@ class Note implements INote {
   }
 
   /**
-   * Return true if the given pitch is equal to the note's pitch
+   * Return true if the given pitch is equal to the note's pitch.
    *
    * @param pitch the pitch
    * @return true if the pitch == to derived this note pitch
@@ -196,7 +196,6 @@ class Note implements INote {
     return noteName.toInt() + this.octave * 12;
   }
 
-  //@Todo clean  up the code with lambda/stream, shorter and concise
 
   /**
    * Get the longest note duration in the note.
@@ -232,23 +231,23 @@ class Note implements INote {
   static class NoteComparators {
 
     static final Comparator<Note> DURATION =
-            (thisNote, thatNote)
-                    -> Integer.compare(thisNote.duration.getBeat(), thatNote.duration.getBeat());
+        (thisNote, thatNote)
+            -> Integer.compare(thisNote.duration.getBeat(), thatNote.duration.getBeat());
 
     static final Comparator<Note> OCTAVE =
-            (thisNote, thatNote) -> Integer.compare(thisNote.octave, thatNote.octave);
+        (thisNote, thatNote) -> Integer.compare(thisNote.octave, thatNote.octave);
 
     static final Comparator<Note> NOTE =
-            (thisNote, thatNote) -> {
-              if (thisNote.getNoteName().compareTo(thatNote.getNoteName()) == 0) {
-                return NoteComparators.OCTAVE.compare(thisNote, thatNote);
-              }
-              return thisNote.getNoteName().compareTo(thatNote.getNoteName());
-            };
+        (thisNote, thatNote) -> {
+          if (thisNote.getNoteName().compareTo(thatNote.getNoteName()) == 0) {
+            return NoteComparators.OCTAVE.compare(thisNote, thatNote);
+          }
+          return thisNote.getNoteName().compareTo(thatNote.getNoteName());
+        };
 
     //sort by pitch
     static final Comparator<Note> PITCH =
-            (thisNote, thatNote) ->
+        (thisNote, thatNote) ->
                     Integer.compare(MusicUtils.toPitch(thisNote.noteName, thisNote.octave),
                             MusicUtils.toPitch(thatNote.noteName, thatNote.octave));
 
