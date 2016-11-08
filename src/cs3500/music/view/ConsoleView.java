@@ -32,6 +32,14 @@ public class ConsoleView implements IView {
     this.readable = readable;
   }
 
+  /**
+   * Get the redable.
+   *
+   * @return the readable.
+   */
+  private Readable readable() {
+    return readable;
+  }
 
   /**
    * The note relative position in the array.
