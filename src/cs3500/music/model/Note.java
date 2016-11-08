@@ -258,7 +258,7 @@ class Note implements INote {
      * @param beat  the number of beat the a note will last
      */
     private Duration(int start, int beat) {
-      if ((0 >= beat)) {
+      if ((0 > beat)) {
         throw new IllegalArgumentException("Beat can't be less than 0");
       }
       this.setStart(start);
