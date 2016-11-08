@@ -1,14 +1,21 @@
 package cs3500.music.view;
 
-import cs3500.music.model.*;
+import cs3500.music.model.INote;
+import cs3500.music.model.IBasicMusicEditor;
+import cs3500.music.model.NoteName;
+import cs3500.music.model.NotePlay;
+import cs3500.music.model.BasicMusicEditor;
 import cs3500.music.util.CompositionBuilder;
 import cs3500.music.util.MusicReader;
 import cs3500.music.util.Utils;
 
-import java.io.*;
-import java.util.*;
-import java.util.stream.DoubleStream;
-import java.util.stream.StreamSupport;
+import java.io.FileReader;
+import java.io.Reader;
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+import java.util.ArrayList;
+import java.io.InputStreamReader;
 
 /**
  * Console View.
@@ -106,18 +113,18 @@ public class ConsoleView implements IView {
     this.view = initView(maxBeat, minPitch, maxPitch);
 
     for (int i = 0; i <= maxBeat; i++) {
-      final int temp = i;
+      final int TEMP = i;
       try {
         musicEditor.getAllNotesAt(i).values()
                 .forEach(x -> x.forEach(note -> {
                   int notePos = this.notePosition(note.toString());
-                  this.view.get(temp).add(notePos, NotePlay.NOTE_PLAY.toString());
+                  this.view.get(TEMP).add(notePos, NotePlay.NOTE_PLAY.toString());
                   for (int duration = 1; duration < note.getBeat(); duration++) {
-                    if (this.view.get(temp + duration).get(notePos)
+                    if (this.view.get(TEMP + duration).get(notePos)
                             .equals(NotePlay.NOTE_REST.toString())
-                            && !this.view.get(temp + duration).get(notePos)
+                            && !this.view.get(TEMP + duration).get(notePos)
                             .equals(NotePlay.NOTE_PLAY.toString())) {
-                      this.view.get(temp + duration).add(notePos, NotePlay.NOTE_SUSTAIN.toString());
+                      this.view.get(TEMP + duration).add(notePos, NotePlay.NOTE_SUSTAIN.toString());
                     }
                   }
                 }));
@@ -128,7 +135,7 @@ public class ConsoleView implements IView {
     }
     tryCatchAppendableIO(appendable, toString());
   }
-
+  
   protected Appendable getAppendable() {
     return appendable;
   }
@@ -178,30 +185,6 @@ public class ConsoleView implements IView {
       e.printStackTrace();
     }
 
-  }
-
-  public static void main(String[] args) throws Exception {
-    File f = null;
-    try {
-      f = new File("mary-little-lamb.txt");
-    } catch (Exception e) {
-      return;
-    }
-
-    Readable fr = new FileReader(f);
-    CompositionBuilder<IBasicMusicEditor<INote>> compBuilder =
-            new BasicMusicEditor.BasicCompositionBuilder();
-    IBasicMusicEditor<INote> musicEditor = MusicReader.parseFile(fr, compBuilder);
-
-    Reader read = new InputStreamReader(System.in);
-    ConsoleView test = new ConsoleView(musicEditor, read, System.out);
-    test.initialize();
-    //test.view = test.initView(musicEditor.getLastBeat(), musicEditor.getMinPitch(), musicEditor.getMaxPitch());
-    //System.out.println(musicEditor.getMinPitch() - musicEditor.getMaxPitch());
-    System.out.print(test.toString());
-    //test.produceName().forEach(x -> System.out.print(x));
-//    System.out.println("\n" + musicEditor.getMinPitch());
-//    System.out.println(test.notePosition("E 4"));
   }
 
 }
