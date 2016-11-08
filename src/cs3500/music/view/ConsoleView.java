@@ -5,8 +5,7 @@ import cs3500.music.util.CompositionBuilder;
 import cs3500.music.util.MusicReader;
 import cs3500.music.util.Utils;
 
-import java.io.File;
-import java.io.FileReader;
+import java.io.*;
 import java.util.*;
 import java.util.stream.DoubleStream;
 import java.util.stream.StreamSupport;
@@ -18,9 +17,19 @@ public class ConsoleView implements IView {
 
   private final IBasicMusicEditor<INote> musicEditor;
   private List<List<String>> view = new ArrayList<>();
+  private Appendable appendable = new StringBuilder("");
+  private Readable readable;
 
-  public ConsoleView(IBasicMusicEditor<INote> musicEditor) {
+  /**
+   * Construct an instance of ConsoleView.
+   *
+   * @param musicEditor the music model
+   */
+  public ConsoleView(IBasicMusicEditor<INote> musicEditor,
+                     Readable readable, Appendable appendable) {
     this.musicEditor = musicEditor;
+    this.appendable = appendable;
+    this.readable = readable;
   }
 
 
@@ -117,7 +126,11 @@ public class ConsoleView implements IView {
         continue;
       }
     }
-    System.out.println(toString());
+    tryCatchAppendableIO(appendable, toString());
+  }
+
+  protected Appendable getAppendable() {
+    return appendable;
   }
 
   List<List<String>> initView(int maxBeat, int minPitch, int maxPitch) {
@@ -150,6 +163,23 @@ public class ConsoleView implements IView {
     return builder.toString();
   }
 
+  /**
+   * EFFECT: append an message to appendable.
+   * A method to try catch IOException for calling appendable.
+   *
+   * @param appendable the appendable object
+   * @param msg        the msg appending to appendable
+   */
+  private void tryCatchAppendableIO(Appendable appendable, String msg) {
+    try {
+      String temp = "\n" + msg;
+      appendable.append(temp);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+  }
+
   public static void main(String[] args) throws Exception {
     File f = null;
     try {
@@ -162,7 +192,9 @@ public class ConsoleView implements IView {
     CompositionBuilder<IBasicMusicEditor<INote>> compBuilder =
             new BasicMusicEditor.BasicCompositionBuilder();
     IBasicMusicEditor<INote> musicEditor = MusicReader.parseFile(fr, compBuilder);
-    ConsoleView test = new ConsoleView(musicEditor);
+
+    Reader read = new InputStreamReader(System.in);
+    ConsoleView test = new ConsoleView(musicEditor, read, System.out);
     test.initialize();
     //test.view = test.initView(musicEditor.getLastBeat(), musicEditor.getMinPitch(), musicEditor.getMaxPitch());
     //System.out.println(musicEditor.getMinPitch() - musicEditor.getMaxPitch());

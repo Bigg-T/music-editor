@@ -5,6 +5,9 @@ import com.sun.javaws.exceptions.InvalidArgumentException;
 import cs3500.music.model.IBasicMusicEditor;
 import cs3500.music.model.INote;
 
+import java.io.InputStreamReader;
+import java.io.Reader;
+
 /**
  * A factory for creating views.
  */
@@ -18,7 +21,8 @@ public class ViewFactory {
       case "midi":
         return new MidiViewImpl(musicEditor);
       case "console":
-        return new ConsoleView(musicEditor);
+        Reader read = new InputStreamReader(System.in);
+        return new ConsoleView(musicEditor, read, System.out);
       default:
         throw new IllegalArgumentException("Invalid input");
     }
