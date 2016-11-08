@@ -32,6 +32,9 @@ public class ViewModelTest {
   private IBasicMusicEditor<INote> musicEditor;
 
   @Before
+  /**
+   * Handles setup.
+   */
   public void setUp() throws Exception {
     IBasicMusicEditor<INote> mE = new BasicMusicEditor.BasicCompositionBuilder().
             setTempo(120).build();
