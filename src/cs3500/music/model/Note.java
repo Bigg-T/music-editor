@@ -222,13 +222,13 @@ class Note implements INote {
   static class NoteComparators {
 
     static final Comparator<Note> DURATION = (thisNote, thatNote)
-            -> Integer.compare(thisNote.duration.getBeat(), thatNote.duration.getBeat());
+        -> Integer.compare(thisNote.duration.getBeat(), thatNote.duration.getBeat());
 
     static final Comparator<Note> OCTAVE = (thisNote, thatNote)
-            -> Integer.compare(thisNote.octave, thatNote.octave);
+        -> Integer.compare(thisNote.octave, thatNote.octave);
 
     static final Comparator<Note> NOTE = (thisNote, thatNote)
-            -> {
+        -> {
       if (thisNote.getNoteName().compareTo(thatNote.getNoteName()) == 0) {
         return NoteComparators.OCTAVE.compare(thisNote, thatNote);
       }
@@ -237,7 +237,7 @@ class Note implements INote {
 
     //sort by pitch
     static final Comparator<Note> PITCH = (thisNote, thatNote)
-            -> Integer.compare(MusicUtils.toPitch(thisNote.noteName, thisNote.octave),
+        -> Integer.compare(MusicUtils.toPitch(thisNote.noteName, thisNote.octave),
             MusicUtils.toPitch(thatNote.noteName, thatNote.octave));
 
   }
