@@ -4,18 +4,11 @@ import cs3500.music.model.INote;
 import cs3500.music.model.IBasicMusicEditor;
 import cs3500.music.model.NoteName;
 import cs3500.music.model.NotePlay;
-import cs3500.music.model.BasicMusicEditor;
-import cs3500.music.util.CompositionBuilder;
-import cs3500.music.util.MusicReader;
 import cs3500.music.util.Utils;
 
-import java.io.FileReader;
-import java.io.Reader;
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
-import java.io.InputStreamReader;
 
 /**
  * Console View.
@@ -135,7 +128,7 @@ public class ConsoleView implements IView {
     }
     tryCatchAppendableIO(appendable, toString());
   }
-  
+
   protected Appendable getAppendable() {
     return appendable;
   }
