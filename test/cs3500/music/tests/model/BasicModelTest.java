@@ -13,7 +13,7 @@ import org.junit.Test;
 
 import java.util.SortedMap;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * For the purposes of testing the BasicMusicEditor class.
