@@ -7,9 +7,6 @@ import cs3500.music.util.Utils;
 
 import javax.sound.midi.*;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -19,7 +16,9 @@ public class MidiViewImpl implements IView {
   private final Synthesizer synth;
   private final Receiver receiver;
   private final IBasicMusicEditor<INote> musicEditor;
-
+  /**
+   * Creates MidiViewImp.
+   */
   public MidiViewImpl(IBasicMusicEditor<INote> musicEditor) {
     this.musicEditor = Utils.requireNonNull(musicEditor, "Null MusicEditor");
     Synthesizer synth = null;
@@ -114,8 +113,8 @@ public class MidiViewImpl implements IView {
             MidiMessage start = new ShortMessage(ShortMessage.NOTE_ON, channel, pitch, volume);
             MidiMessage stop = new ShortMessage(ShortMessage.NOTE_OFF, channel, pitch, volume);
             //change the to specific [0,127] Instrument, instead of using default [0,15] channel
-            MidiMessage yo = new ShortMessage(ShortMessage.PROGRAM_CHANGE, channel, note.getChannel(), 0);
-
+            MidiMessage yo = new ShortMessage(ShortMessage.PROGRAM_CHANGE, channel, 
+                                              note.getChannel(), 0);
             MidiEvent midiEvent = new MidiEvent(start, startBeat);
             MidiEvent midiEvent2 = new MidiEvent(stop, startBeat + note.getBeat());
             MidiEvent yoyo = new MidiEvent(yo, startBeat);
