@@ -13,6 +13,9 @@ import java.io.Reader;
  */
 public class ViewFactory {
 
+  /**
+   * Factory method for creating views.
+   */
   public static IView viewFactory(String view, IBasicMusicEditor<INote> musicEditor)
           throws InvalidArgumentException {
     switch (view) {
