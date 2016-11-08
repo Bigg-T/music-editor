@@ -31,10 +31,10 @@ public class ViewModelTest {
 
   private IBasicMusicEditor<INote> musicEditor;
 
-  @Before
   /**
    * Handles setup.
    */
+  @Before
   public void setUp() throws Exception {
     IBasicMusicEditor<INote> mE = new BasicMusicEditor.BasicCompositionBuilder().
             setTempo(120).build();
@@ -45,7 +45,7 @@ public class ViewModelTest {
 
   // tests the getAllNotesAt method
   @Test
-  public void testGetAllNotesAt() throws Exception  {
+  public void testGetAllNotesAt() throws Exception {
     this.setUp();
     musicEditor.add(note0);
     musicEditor.add(note1);
@@ -76,21 +76,21 @@ public class ViewModelTest {
 
   // tests the getLastBeat method
   @Test
-  public void testGetLastBeat() throws Exception  {
+  public void testGetLastBeat() throws Exception {
     this.setUp();
     assertEquals(4, musicEditor.getLastBeat());
   }
 
   // tests the getLastStartBeat method
   @Test
-  public void testGetLastStartBeat() throws Exception  {
+  public void testGetLastStartBeat() throws Exception {
     this.setUp();
     assertEquals(2, musicEditor.getLastStartBeat());
   }
 
   // tests the isUnmodEditor method
   @Test
-  public void testIsViewEditor() throws Exception  {
+  public void testIsViewEditor() throws Exception {
     this.setUp();
     assertEquals(true, musicEditor.isViewEditor());
   }

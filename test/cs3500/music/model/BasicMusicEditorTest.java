@@ -23,7 +23,7 @@ public class BasicMusicEditorTest {
 
   @Before
   public void setUp() throws Exception {
-     this.musicEditor = new BasicMusicEditor(120);
+    this.musicEditor = new BasicMusicEditor(120);
   }
 
   // tests adding a note
