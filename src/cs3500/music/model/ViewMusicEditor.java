@@ -11,7 +11,7 @@ import java.util.TreeMap;
  */
 public class ViewMusicEditor implements IBasicMusicEditor<INote> {
   private final BasicMusicEditor musicEditor;
-  ViewMusicEditor(BasicMusicEditor musicEditor) {
+  public ViewMusicEditor(BasicMusicEditor musicEditor) {
     this.musicEditor = musicEditor;
   }
   @Override

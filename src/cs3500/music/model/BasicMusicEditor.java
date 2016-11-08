@@ -90,7 +90,7 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
   /**
    * Return the casted IMusicEditor to BasicMusicEditor.
    *
-   * @param musicEditor
+   * @param musicEditor the music editor
    * @return casted to basicMusicEditor
    */
   private BasicMusicEditor toBasicMusicEditor(IBasicMusicEditor<INote> musicEditor) {
@@ -151,15 +151,11 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
   public boolean isViewEditor() {
     return false;
   }
-  
-  public static final class BasicCompositionBuilder implements
-          CompositionBuilder<IBasicMusicEditor<INote>> {
+
+  public static final class BasicCompositionBuilder
+          implements CompositionBuilder<IBasicMusicEditor<INote>> {
 
     IBasicMusicEditor<INote> musicEditor;
-
-    public BasicCompositionBuilder()  {
-
-    }
 
     @Override
     public IBasicMusicEditor<INote> build() {

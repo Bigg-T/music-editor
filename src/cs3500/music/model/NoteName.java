@@ -56,10 +56,10 @@ public enum NoteName {
    * @param string string representation of NoteName
    * @return NoteName
    */
-  static NoteName toNoteName(String string) {
+  public static NoteName toNoteName(String string) {
     if (string == null) {
       throw new IllegalArgumentException("Not a representation of "
-              + "cs3500.music.model.NoteName");
+              + "cs3500.model.model.NoteName");
     }
     switch (string) {
       case "C ":
@@ -95,7 +95,7 @@ public enum NoteName {
    * @param base the int rep of noteName
    * @return NoteName
    */
-  static NoteName toNoteName(int base) {
+  public static NoteName toNoteName(int base) {
     int toNote = Utils.toPosMod(base, 12);
     switch (toNote) {
       case 0:

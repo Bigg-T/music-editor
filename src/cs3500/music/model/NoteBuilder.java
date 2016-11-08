@@ -18,7 +18,7 @@ public class NoteBuilder {
    * @param noteName desired noteName value
    * @return updated NoteBuilder
    */
-  NoteBuilder setNoteName(NoteName noteName) {
+  public NoteBuilder setNoteName(NoteName noteName) {
     this.noteName = noteName;
     return this;
   }
@@ -29,7 +29,7 @@ public class NoteBuilder {
    * @param octave desired NoteName value
    * @return updated NoteBuilder
    */
-  NoteBuilder setOctave(int octave) {
+  public NoteBuilder setOctave(int octave) {
     this.octave = octave;
     return this;
   }
@@ -40,7 +40,7 @@ public class NoteBuilder {
    * @param startDuration desired NoteName value
    * @return updated NoteBuilder
    */
-  NoteBuilder setStartDuration(int startDuration) {
+  public NoteBuilder setStartDuration(int startDuration) {
     this.startDuration = startDuration;
     return this;
   }
@@ -51,7 +51,7 @@ public class NoteBuilder {
    * @param numBeats desired number of beats value
    * @return updated NoteBuilder
    */
-  NoteBuilder setNumBeats(int numBeats) {
+  public NoteBuilder setNumBeats(int numBeats) {
     this.numBeats = numBeats;
     return this;
   }
@@ -62,7 +62,7 @@ public class NoteBuilder {
    * @param channel desired channel value
    * @return updated NoteBuilder
    */
-  NoteBuilder setChannel(int channel) {
+  public NoteBuilder setChannel(int channel) {
     this.channel = channel;
     return this;
   }
@@ -73,7 +73,7 @@ public class NoteBuilder {
    * @param volume desired volume value
    * @return updated NoteBuilder
    */
-  NoteBuilder setVolume(int volume) {
+  public NoteBuilder setVolume(int volume) {
     this.volume = volume;
     return this;
   }

@@ -7,7 +7,7 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 /**
- * This represent the a music cs3500.music.model.Note.
+ * This represent the a model cs3500.model.model.Note.
  */
 class Note implements INote {
 
@@ -46,10 +46,14 @@ class Note implements INote {
   }
 
   @Override
-  public int getChannel() { return channel; }
+  public int getChannel() {
+    return channel;
+  }
 
   @Override
-  public int getVolume() { return volume; }
+  public int getVolume() {
+    return volume;
+  }
 
   @Override
   public boolean isViewNote() {
@@ -57,19 +61,29 @@ class Note implements INote {
   }
 
   @Override
-  public int getStartDuration()  {
+  public int getStartDuration() {
     return this.duration.getStart();
   }
 
   @Override
-  public int getBeat()  {
+  public int getBeat() {
     return this.duration.getBeat();
   }
 
+  /**
+   * Offset the start beat by a given offset.
+   *
+   * @param offset the new starting beat
+   */
   void offsetStartBeat(int offset) {
     this.getDuration().setBeat(this.getDuration().getBeat() + offset);
   }
 
+  /**
+   * Set the volume.
+   *
+   * @param volume volume
+   */
   void setVolume(int volume) {
     this.volume = volume;
   }
@@ -175,6 +189,7 @@ class Note implements INote {
 
   /**
    * Return the int representation of the pitch of this note.
+   *
    * @return int representation of pitch
    */
   int toPitch() {
@@ -212,7 +227,7 @@ class Note implements INote {
   }
 
   /**
-   * Comparators for cs3500.music.model.Note.
+   * Comparators for cs3500.model.model.Note.
    */
   static class NoteComparators {
 
@@ -264,7 +279,8 @@ class Note implements INote {
 
     /**
      * Gets this start.
-     * @return  This start
+     *
+     * @return This start
      */
     private int getStart() {
       return start;

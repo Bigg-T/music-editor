@@ -57,6 +57,7 @@ public interface IBasicMusicEditor<K> {
    * @return
    */
   public TreeMap<Integer, SortedMap<Integer, List<INote>>> composition();
+
   int getMinPitch();
 
   int getMaxPitch();

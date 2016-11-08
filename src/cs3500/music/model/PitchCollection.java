@@ -50,6 +50,7 @@ final class PitchCollection {
 
   /**
    * Merge the list together.
+   *
    * @param thatPitchCollect
    * @param offset
    */
@@ -69,8 +70,13 @@ final class PitchCollection {
 
   int longestNoteDuration() {
     try {
-      return this.pitchTreeMap.values().stream()
-              .mapToInt(Pitch::longestNoteDuration).max().getAsInt();
+      int max = this.pitchTreeMap.values().stream()
+              .mapToInt(Pitch::longestNoteDuration)
+              .max()
+              .getAsInt();
+
+      //System.out.println(max);
+      return max;
     } catch (Exception e) {
       throw new IllegalArgumentException("Number doesn't exist.");
     }

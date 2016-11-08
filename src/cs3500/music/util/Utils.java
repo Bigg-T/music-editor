@@ -3,7 +3,7 @@ package cs3500.music.util;
 import com.sun.istack.internal.NotNull;
 
 /**
- * cs3500.music.model.Utils class.
+ * cs3500.model.model.Utils class.
  */
 public final class Utils {
 

@@ -150,12 +150,12 @@ public class MidiViewImpl implements MidiView {
     this.playNote();
   }
 
-  public Sequence model(IBasicMusicEditor<INote> inote, Sequence sequence) {
+  private Sequence model(IBasicMusicEditor<INote> inote, Sequence sequence) {
 
     //creating 16 tracks
     Track track = sequence.createTrack();
 
-    inote.composition().values().parallelStream().forEach(map -> {
+    inote.composition().values().forEach(map -> {
       map.values().forEach(notes -> {
         notes.forEach(note -> {
           int pitch = MusicUtils.toPitch(note.getNoteName(), note.getOctave());
