@@ -51,41 +51,13 @@ public class BasicMusicEditorTest {
     assertEquals(true, musicEditor.remove(note2));
   }
 
-  // tests merging two editors consecutively
-  @Test
-  public void testMergeConsec() throws Exception {
-    this.setUp();
-    IBasicMusicEditor<INote> newEditor = new BasicMusicEditor(100);
-    musicEditor.add(note0);
-    newEditor.add(note1);
-    Note noteAfterMove = new NoteBuilder().setNoteName(NoteName.C).setOctave(4).setChannel(0).
-            setVolume(5).setStartDuration(4).setNumBeats(2).buildNote();
-    //assertEquals(true, musicEditor.remove(noteAfterMove));
-  }
-
-  // tests merging two editors simultaneously
-  @Test
-  public void testMergeSimul() throws Exception {
-    this.setUp();
-    IBasicMusicEditor<INote> newEditor = new BasicMusicEditor(100);
-    musicEditor.add(note0);
-    newEditor.add(note1);
-    //assertEquals(true, musicEditor.remove(note1));
-  }
-
-  // tests the getAllNotesAt method
-  @Test
-  public void testGetAllNotesAt() throws Exception {
-
-  }
-
   // tests the getMinPitch method
   @Test
   public void testMinPitch() throws Exception {
     this.setUp();
     musicEditor.add(note0);
     musicEditor.add(note1);
-    //assertEquals(60, musicEditor.getMinPitch());
+    assertEquals(60, musicEditor.getMinPitch());
   }
 
   // tests the getMaxPitch method
