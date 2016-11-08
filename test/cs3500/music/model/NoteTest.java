@@ -1,9 +1,9 @@
 package cs3500.music.model;
 
-import org.junit.Assert;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+
 
 /**
  * Testing for Note class.
@@ -22,7 +22,7 @@ public class NoteTest {
           setNumBeats(1).setChannel(0).setVolume(5).buildNote();
 
   @Test
-  public void testNoteToString()  {
+  public void testNoteToString() {
     assertEquals("C 4", note0.toString());
     assertEquals("A 4", note1.toString());
     assertEquals("C♯4", note2.toString());
@@ -30,14 +30,14 @@ public class NoteTest {
   }
 
   @Test
-  public void testNoteEquals()  {
+  public void testNoteEquals() {
     assertEquals(true, note0.equals(note0Copy));
     assertEquals(false, note0.equals(note1));
   }
 
   //@TODO need to separate theses getter to its own test
   @Test
-  public void testGetters()  {
+  public void testGetters() {
     assertEquals(NoteName.C, note0.getNoteName());
     assertEquals(4, note0.getOctave());
     assertEquals(2, note0.getStartDuration());
@@ -47,20 +47,20 @@ public class NoteTest {
   }
 
   @Test
-  public void testIsViewNote()  {
+  public void testIsViewNote() {
     assertEquals(false, note0.isViewNote());
   }
 
   //Note is not ViewNote
   @Test
   public void testIsViewNote2() throws Exception {
-    Assert.assertEquals(false, note0.isViewNote());
+    assertEquals(false, note0.isViewNote());
   }
 
   //ViewNote is a ViewNote
   @Test
   public void testIsViewNote3() throws Exception {
-    Assert.assertEquals(true, NoteBuilder.buildNote(note0).isViewNote());
+    assertEquals(true, NoteBuilder.buildNote(note0).isViewNote());
   }
 
 }

@@ -23,7 +23,7 @@ public class BasicMusicEditorTest {
 
   @Before
   public void setUp() throws Exception {
-   this.musicEditor = new BasicMusicEditor(120);
+    this.musicEditor = new BasicMusicEditor(120);
   }
 
   // tests adding a note
@@ -44,7 +44,7 @@ public class BasicMusicEditorTest {
 
   // tests editing a note
   @Test
-  public void testEdit() throws Exception  {
+  public void testEdit() throws Exception {
     this.setUp();
     musicEditor.add(note0);
     musicEditor.edit(note0, 4, 10);
@@ -53,7 +53,7 @@ public class BasicMusicEditorTest {
 
   // tests merging two editors consecutively
   @Test
-  public void testMergeConsec() throws Exception  {
+  public void testMergeConsec() throws Exception {
     this.setUp();
     IBasicMusicEditor<INote> newEditor = new BasicMusicEditor(100);
     musicEditor.add(note0);
@@ -65,7 +65,7 @@ public class BasicMusicEditorTest {
 
   // tests merging two editors simultaneously
   @Test
-  public void testMergeSimul() throws Exception  {
+  public void testMergeSimul() throws Exception {
     this.setUp();
     IBasicMusicEditor<INote> newEditor = new BasicMusicEditor(100);
     musicEditor.add(note0);
@@ -75,7 +75,7 @@ public class BasicMusicEditorTest {
 
   // tests the getAllNotesAt method
   @Test
-  public void testGetAllNotesAt() throws Exception  {
+  public void testGetAllNotesAt() throws Exception {
 
   }
 
@@ -106,7 +106,7 @@ public class BasicMusicEditorTest {
 
   // tests the getLastBeat method
   @Test
-  public void testGetLastBeat() throws Exception  {
+  public void testGetLastBeat() throws Exception {
     this.setUp();
     musicEditor.add(note0);
     assertEquals(4, musicEditor.getLastBeat());
@@ -114,7 +114,7 @@ public class BasicMusicEditorTest {
 
   // tests the getLastStartBeat method
   @Test
-  public void testGetLastStartBeat() throws Exception  {
+  public void testGetLastStartBeat() throws Exception {
     this.setUp();
     musicEditor.add(note0);
     assertEquals(2, musicEditor.getLastStartBeat());
@@ -122,13 +122,10 @@ public class BasicMusicEditorTest {
 
   // tests the isUnmodEditor method
   @Test
-  public void testIsViewEditor() throws Exception  {
+  public void testIsViewEditor() throws Exception {
     this.setUp();
     assertEquals(false, musicEditor.isViewEditor());
   }
-
-
-
 
 
 }

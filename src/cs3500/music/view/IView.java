@@ -5,6 +5,10 @@ package cs3500.music.view;
  */
 public interface IView {
 
+  /**
+   * Initialize View.
+   * @throws Exception if view can't not be initiallize.
+   */
   public void initialize() throws Exception;
 
 }

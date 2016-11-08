@@ -113,17 +113,6 @@ class Note implements INote {
   }
 
   /**
-   * Throws a Illegal exception argument if the int is not positive.
-   *
-   * @param num a number
-   */
-  private void requirePosNum(int num) {
-    if (num < 1) {
-      throw new IllegalArgumentException("Require a positive number.");
-    }
-  }
-
-  /**
    * EFFECT: Change the end duration to new duration.
    *
    * @param beat the new number of duration in beat
@@ -231,23 +220,23 @@ class Note implements INote {
   static class NoteComparators {
 
     static final Comparator<Note> DURATION =
-        (thisNote, thatNote)
-            -> Integer.compare(thisNote.duration.getBeat(), thatNote.duration.getBeat());
+            (thisNote, thatNote)
+                    -> Integer.compare(thisNote.duration.getBeat(), thatNote.duration.getBeat());
 
     static final Comparator<Note> OCTAVE =
-        (thisNote, thatNote) -> Integer.compare(thisNote.octave, thatNote.octave);
+            (thisNote, thatNote) -> Integer.compare(thisNote.octave, thatNote.octave);
 
     static final Comparator<Note> NOTE =
-        (thisNote, thatNote) -> {
-          if (thisNote.getNoteName().compareTo(thatNote.getNoteName()) == 0) {
-            return NoteComparators.OCTAVE.compare(thisNote, thatNote);
-          }
-          return thisNote.getNoteName().compareTo(thatNote.getNoteName());
-        };
+            (thisNote, thatNote) -> {
+              if (thisNote.getNoteName().compareTo(thatNote.getNoteName()) == 0) {
+                return NoteComparators.OCTAVE.compare(thisNote, thatNote);
+              }
+              return thisNote.getNoteName().compareTo(thatNote.getNoteName());
+            };
 
     //sort by pitch
     static final Comparator<Note> PITCH =
-        (thisNote, thatNote) ->
+            (thisNote, thatNote) ->
                     Integer.compare(MusicUtils.toPitch(thisNote.noteName, thisNote.octave),
                             MusicUtils.toPitch(thatNote.noteName, thatNote.octave));
 

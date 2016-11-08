@@ -1,24 +1,16 @@
 package cs3500.music;
 
-import com.sun.javaws.exceptions.InvalidArgumentException;
-
 import cs3500.music.model.BasicMusicEditor;
 import cs3500.music.model.IBasicMusicEditor;
 import cs3500.music.model.INote;
-import cs3500.music.model.ViewMusicEditor;
 import cs3500.music.util.CompositionBuilder;
 import cs3500.music.util.MusicReader;
-import cs3500.music.view.GuiViewFrame;
-import cs3500.music.view.MidiView;
-import cs3500.music.view.MidiViewImpl;
 import cs3500.music.view.IView;
 import cs3500.music.view.ViewFactory;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Files;
 
 import javax.sound.midi.InvalidMidiDataException;
 
@@ -28,7 +20,7 @@ public class MusicEditor {
     File f = null;
     try {
       f = new File(args[0]);
-    } catch (Exception e)  {
+    } catch (Exception e) {
       return;
     }
 
@@ -44,7 +36,6 @@ public class MusicEditor {
       return;
     }
   }
-
 
 
 }

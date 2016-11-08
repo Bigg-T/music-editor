@@ -12,7 +12,7 @@ public class ViewFactory {
 
   public static IView viewFactory(String view, IBasicMusicEditor<INote> musicEditor)
           throws InvalidArgumentException {
-    switch(view)  {
+    switch (view) {
       case "visual":
         return new GuiViewFrame(musicEditor);
       case "midi":

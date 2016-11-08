@@ -1,6 +1,6 @@
 package cs3500.music.model;
 
-
+import cs3500.music.util.CompositionBuilder;
 
 import java.util.List;
 import java.util.SortedMap;
@@ -34,9 +34,9 @@ public interface IBasicMusicEditor<K> {
    * EFFECT: Change the duration of the note.
    * Return true if the operation is completed successfully.
    *
-   * @param note the note
-   * @param duration    the the duration of the beat
-   * @param volume the volume  the note
+   * @param note     the note
+   * @param duration the the duration of the beat
+   * @param volume   the volume  the note
    * @return return the true if the beat is successfully added
    */
   public boolean edit(K note, int duration, int volume);
@@ -49,24 +49,55 @@ public interface IBasicMusicEditor<K> {
    */
   public void merge(IBasicMusicEditor<K> piece, boolean isConsecutive);
 
-  public SortedMap<Integer, List<INote>> getAllNotesAt(int beatNum);
+  SortedMap<Integer, List<INote>> getAllNotesAt(int beatNum);
 
   /**
-   * Integer is the beat number.
-   * SortedMap Integer is the pitch number.
-   * @return
+   * Integer -> is the beat number.
+   * SortedMap Integer -> the pitch number.
+   *
+   * @return the whole map of notes
    */
   public TreeMap<Integer, SortedMap<Integer, List<INote>>> composition();
 
+  /**
+   * Return the minimum Pitch.
+   *
+   * @return min pitch
+   */
   int getMinPitch();
 
+  /**
+   * Return the maximun Pitch.
+   *
+   * @return the max pitch
+   */
   int getMaxPitch();
 
+  /**
+   * Return the Tempo in MPQ.
+   *
+   * @return tempo in MPQ
+   */
   int getTempo();
 
+  /**
+   * Return the last starting beat.
+   *
+   * @return the beat
+   */
   int getLastStartBeat();
 
+  /**
+   * Return the last beat in the composition.
+   *
+   * @return the last beat in int composition.
+   */
   int getLastBeat();
 
+  /**
+   * True if the type viewEditor. Safe casting.
+   *
+   * @return true if an ViewEditor
+   */
   boolean isViewEditor();
 }

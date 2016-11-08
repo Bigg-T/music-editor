@@ -25,7 +25,7 @@ public class ConcreteGuiViewPanel extends JPanel {
 
   IBasicMusicEditor<INote> musicEditor;
 
-  ConcreteGuiViewPanel(IBasicMusicEditor<INote> musicEditor)  {
+  ConcreteGuiViewPanel(IBasicMusicEditor<INote> musicEditor) {
     this.musicEditor = musicEditor;
     int width = (noteWidth * (musicEditor.getMaxPitch() - musicEditor.getMinPitch())) + 100;
     int height = (noteHeight * musicEditor.getLastBeat()) + 80;
@@ -39,23 +39,22 @@ public class ConcreteGuiViewPanel extends JPanel {
     int baseRight = 50;
     int baseDown = 40;
     g.setColor(Color.BLUE);
-    for (int i = 0; i <= musicEditor.getLastStartBeat(); i++)  {
+    for (int i = 0; i <= musicEditor.getLastStartBeat(); i++) {
       int x = baseRight + (i * noteWidth);
       SortedMap<Integer, List<INote>> notes = new TreeMap();
       try {
         notes = musicEditor.getAllNotesAt(i);
-      }  catch (NullPointerException npe)  {
+      } catch (NullPointerException npe) {
         continue;
       }
-      for (int j = musicEditor.getMinPitch(); j <= musicEditor.getMaxPitch(); j++)  {
+      for (int j = musicEditor.getMinPitch(); j <= musicEditor.getMaxPitch(); j++) {
         int y = baseDown + ((musicEditor.getMaxPitch() - j) * noteHeight);
-        if (notes.get(j) == null)  {
+        if (notes.get(j) == null) {
           continue;
-        }
-        else {
+        } else {
           int currentMax = 0;
-          for (INote note : notes.get(j))  {
-            if (note.getBeat() > currentMax)  {
+          for (INote note : notes.get(j)) {
+            if (note.getBeat() > currentMax) {
               currentMax = note.getBeat();
             }
             g.fillRect(x, y, (noteWidth * currentMax) - 1, noteHeight);
@@ -67,14 +66,14 @@ public class ConcreteGuiViewPanel extends JPanel {
       }
     }
     g.setColor(Color.BLACK);
-    for (int i = 0; i < musicEditor.getLastBeat(); i += 2)  {
-      for (int j = musicEditor.getMinPitch(); j <= musicEditor.getMaxPitch(); j++)  {
+    for (int i = 0; i < musicEditor.getLastBeat(); i += 2) {
+      for (int j = musicEditor.getMinPitch(); j <= musicEditor.getMaxPitch(); j++) {
         int x = baseRight + (i * noteWidth);
         int y = baseDown + ((musicEditor.getMaxPitch() - j) * noteHeight);
         g.drawRect(x, y, noteWidth * 2, noteHeight);
       }
     }
-    for (int j = musicEditor.getMinPitch(); j <= musicEditor.getMaxPitch(); j++)  {
+    for (int j = musicEditor.getMinPitch(); j <= musicEditor.getMaxPitch(); j++) {
       g.drawString(MusicUtils.pitchToString(j), 15, 55 +
               (noteHeight * (musicEditor.getMaxPitch() - j)));
     }

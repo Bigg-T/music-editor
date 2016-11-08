@@ -7,7 +7,7 @@ public class ViewNote implements INote {
 
   Note note;
 
-  public ViewNote(Note note)  {
+  public ViewNote(Note note) {
     this.note = note;
   }
 

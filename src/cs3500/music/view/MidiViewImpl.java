@@ -13,9 +13,9 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
- * A skeleton for MIDI playback
+ * MIDI playback .
  */
-public class MidiViewImpl implements MidiView {
+public class MidiViewImpl implements IView {
   private final Synthesizer synth;
   private final Receiver receiver;
   private final IBasicMusicEditor<INote> musicEditor;
@@ -69,71 +69,17 @@ public class MidiViewImpl implements MidiView {
    */
 
   public void playNote() throws InvalidMidiDataException {
-    MidiMessage start = new ShortMessage(ShortMessage.NOTE_ON, 10, 60, 110);
-    MidiMessage stop = new ShortMessage(ShortMessage.NOTE_OFF, 10, 60, 110);
-
-    MidiMessage start2 = new ShortMessage(ShortMessage.NOTE_ON, 3, 110, 110);
-    MidiMessage stop2 = new ShortMessage(ShortMessage.NOTE_OFF, 3, 110, 110);
-//
-//    this.receiver.send(start, -1);
-//    long timeStamp = this.synth.getMicrosecondPosition() + 200000;
-//    this.receiver.send(stop, timeStamp);
-//
-//    this.receiver.send(start2, 0);
-//    timeStamp += this.synth.getMicrosecondPosition() + 200000;
-//    this.receiver.send(stop2, timeStamp);
-    //this.receiver.close(); // Only call this once you're done playing *all* notes
-    //long tick = (timeStamp * 300)/ (60*1000000);
-
-    Sequence sequence = new Sequence(Sequence.PPQ, 480);
-    Track track = sequence.createTrack();
-    MidiEvent midiEvent = new MidiEvent(start, 350);
-    MidiEvent midiEvent1 = new MidiEvent(stop, 350);
-
-    MidiEvent midiEvent2 = new MidiEvent(start2, 700);
-    MidiEvent midiEvent3 = new MidiEvent(stop2, 700);
-
-    track.add(midiEvent);
-    //track.add(midiEvent1);
-
-    track.add(midiEvent2);
-    track.add(midiEvent3);
-
-
-    Patch[] p = sequence.getPatchList();
-    List<Instrument> in = new ArrayList<>();
-    List<Patch> lp = new ArrayList<>(Arrays.asList(p));
-//    System.out.println(sequence.getResolution());
-//    System.out.println(sequence.getTickLength());
     Sequence test = model(this.musicEditor, new Sequence(Sequence.PPQ, 1));
     try {
       Sequencer ss = MidiSystem.getSequencer();
       ss.setTempoInMPQ(musicEditor.getTempo());
-
-      InputStream ip = new BufferedInputStream(new FileInputStream(new File("120c4-.mid")));
       ss.open();
       ss.setSequence(test);
-//      System.out.println(ss.getSequence().getResolution());
-//      System.out.println(ss.getSequence().getTickLength());
-//      System.out.println(ss.getSequence().getMicrosecondLength());
-//      System.out.println(ss.getTempoInBPM());
-//      System.out.println(ss.getTempoInMPQ());
 
-      Sequence rev = ss.getSequence();
-      Track[] tracks = rev.getTracks();
-      Patch[] patch = rev.getPatchList();
-      System.out.println(tracks.length);
-
-//      Debugging
-//      Arrays.asList(tracks[1])
-//              .forEach(x -> System.out.print("Midi\n" + yo(x.size(), x)));
-//      Arrays.asList(tracks).forEach(x -> System.out.println(x.ticks()));
-//      Arrays.asList(patch).forEach(x -> System.out.println(x.getBank()));
-//      System.out.println(patch.length);
       ss.start();
       receiver.close();
       synth.close();
-      TimeUnit.MICROSECONDS.sleep(ss.getSequence().getMicrosecondLength());
+      TimeUnit.MICROSECONDS.sleep(ss.getSequence().getMicrosecondLength() / 6);
       //model(null, new Sequence(Sequence.PPQ, 100));
 
       ss.close();
@@ -151,10 +97,8 @@ public class MidiViewImpl implements MidiView {
   }
 
   private Sequence model(IBasicMusicEditor<INote> inote, Sequence sequence) {
-
     //creating 16 tracks
     Track track = sequence.createTrack();
-
     inote.composition().values().forEach(map -> {
       map.values().forEach(notes -> {
         notes.forEach(note -> {
@@ -210,26 +154,8 @@ public class MidiViewImpl implements MidiView {
     return m.toString();
   }
 
+  public static void main(String[] args) throws Exception {
 
-  public void test() throws InvalidMidiDataException {
-    MidiChannel chan[] = synth.getChannels();
-    // Check for null; maybe not all 16 channels exist.
-    if (chan[4] != null) {
-      List<Integer> start = new ArrayList<>(Arrays.asList(1, 4, 9, 30, 60));
-      List<Integer> end = new ArrayList<>(Arrays.asList(6, 8, 11, 35, 70));
-      for (int i = 0; i < start.size(); i++) {
-        MidiMessage start2 = new ShortMessage(ShortMessage.NOTE_ON, 3, start.get(i), end.get(i));
-        try {
-          TimeUnit.MICROSECONDS.sleep(100);
-        } catch (InterruptedException e) {
-          e.printStackTrace();
-        }
-        MidiMessage stop = new ShortMessage(ShortMessage.NOTE_OFF, 3, start.get(i), end.get(i));
-        this.receiver.send(start2, i);
-        this.receiver.send(stop, this.synth.getMicrosecondPosition() + 200000);
-        chan[4].noteOn(start.get(i), end.get(i));
-      }
-      //chan[6].noteOn(60, 61);
-    }
+    MidiMessage start = new ShortMessage(ShortMessage.NOTE_ON, 10, 60, 110);
   }
 }

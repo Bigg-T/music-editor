@@ -13,11 +13,22 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
   private TreeMap<Integer, PitchCollection> piece;
   private final int tempo;
 
+  /**
+   * Construct an instance of BasicMusic Editor.
+   *
+   * @param tempo the composition tempo in MPQ
+   */
   BasicMusicEditor(int tempo) {
     this.piece = new TreeMap<>();
     this.tempo = tempo;
   }
 
+  /**
+   * Casting to Note.
+   *
+   * @param note the INote
+   * @return the Note
+   */
   private Note castToNote(INote note) {
     if (note == null) {
       throw new IllegalArgumentException("Note is null.");
@@ -26,7 +37,6 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
     }
     return (Note) note;
   }
-
 
   @Override
   public boolean add(INote note) {
@@ -52,7 +62,6 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
     return piece.get(noteStartBeat).remove(castedNote);
   }
 
-  //@TODO need to change some logic to sustain program invar about not having duplicate
   @Override
   public boolean edit(INote note, int duration, int volume) {
     Note castedNote = this.castToNote(note);
@@ -152,6 +161,9 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
     return false;
   }
 
+  /**
+   * Builder for CompositionBuilder.
+   */
   public static final class BasicCompositionBuilder
           implements CompositionBuilder<IBasicMusicEditor<INote>> {
 

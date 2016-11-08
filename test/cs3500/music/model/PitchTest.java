@@ -3,11 +3,8 @@ package cs3500.music.model;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.lang.reflect.Field;
-import java.util.List;
-
 /**
- * Created by tiger on 10/31/16.
+ * Test Pitch.
  */
 public class PitchTest {
 

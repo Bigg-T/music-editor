@@ -50,15 +50,16 @@ final class PitchCollection {
 
   /**
    * Merge the list together.
-   * @param thatPitchCollect  pitchCollection to change
-   * @param offset            offset to use
+   *
+   * @param thatPitchCollect pitchCollection to change
+   * @param offset           offset to use
    */
   void merge(PitchCollection thatPitchCollect, int offset) {
     Utils.requireNonNull(thatPitchCollect, "Null PitchCollection.");
     Set<Integer> thatKeys = thatPitchCollect.pitchTreeMap.keySet();
 
     thatKeys.forEach(
-        x -> this.pitchTreeMap.get(x).merge(thatPitchCollect.pitchTreeMap.get(x), offset));
+            x -> this.pitchTreeMap.get(x).merge(thatPitchCollect.pitchTreeMap.get(x), offset));
 
   }
 

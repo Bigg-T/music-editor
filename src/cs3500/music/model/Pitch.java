@@ -86,7 +86,7 @@ class Pitch {
 
     note = Utils.requireNonNull(note, "Null note");
 
-    this.noteList.get(this.noteList.indexOf(note)).setBeat(duration);
+    this.noteList.get(this.noteList.indexOf(note)).editDuration(duration);
     this.noteList.get(this.noteList.indexOf(note)).setVolume(volume);
     this.sortByDuration();
     return true;

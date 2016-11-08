@@ -3,8 +3,6 @@ package cs3500.music.model;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 /**
  * For the purposes of testing ViewNote.
  */
@@ -48,7 +46,7 @@ public class ViewNoteTest {
 
   @Test
   public void testVolume()  {
-    Assert.assertEquals(0, viewNote0.getVolume());
+    Assert.assertEquals(5, viewNote0.getVolume());
   }
 
 }
