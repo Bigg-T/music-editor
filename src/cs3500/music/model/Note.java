@@ -2,9 +2,11 @@ package cs3500.music.model;
 
 import cs3500.music.util.MusicUtils;
 
-import java.util.*;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Objects;
+import java.util.OptionalInt;
 
 /**
  * This represent the a model cs3500.model.model.Note.
@@ -219,26 +221,24 @@ class Note implements INote {
    */
   static class NoteComparators {
 
-    static final Comparator<Note> DURATION =
-            (thisNote, thatNote)
-                    -> Integer.compare(thisNote.duration.getBeat(), thatNote.duration.getBeat());
+    static final Comparator<Note> DURATION = (thisNote, thatNote)
+            -> Integer.compare(thisNote.duration.getBeat(), thatNote.duration.getBeat());
 
-    static final Comparator<Note> OCTAVE =
-            (thisNote, thatNote) -> Integer.compare(thisNote.octave, thatNote.octave);
+    static final Comparator<Note> OCTAVE = (thisNote, thatNote)
+            -> Integer.compare(thisNote.octave, thatNote.octave);
 
-    static final Comparator<Note> NOTE =
-            (thisNote, thatNote) -> {
-              if (thisNote.getNoteName().compareTo(thatNote.getNoteName()) == 0) {
-                return NoteComparators.OCTAVE.compare(thisNote, thatNote);
-              }
-              return thisNote.getNoteName().compareTo(thatNote.getNoteName());
-            };
+    static final Comparator<Note> NOTE = (thisNote, thatNote)
+            -> {
+      if (thisNote.getNoteName().compareTo(thatNote.getNoteName()) == 0) {
+        return NoteComparators.OCTAVE.compare(thisNote, thatNote);
+      }
+      return thisNote.getNoteName().compareTo(thatNote.getNoteName());
+    };
 
     //sort by pitch
-    static final Comparator<Note> PITCH =
-            (thisNote, thatNote) ->
-                    Integer.compare(MusicUtils.toPitch(thisNote.noteName, thisNote.octave),
-                            MusicUtils.toPitch(thatNote.noteName, thatNote.octave));
+    static final Comparator<Note> PITCH = (thisNote, thatNote)
+            -> Integer.compare(MusicUtils.toPitch(thisNote.noteName, thisNote.octave),
+            MusicUtils.toPitch(thatNote.noteName, thatNote.octave));
 
   }
 

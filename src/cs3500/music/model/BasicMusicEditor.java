@@ -2,7 +2,10 @@ package cs3500.music.model;
 
 import cs3500.music.util.CompositionBuilder;
 
-import java.util.*;
+import java.util.List;
+import java.util.Set;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 /**
  * The MusicEditor.
