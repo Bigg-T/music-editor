@@ -10,10 +10,13 @@ import java.util.TreeMap;
  * Created by tiger on 11/2/16.
  */
 public class ViewMusicEditor implements IBasicMusicEditor<INote> {
+  
   private final BasicMusicEditor musicEditor;
+  
   public ViewMusicEditor(BasicMusicEditor musicEditor) {
     this.musicEditor = musicEditor;
   }
+  
   @Override
   public boolean add(INote note) {
     return false;
@@ -31,12 +34,12 @@ public class ViewMusicEditor implements IBasicMusicEditor<INote> {
 
   @Override
   public void merge(IBasicMusicEditor<INote> piece, boolean isConsecutive) {
-
+    return;
   }
 
   @Override
   public SortedMap<Integer, List<INote>> getAllNotesAt(int beatNum) {
-    return null;
+    return musicEditor.getAllNotesAt(beatNum);
   }
 
   @Override
@@ -48,27 +51,27 @@ public class ViewMusicEditor implements IBasicMusicEditor<INote> {
 
   @Override
   public int getMinPitch() {
-    return 0;
+    return musicEditor.getMinPitch();
   }
 
   @Override
   public int getMaxPitch() {
-    return 0;
+    return musicEditor.getMaxPitch();
   }
 
   @Override
   public int getTempo() {
-    return 0;
+    return musicEditor.getTempo();
   }
 
   @Override
   public int getLastStartBeat() {
-    return 0;
+    return musicEditor.getLastStartBeat();
   }
 
   @Override
   public int getLastBeat() {
-    return 0;
+    return musicEditor.getLastBeat();
   }
 
   @Override
