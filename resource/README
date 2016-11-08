@@ -1,0 +1,13 @@
+For our model, we made a relatively simple interface guaranteeing basic functionality (rendering, combining, adding/editing notes), 
+in addition to getters. 
+The interface is generic over the note type. This allows for a more broad model, with a number of possible implementations. 
+We then made a basic implementation using an INote interface we created. The model used a TreeMap mapping beats to PitchCollections, which
+then mapped to pitches with lists of the Notes at that pitch at that time. 
+It added the pieces by putting them in the calling the add method on the PitchCollection at the correct beat, 
+then adding to the correct Pitch from there.
+For combining simultaneously, the other model is cast as a BasicMusicEditor model (from within the class), 
+and then the notes from its list are added.
+For combining consecutively, the notes to be added are moved over by the current length of the piece.
+We implemented a ViewModel as a wrapper for our original class, with a BasicMusicEditor field and restricted functionality (inability to 
+add/remove/edit notes).
+From there, the midi, console, and gui implementations use the existed functionality to reder the piece respectively.
