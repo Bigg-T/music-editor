@@ -5,17 +5,28 @@ import cs3500.music.model.INote;
 import cs3500.music.util.MusicUtils;
 import cs3500.music.util.Utils;
 
-import javax.sound.midi.*;
-import java.io.*;
+import javax.sound.midi.InvalidMidiDataException;
+import javax.sound.midi.MidiChannel;
+import javax.sound.midi.MidiEvent;
+import javax.sound.midi.MidiMessage;
+import javax.sound.midi.MidiSystem;
+import javax.sound.midi.MidiUnavailableException;
+import javax.sound.midi.Receiver;
+import javax.sound.midi.Sequence;
+import javax.sound.midi.Sequencer;
+import javax.sound.midi.ShortMessage;
+import javax.sound.midi.Synthesizer;
+import javax.sound.midi.Track;
 import java.util.concurrent.TimeUnit;
 
 /**
- * MIDI playback .
+ * MIDI playback.
  */
 public class MidiViewImpl implements IView {
   private final Synthesizer synth;
   private final Receiver receiver;
   private final IBasicMusicEditor<INote> musicEditor;
+
   /**
    * Creates MidiViewImp.
    */
@@ -113,8 +124,8 @@ public class MidiViewImpl implements IView {
             MidiMessage start = new ShortMessage(ShortMessage.NOTE_ON, channel, pitch, volume);
             MidiMessage stop = new ShortMessage(ShortMessage.NOTE_OFF, channel, pitch, volume);
             //change the to specific [0,127] Instrument, instead of using default [0,15] channel
-            MidiMessage yo = new ShortMessage(ShortMessage.PROGRAM_CHANGE, channel, 
-                                              note.getChannel(), 0);
+            MidiMessage yo = new ShortMessage(ShortMessage.PROGRAM_CHANGE, channel,
+                    note.getChannel(), 0);
             MidiEvent midiEvent = new MidiEvent(start, startBeat);
             MidiEvent midiEvent2 = new MidiEvent(stop, startBeat + note.getBeat());
             MidiEvent yoyo = new MidiEvent(yo, startBeat);
@@ -131,30 +142,5 @@ public class MidiViewImpl implements IView {
       });
     });
     return sequence;
-  }
-
-  private String yo(int n, Track track) {
-    StringBuilder b = new StringBuilder("");
-    for (int i = 0; i < n; i++) {
-      MidiEvent midiEvent = track.get(i);
-      b.append("" + i + "Len" + midiEvent.getMessage().getLength()
-              + "  BytS" + y(midiEvent.getMessage().getMessage())
-              + "  Stat" + midiEvent.getMessage().getStatus()
-              + "  Tick" + midiEvent.getTick() + "\n");
-    }
-    return b.toString();
-  }
-
-  private String y(byte[] b) {
-    StringBuilder m = new StringBuilder("");
-    for (byte u : b) {
-      m.append(" " + u);
-    }
-    return m.toString();
-  }
-
-  public static void main(String[] args) throws Exception {
-
-    MidiMessage start = new ShortMessage(ShortMessage.NOTE_ON, 10, 60, 110);
   }
 }
