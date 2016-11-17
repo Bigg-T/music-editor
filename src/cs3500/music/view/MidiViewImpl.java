@@ -26,6 +26,9 @@ public class MidiViewImpl implements IView {
   private final Synthesizer synth;
   private final Receiver receiver;
   private final IBasicMusicEditor<INote> musicEditor;
+  //place holder, assuming that getTickPosition() will not produce a 0 at start,
+  //-1 mean that the midi is over.
+  private long currentPosition = 0;
 
   /**
    * Creates MidiViewImp.
@@ -38,7 +41,8 @@ public class MidiViewImpl implements IView {
       synth = MidiSystem.getSynthesizer();
       receiver = synth.getReceiver();
       synth.open();
-    } catch (MidiUnavailableException e) {
+    }
+    catch (MidiUnavailableException e) {
       e.printStackTrace();
     }
 
@@ -85,17 +89,25 @@ public class MidiViewImpl implements IView {
       ss.setTempoInMPQ(musicEditor.getTempo());
       ss.open();
       ss.setSequence(test);
-
+      long st = System.nanoTime();
       ss.start();
       receiver.close();
       synth.close();
-      TimeUnit.MICROSECONDS.sleep(ss.getSequence().getMicrosecondLength() / 6);
-      //model(null, new Sequence(Sequence.PPQ, 100));
 
+      while (ss.isRunning()) {
+        long currentPosition = ss.getTickPosition();
+        if (currentPosition != this.currentPosition) {
+          System.out.println(this.currentPosition);
+          this.currentPosition = currentPosition;
+          //System.out.println(ss.getMicrosecondPosition());
+        }
+      }
+      //this.currentPosition = 0;
+      System.out.println(this.currentPosition);
       ss.close();
 
-
-    } catch (Exception e) {
+    }
+    catch (Exception e) {
       e.printStackTrace();
     }
 
@@ -104,6 +116,11 @@ public class MidiViewImpl implements IView {
   @Override
   public void initialize() throws Exception {
     this.playNote();
+  }
+
+  @Override
+  public long getCurrentTick() {
+    return 0;
   }
 
   private Sequence model(IBasicMusicEditor<INote> inote, Sequence sequence) {
@@ -116,7 +133,7 @@ public class MidiViewImpl implements IView {
           //coverting 1 base index to 0 base index
           int channel = (note.getChannel() - 1) % 16;
           int volume = note.getVolume();
-          System.out.println(channel);
+          //System.out.println(channel);
           int startBeat = (note.getStartDuration()) + (4); //384 is the revolution
           //MusicUtils.toTrack(channel)];
 
@@ -134,7 +151,8 @@ public class MidiViewImpl implements IView {
             track.add(midiEvent);
             track.add(midiEvent2);
 
-          } catch (Exception e) {
+          }
+          catch (Exception e) {
             e.printStackTrace();
             throw new IllegalArgumentException("Midi broke!");
           }

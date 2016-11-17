@@ -137,6 +137,11 @@ public class ConsoleView implements IView {
     tryCatchAppendableIO(appendable, toString());
   }
 
+  @Override
+  public long getCurrentTick() {
+    return 0;
+  }
+
   protected Appendable getAppendable() {
     return appendable;
   }

@@ -26,6 +26,10 @@ public class ViewFactory {
       case "console":
         Reader read = new InputStreamReader(System.in);
         return new ConsoleView(musicEditor, read, System.out);
+      case "midi-vis":
+        IView gui = new GuiViewFrame(musicEditor);
+        IView midi = new MidiViewImpl(musicEditor);
+        return new CompositeView(gui, midi);
       default:
         throw new IllegalArgumentException("Invalid input");
     }
