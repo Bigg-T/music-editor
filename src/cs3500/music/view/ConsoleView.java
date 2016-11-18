@@ -6,7 +6,12 @@ import cs3500.music.model.NoteName;
 import cs3500.music.model.NotePlay;
 import cs3500.music.util.Utils;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -119,18 +124,21 @@ public class ConsoleView implements IView {
         musicEditor.getAllNotesAt(i).values()
                 .forEach(x -> x.forEach(note -> {
                   int notePos = this.notePosition(note.toString());
+                  this.view.get(TEMP).remove(notePos);
                   this.view.get(TEMP).add(notePos, NotePlay.NOTE_PLAY.toString());
                   for (int duration = 1; duration < note.getBeat(); duration++) {
                     if (this.view.get(TEMP + duration).get(notePos)
                             .equals(NotePlay.NOTE_REST.toString())
                             && !this.view.get(TEMP + duration).get(notePos)
                             .equals(NotePlay.NOTE_PLAY.toString())) {
+                      this.view.get(TEMP + duration).remove(notePos);
                       this.view.get(TEMP + duration).add(notePos, NotePlay.NOTE_SUSTAIN.toString());
                     }
                   }
                 }));
 
-      } catch (Exception e) {
+      }
+      catch (Exception e) {
         continue;
       }
     }
@@ -139,7 +147,12 @@ public class ConsoleView implements IView {
 
   @Override
   public long getCurrentTick() {
-    return 0;
+    return -1;
+  }
+
+  @Override
+  public void move(long tick) {
+
   }
 
   protected Appendable getAppendable() {
@@ -187,7 +200,23 @@ public class ConsoleView implements IView {
     try {
       String temp = "\n" + msg;
       appendable.append(temp);
-    } catch (IOException e) {
+
+//      FileOutputStream oS = new FileOutputStream(new File("console.txt"));
+//      oS.write(appendable.toString().getBytes());
+
+//      File file = new File("console.txt");
+//
+//      // if file doesnt exists, then create it
+//      if (!file.exists()) {
+//        final boolean newFile = file.createNewFile();
+//      }
+//
+//      FileWriter fw = new FileWriter(file);
+//      BufferedWriter bw = new BufferedWriter(fw);
+//      bw.write(this.appendable.toString());
+//      bw.close();
+    }
+    catch (IOException e) {
       e.printStackTrace();
     }
 

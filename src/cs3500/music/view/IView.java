@@ -19,4 +19,10 @@ public interface IView {
    */
   public long getCurrentTick();
 
+  /**
+   *
+   */
+  public void move(long tick);
+
+
 }

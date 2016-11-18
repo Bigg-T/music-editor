@@ -2,6 +2,9 @@ package cs3500.music.view;
 
 import cs3500.music.model.INote;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 /**
  * Created by tiger on 11/17/16.
  */
@@ -16,12 +19,44 @@ public class CompositeView implements IView {
 
   @Override
   public void initialize() throws Exception {
-    iView1.initialize();
-    iView2.initialize();
+    ExecutorService executor = Executors.newFixedThreadPool(2);
+    Runnable v1 = () -> {
+      try {
+        iView1.initialize();
+      }
+      catch (Exception e) {
+        e.printStackTrace();
+      }
+    };
+    Runnable v2 = () -> {
+      try {
+        iView2.initialize();
+      }
+      catch (Exception e) {
+        e.printStackTrace();
+      }
+    };
+
+    executor.submit(v1);
+    executor.submit(v2);
+    long currentPosition = -1;
+    while (!executor.isTerminated()) {
+      if (currentPosition != iView1.getCurrentTick()) {
+        currentPosition = iView1.getCurrentTick();
+        iView2.move(iView1.getCurrentTick());
+        iView1.move(iView2.getCurrentTick());
+        //System.out.println(currentPosition);
+      }
+    }//stop(executor);
   }
 
   @Override
   public long getCurrentTick() {
     return 0;
+  }
+
+  @Override
+  public void move(long tick) {
+
   }
 }

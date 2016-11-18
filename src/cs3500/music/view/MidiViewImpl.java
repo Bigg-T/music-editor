@@ -97,7 +97,7 @@ public class MidiViewImpl implements IView {
       while (ss.isRunning()) {
         long currentPosition = ss.getTickPosition();
         if (currentPosition != this.currentPosition) {
-          System.out.println(this.currentPosition);
+          //System.out.println(this.currentPosition);
           this.currentPosition = currentPosition;
           //System.out.println(ss.getMicrosecondPosition());
         }
@@ -120,7 +120,12 @@ public class MidiViewImpl implements IView {
 
   @Override
   public long getCurrentTick() {
-    return 0;
+    return this.currentPosition;
+  }
+
+  @Override
+  public void move(long tick) {
+
   }
 
   private Sequence model(IBasicMusicEditor<INote> inote, Sequence sequence) {

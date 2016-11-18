@@ -7,6 +7,8 @@ import cs3500.music.model.INote;
 
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A factory for creating views.
@@ -18,18 +20,21 @@ public class ViewFactory {
    */
   public static IView viewFactory(String view, IBasicMusicEditor<INote> musicEditor)
           throws InvalidArgumentException {
+    IView gui = new GuiViewFrame(musicEditor);
+    IView midi = new MidiViewImpl(musicEditor);
+    Reader read = new InputStreamReader(System.in);
+    IView console = new ConsoleView(musicEditor, read, System.out);
     switch (view) {
       case "visual":
-        return new GuiViewFrame(musicEditor);
+        return gui;
       case "midi":
-        return new MidiViewImpl(musicEditor);
+        return midi;
       case "console":
-        Reader read = new InputStreamReader(System.in);
-        return new ConsoleView(musicEditor, read, System.out);
+        return console;
       case "midi-vis":
-        IView gui = new GuiViewFrame(musicEditor);
-        IView midi = new MidiViewImpl(musicEditor);
-        return new CompositeView(gui, midi);
+        return new CompositeView(midi, gui);
+      case "midi-con":
+        return new CompositeView(console, midi);
       default:
         throw new IllegalArgumentException("Invalid input");
     }

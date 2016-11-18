@@ -39,6 +39,11 @@ public class GuiViewFrame extends JFrame implements IView {
   }
 
   @Override
+  public void move(long tick) {
+    System.out.println(tick);
+  }
+
+  @Override
   public Dimension getPreferredSize() {
     return new Dimension(800, 600);
   }
