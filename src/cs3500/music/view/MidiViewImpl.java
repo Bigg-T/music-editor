@@ -91,6 +91,7 @@ public class MidiViewImpl implements IView {
       ss.setSequence(test);
       long st = System.nanoTime();
       ss.start();
+      ss.setTempoInMPQ(musicEditor.getTempo());
       receiver.close();
       synth.close();
 
@@ -99,7 +100,7 @@ public class MidiViewImpl implements IView {
         if (currentPosition != this.currentPosition) {
           //System.out.println(this.currentPosition);
           this.currentPosition = currentPosition;
-          //System.out.println(ss.getMicrosecondPosition());
+          System.out.println(ss.getMicrosecondPosition());
         }
       }
       //this.currentPosition = 0;
