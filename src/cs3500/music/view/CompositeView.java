@@ -11,6 +11,7 @@ import java.util.concurrent.Executors;
 public class CompositeView implements IView {
   private final IView iView1;
   private final IView iView2;
+
   public CompositeView(IView iView1, IView iView2) {
     this.iView1 = iView1;
     this.iView2 = iView2;
@@ -20,25 +21,12 @@ public class CompositeView implements IView {
   @Override
   public void initialize() throws Exception {
     ExecutorService executor = Executors.newFixedThreadPool(2);
-    Runnable v1 = () -> {
-      try {
-        iView1.initialize();
-      }
-      catch (Exception e) {
-        e.printStackTrace();
-      }
-    };
-    Runnable v2 = () -> {
-      try {
-        iView2.initialize();
-      }
-      catch (Exception e) {
-        e.printStackTrace();
-      }
-    };
+    Runnable v1 = () -> {this.createRunnable(iView1);};
+    Runnable v2 = () -> {this.createRunnable(iView2);};
 
     executor.submit(v1);
     executor.submit(v2);
+
     long currentPosition = -1;
     while (!executor.isTerminated()) {
       if (currentPosition != iView1.getCurrentTick()) {
@@ -47,7 +35,18 @@ public class CompositeView implements IView {
         iView1.move(iView2.getCurrentTick());
         //System.out.println(currentPosition);
       }
-    }//stop(executor);
+    }
+
+    executor.shutdownNow();
+  }
+
+  private void createRunnable(IView view) {
+    try {
+      view.initialize();
+    }
+    catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
