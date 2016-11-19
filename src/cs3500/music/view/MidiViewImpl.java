@@ -28,7 +28,7 @@ public class MidiViewImpl implements IView {
   private final IBasicMusicEditor<INote> musicEditor;
   //place holder, assuming that getTickPosition() will not produce a 0 at start,
   //-1 mean that the midi is over.
-  private long currentPosition = 0;
+  private volatile long currentPosition = 0;
 
   /**
    * Creates MidiViewImp.
@@ -82,7 +82,7 @@ public class MidiViewImpl implements IView {
    * </a>
    */
 
-  synchronized void playNote() throws InvalidMidiDataException {
+  void playNote() throws InvalidMidiDataException {
     Sequence test = model(this.musicEditor, new Sequence(Sequence.PPQ, 1));
     try {
       Sequencer ss = MidiSystem.getSequencer();
@@ -115,7 +115,7 @@ public class MidiViewImpl implements IView {
   }
 
   @Override
-  public synchronized void initialize() throws Exception {
+  public void initialize() throws Exception {
     this.playNote();
   }
 

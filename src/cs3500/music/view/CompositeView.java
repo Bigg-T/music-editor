@@ -12,11 +12,10 @@ public class CompositeView implements IView {
   private final IView iView1;
   private final IView iView2;
 
-  public CompositeView(IView iView1, IView iView2) {
+  CompositeView(IView iView1, IView iView2) {
     this.iView1 = iView1;
     this.iView2 = iView2;
   }
-
 
   @Override
   public void initialize() throws Exception {

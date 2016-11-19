@@ -7,10 +7,6 @@ import java.awt.Dimension;
 import java.util.List;
 import java.util.Set;
 import java.util.SortedMap;
-import java.util.TreeMap;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 
 import javax.swing.JPanel;
 
@@ -34,7 +30,6 @@ public class ConcreteGuiViewPanel extends JPanel {
   private int y2 = y * NOTEWIDTH;
   public static final int NOTEWIDTH = 25;
   public static final int NOTEHEIGHT = 25;
-
 
 
   ConcreteGuiViewPanel(IBasicMusicEditor<INote> musicEditor) {
@@ -70,7 +65,7 @@ public class ConcreteGuiViewPanel extends JPanel {
     g.drawLine(x1, y1, x2, y2); // Draw the line
   }
 
-  synchronized void move(long tick) {
+  void move(long tick) {
     if (tick > 4) {
       System.out.println(tick);
       x1 += NOTEWIDTH;
@@ -79,7 +74,7 @@ public class ConcreteGuiViewPanel extends JPanel {
     }
   }
 
-  synchronized void drawNotes(Graphics g, int baseRight, int baseDown) {
+  void drawNotes(Graphics g, int baseRight, int baseDown) {
     SortedMap<Integer, SortedMap<Integer, List<INote>>> comp = musicEditor.composition();
     Set<Integer> beats = comp.keySet();
 
