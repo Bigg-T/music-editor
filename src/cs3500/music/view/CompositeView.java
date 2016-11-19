@@ -20,7 +20,7 @@ public class CompositeView implements IView {
 
   @Override
   public void initialize() throws Exception {
-    ExecutorService executor = Executors.newFixedThreadPool(2);
+    ExecutorService executor = Executors.newFixedThreadPool(10);
     Runnable v1 = () -> {this.createRunnable(iView1);};
     Runnable v2 = () -> {this.createRunnable(iView2);};
 

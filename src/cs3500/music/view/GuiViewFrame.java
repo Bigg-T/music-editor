@@ -55,7 +55,7 @@ public class GuiViewFrame extends JFrame implements IView {
   }
 
   @Override
-  public void move(long tick) {
+  public synchronized void move(long tick) {
     this.displayPanel.move(tick);
   }
 

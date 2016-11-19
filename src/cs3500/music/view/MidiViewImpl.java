@@ -82,7 +82,7 @@ public class MidiViewImpl implements IView {
    * </a>
    */
 
-  public void playNote() throws InvalidMidiDataException {
+  synchronized void playNote() throws InvalidMidiDataException {
     Sequence test = model(this.musicEditor, new Sequence(Sequence.PPQ, 1));
     try {
       Sequencer ss = MidiSystem.getSequencer();
@@ -115,7 +115,7 @@ public class MidiViewImpl implements IView {
   }
 
   @Override
-  public void initialize() throws Exception {
+  public synchronized void initialize() throws Exception {
     this.playNote();
   }
 

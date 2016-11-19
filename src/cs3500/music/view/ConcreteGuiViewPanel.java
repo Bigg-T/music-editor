@@ -52,9 +52,9 @@ public class ConcreteGuiViewPanel extends JPanel {
     int baseRight = 50;
     int baseDown = 40;
     g.setColor(Color.BLUE);
-    ExecutorService executor = Executors.newFixedThreadPool(3);
-    Runnable draws = () -> drawPitch(g);
-    executor.submit(draws);
+//    ExecutorService executor = Executors.newFixedThreadPool(3);
+//    Runnable draws = () -> drawPitch(g);
+//    executor.submit(draws);
     drawNotes(g, baseRight, baseDown);
     g.setColor(Color.BLACK);
     for (int i = 0; i < musicEditor.getLastBeat(); i += 2) {
@@ -70,7 +70,7 @@ public class ConcreteGuiViewPanel extends JPanel {
     g.drawLine(x1, y1, x2, y2); // Draw the line
   }
 
-  void move(long tick) {
+  synchronized void move(long tick) {
     if (tick > 4) {
       System.out.println(tick);
       x1 += NOTEWIDTH;
@@ -79,11 +79,11 @@ public class ConcreteGuiViewPanel extends JPanel {
     }
   }
 
-  void drawNotes(Graphics g, int baseRight, int baseDown) {
+  synchronized void drawNotes(Graphics g, int baseRight, int baseDown) {
     SortedMap<Integer, SortedMap<Integer, List<INote>>> comp = musicEditor.composition();
     Set<Integer> beats = comp.keySet();
 
-    beats.parallelStream().forEach(i ->
+    beats.forEach(i ->
     {
       int x = baseRight + (i * NOTEWIDTH);
       Set<Integer> pitches = comp.get(i).keySet();
