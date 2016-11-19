@@ -19,7 +19,7 @@ public class CompositeView implements IView {
 
   @Override
   public void initialize() throws Exception {
-    ExecutorService executor = Executors.newFixedThreadPool(10);
+    ExecutorService executor = Executors.newFixedThreadPool(2);
     Runnable v1 = () -> {this.createRunnable(iView1);};
     Runnable v2 = () -> {this.createRunnable(iView2);};
 
@@ -32,7 +32,7 @@ public class CompositeView implements IView {
         currentPosition = iView1.getCurrentTick();
         iView2.move(iView1.getCurrentTick());
         iView1.move(iView2.getCurrentTick());
-        //System.out.println(currentPosition);
+        //System.out.println(currentPosition + "  " + executor.toString());
       }
     }
 

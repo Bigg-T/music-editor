@@ -67,7 +67,7 @@ public class ConcreteGuiViewPanel extends JPanel {
 
   void move(long tick) {
     if (tick > 4) {
-      System.out.println(tick);
+      //System.out.println(tick);
       x1 += NOTEWIDTH;
       x2 += NOTEHEIGHT;
       repaint();

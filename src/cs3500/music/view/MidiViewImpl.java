@@ -26,8 +26,10 @@ public class MidiViewImpl implements IView {
   private final Synthesizer synth;
   private final Receiver receiver;
   private final IBasicMusicEditor<INote> musicEditor;
+
   //place holder, assuming that getTickPosition() will not produce a 0 at start,
   //-1 mean that the midi is over.
+  // because thread can this at the same time
   private volatile long currentPosition = 0;
 
   /**
@@ -100,11 +102,11 @@ public class MidiViewImpl implements IView {
         if (currentPosition != this.currentPosition) {
           //System.out.println(this.currentPosition);
           this.currentPosition = currentPosition;
-          System.out.println(ss.getMicrosecondPosition());
+          //System.out.println(ss.getMicrosecondPosition());
         }
       }
       //this.currentPosition = 0;
-      System.out.println(this.currentPosition);
+      //System.out.println(this.currentPosition);
       ss.close();
 
     }
