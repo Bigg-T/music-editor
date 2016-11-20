@@ -21,6 +21,8 @@ public class ConcreteGuiViewPanel extends JPanel implements Scrollable {
   private static final Color LINE_COLOR = Color.GREEN;
   private static final int NOTEWIDTH = 25;
   private static final int NOTEHEIGHT = 25;
+  private static final int BASEDOWN = 40;
+  private static final int BASERIGHT = 100;
 
   // The moving line from (x1, y1) to (x2, y2), initially position at the center
   private int x1;
@@ -68,6 +70,10 @@ public class ConcreteGuiViewPanel extends JPanel implements Scrollable {
 
     g.setColor(LINE_COLOR);
     g.drawLine(x1, y1, x2, y2); // Draw the line
+  }
+
+  void update() {
+
   }
 
   /**

@@ -155,6 +155,16 @@ public class ConsoleView implements IView {
 
   }
 
+  @Override
+  public void update() {
+    try {
+      this.initialize();
+    }
+    catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
   protected Appendable getAppendable() {
     return appendable;
   }

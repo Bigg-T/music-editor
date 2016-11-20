@@ -23,10 +23,10 @@ import java.util.concurrent.TimeUnit;
  * MIDI playback.
  */
 public class MidiViewImpl implements IMidiView {
-  private final Synthesizer synth;
-  private final Receiver receiver;
+
   private final IBasicMusicEditor<INote> musicEditor;
   private Sequencer ss;
+  private Sequence sequence;
 
   //place holder, assuming that getTickPosition() will not produce a 0 at start,
   //-1 mean that the midi is over.
@@ -37,23 +37,13 @@ public class MidiViewImpl implements IMidiView {
    * Creates MidiViewImp.
    */
   public MidiViewImpl(IBasicMusicEditor<INote> musicEditor) {
-
     this.musicEditor = Utils.requireNonNull(musicEditor, "Null MusicEditor");
-    Synthesizer synth = null;
-    Receiver receiver = null;
     try {
       ss = MidiSystem.getSequencer();
-
-      synth = MidiSystem.getSynthesizer();
-      receiver = synth.getReceiver();
-      synth.open();
     }
     catch (MidiUnavailableException e) {
       e.printStackTrace();
     }
-
-    this.synth = synth;
-    this.receiver = receiver;
   }
 
   /**
@@ -89,17 +79,14 @@ public class MidiViewImpl implements IMidiView {
    */
 
   void playNote() throws InvalidMidiDataException {
-    Sequence test = model(this.musicEditor, new Sequence(Sequence.PPQ, 1));
+    this.sequence = model(this.musicEditor, new Sequence(Sequence.PPQ, 1));
 
     try {
       ss.open();
       ss.setTempoInMPQ(musicEditor.getTempo());
-      ss.setSequence(test);
-      long st = System.nanoTime();
+      ss.setSequence(sequence);
       ss.start();
       ss.setTempoInMPQ(musicEditor.getTempo());
-      receiver.close();
-      synth.close();
 
       while (ss.isRunning()) {
         long currentPosition = ss.getTickPosition();
@@ -155,6 +142,16 @@ public class MidiViewImpl implements IMidiView {
 
   }
 
+  @Override
+  public void update() {
+    try {
+      ss.setSequence(this.model(musicEditor, new Sequence(Sequence.PPQ, 1)));
+      ss.setTempoInMPQ(musicEditor.getTempo());
+    }
+    catch (InvalidMidiDataException e) {
+      e.printStackTrace();
+    }
+  }
   private Sequence model(IBasicMusicEditor<INote> inote, Sequence sequence) {
     //creating 16 tracks
     Track track = sequence.createTrack();
