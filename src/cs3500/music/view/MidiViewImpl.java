@@ -134,12 +134,12 @@ public class MidiViewImpl implements IMidiView {
 
   @Override
   public void jumpToBeginning() {
-
+    ss.setTickPosition(0);
   }
 
   @Override
   public void jumpToEnd() {
-
+    ss.setTickPosition(musicEditor.getLastBeat());
   }
 
   @Override

@@ -35,7 +35,7 @@ public class CompositeView implements IView {
         //System.out.println(currentPosition + "  " + executor.toString());
       }
       if (iView1.getCurrentTick() == 30) {
-        iView1.resume();
+        //this.jumpToBeginning();
       }
     }
 
@@ -65,6 +65,18 @@ public class CompositeView implements IView {
   public void update() {
     this.iView1.update();
     this.iView2.update();
+  }
+
+  @Override
+  public void jumpToBeginning() {
+    this.iView1.jumpToBeginning();
+    this.iView2.jumpToBeginning();
+  }
+
+  @Override
+  public void jumpToEnd() {
+    this.iView1.jumpToEnd();
+    this.iView2.jumpToEnd();
   }
 
 }

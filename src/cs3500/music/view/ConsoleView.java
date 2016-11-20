@@ -165,6 +165,16 @@ public class ConsoleView implements IView {
     }
   }
 
+  @Override
+  public void jumpToBeginning() {
+
+  }
+
+  @Override
+  public void jumpToEnd() {
+
+  }
+
   protected Appendable getAppendable() {
     return appendable;
   }

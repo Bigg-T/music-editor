@@ -59,6 +59,16 @@ public class GuiViewFrame extends JFrame implements IGuiView {
   }
 
   @Override
+  public void jumpToBeginning() {
+    displayPanel.jumpToBeginning();
+  }
+
+  @Override
+  public void jumpToEnd() {
+    displayPanel.jumpToEnd();
+  }
+
+  @Override
   public Dimension getPreferredSize() {
     return new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT);
   }

@@ -26,4 +26,7 @@ public interface IView {
 
   public void update();
 
+  public void jumpToBeginning();
+  public void jumpToEnd();
+
 }

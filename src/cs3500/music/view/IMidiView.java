@@ -7,6 +7,5 @@ public interface IMidiView extends IView {
   public void pause();
   public void resume();
 
-  public void jumpToBeginning();
-  public void jumpToEnd();
+
 }

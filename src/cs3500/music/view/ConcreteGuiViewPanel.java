@@ -22,7 +22,7 @@ public class ConcreteGuiViewPanel extends JPanel implements Scrollable {
   private static final int NOTEWIDTH = 25;
   private static final int NOTEHEIGHT = 25;
   private static final int BASEDOWN = 40;
-  private static final int BASERIGHT = 100;
+  private static final int BASERIGHT = 50;
 
   // The moving line from (x1, y1) to (x2, y2), initially position at the center
   private int x1;
@@ -200,6 +200,15 @@ public class ConcreteGuiViewPanel extends JPanel implements Scrollable {
               * NOTEWIDTH
               - currentPosition;
     }
+  }
+
+  void jumpToBeginning() {
+    this.x1 = BASERIGHT;
+    this.x2 = this.x1;
+  }
+
+  void jumpToEnd() {
+    this.x1 = this.musicEditor.getLastBeat();
   }
 
   @Override
