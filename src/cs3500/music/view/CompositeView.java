@@ -57,4 +57,9 @@ public class CompositeView implements IView {
   public void move(long tick) {
 
   }
+
+  @Override
+  public void pause() {
+
+  }
 }

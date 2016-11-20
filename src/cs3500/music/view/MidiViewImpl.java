@@ -131,6 +131,11 @@ public class MidiViewImpl implements IView {
 
   }
 
+  @Override
+  public void pause() {
+
+  }
+
   private Sequence model(IBasicMusicEditor<INote> inote, Sequence sequence) {
     //creating 16 tracks
     Track track = sequence.createTrack();

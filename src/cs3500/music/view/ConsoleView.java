@@ -155,6 +155,11 @@ public class ConsoleView implements IView {
 
   }
 
+  @Override
+  public void pause() {
+
+  }
+
   protected Appendable getAppendable() {
     return appendable;
   }
