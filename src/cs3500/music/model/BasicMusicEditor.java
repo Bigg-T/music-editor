@@ -2,10 +2,7 @@ package cs3500.music.model;
 
 import cs3500.music.util.CompositionBuilder;
 
-import java.util.List;
-import java.util.Set;
-import java.util.SortedMap;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * The MusicEditor.
@@ -154,17 +151,6 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
     this.piece.keySet().forEach(x -> compos.put(x, getAllNotesAt(x)));
     return compos;
   }
-
-//  @Override
-//  public TreeMap<Integer, SortedMap<Integer, List<Integer>>> getDrawComposition() {
-//    TreeMap<Integer, SortedMap<Integer, List<Integer>>> compos = new TreeMap<>();
-//    this.piece.keySet().forEach(x -> compos.put(x, getAllDrawNotesAt(x)));
-//    return compos;
-//  }
-
-//  private TreeMap<Integer, List<Integer>> getAllDrawNotesAt(int beat) {
-//    return this.piece.get(beat).getAllDrawNote();
-//  }
 
   TreeMap<Integer, PitchCollection> getPiece() {
     return this.piece;

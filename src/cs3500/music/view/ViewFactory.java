@@ -5,34 +5,20 @@ import com.sun.javaws.exceptions.InvalidArgumentException;
 import cs3500.music.model.IBasicMusicEditor;
 import cs3500.music.model.INote;
 
-import java.io.InputStreamReader;
-import java.io.Reader;
-
 /**
  * A factory for creating views.
  */
 public class ViewFactory {
 
-  /**
-   * Factory method for creating views.
-   */
   public static IView viewFactory(String view, IBasicMusicEditor<INote> musicEditor)
           throws InvalidArgumentException {
-    IView gui = new GuiViewFrame(musicEditor);
-    IMidiView midi = new MidiViewImpl(musicEditor);
-    Reader read = new InputStreamReader(System.in);
-    IView console = new ConsoleView(musicEditor, read, System.out);
     switch (view) {
       case "visual":
-        return gui;
+        return new GuiViewFrame(musicEditor);
       case "midi":
-        return midi;
+        return new MidiViewImpl(musicEditor);
       case "console":
-        return console;
-      case "midi-vis":
-        return new CompositeView(midi, gui);
-      case "midi-con":
-        return new CompositeView(midi, console);
+        return new ConsoleView(musicEditor);
       default:
         throw new IllegalArgumentException("Invalid input");
     }

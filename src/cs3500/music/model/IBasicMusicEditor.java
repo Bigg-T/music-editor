@@ -1,5 +1,7 @@
 package cs3500.music.model;
 
+import cs3500.music.util.CompositionBuilder;
+
 import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -55,10 +57,7 @@ public interface IBasicMusicEditor<K> {
    *
    * @return the whole map of notes
    */
-  public SortedMap<Integer, SortedMap<Integer, List<INote>>> composition();
-
-  //not rdy for use (null)
-//  public SortedMap<Integer, SortedMap<Integer, List<Integer>>> getDrawComposition();
+  public TreeMap<Integer, SortedMap<Integer, List<INote>>> composition();
 
   /**
    * Return the minimum Pitch.

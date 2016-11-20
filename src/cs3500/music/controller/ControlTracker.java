@@ -121,6 +121,14 @@ public class ControlTracker {
         this.editVolume = true;
         return;
       }
+      case "none":  {
+        this.editPitch = false;
+        this.editDuration = false;
+        this.editStartBeat = false;
+        this.editChannel = false;
+        this.editVolume = false;
+        return;
+      }
       default:
         return;
     }

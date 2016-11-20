@@ -1,24 +1,50 @@
 package cs3500.music.view;
 
-import java.awt.event.ActionListener;
+import java.awt.*;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 
+import cs3500.music.model.INote;
+import cs3500.music.model.ViewNote;
+
 /**
- * Created by tiger on 11/19/16.
+ * Interface for Gui views.
  */
 public interface IGuiView extends IView {
+
   /**
-   * this is to force the view to have a method to set up the keyboard. The name has been chosen
-   * deliberately. This is the same method signature to add a key listener in Java Swing.
-   *
-   * Thus our Swing-based implementation of this interface will already have such a method.
+   * Adds a mouse listener.
    */
-  void addKeyListener(KeyListener listener);
+  public void addMouseListener(MouseListener mouseListener);
 
-  void addActionListener(ActionListener listener);
+  /**
+   * Adds a key listener.
+   */
+  public void addKeyListener(KeyListener keyListener);
 
-  void addMouseListener(MouseListener mouseListener);
+  /**
+   * Scrolls the screen by the given amount if possible.
+   * @param toScroll Amount to be scrolled
+   */
+  public void scroll(int toScroll);
 
-  //void removeMouseListener()
+  /**
+   * Gets the point at which the top left of the editor resides.
+   * @return point of top left of editor
+   */
+  public Point getEditorTopLeft();
+
+  /**
+   * Gets the dimension of the editor.
+   * @return the dimension of the editor
+   */
+  public Dimension getEditorDimensions();
+
+  /**
+   * Gets the dimention of the note representations.
+   * @return Dimention, representing size of notes in the view.
+   */
+  public Dimension getNoteSize();
+
+
 }

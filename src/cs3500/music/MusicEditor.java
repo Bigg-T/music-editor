@@ -1,10 +1,13 @@
 package cs3500.music;
 
+import cs3500.music.controller.MusicEditorController;
 import cs3500.music.model.BasicMusicEditor;
 import cs3500.music.model.IBasicMusicEditor;
 import cs3500.music.model.INote;
 import cs3500.music.util.CompositionBuilder;
 import cs3500.music.util.MusicReader;
+import cs3500.music.view.GuiViewFrame;
+import cs3500.music.view.IGuiView;
 import cs3500.music.view.IView;
 import cs3500.music.view.ViewFactory;
 
@@ -16,14 +19,6 @@ import javax.sound.midi.InvalidMidiDataException;
 
 
 public class MusicEditor {
-
-  /**
-   * The main to run the program.
-   *
-   * @param args Argument for running program
-   * @throws IOException              file exception
-   * @throws InvalidMidiDataException mide exception
-   */
   public static void main(String[] args) throws IOException, InvalidMidiDataException {
     File f = null;
     try {
@@ -38,8 +33,9 @@ public class MusicEditor {
     IBasicMusicEditor<INote> musicEditor = MusicReader.parseFile(fr, compBuilder);
 
     try {
-      IView theView = ViewFactory.viewFactory(args[1], musicEditor);
-      theView.initialize();
+      IView theView = new GuiViewFrame(musicEditor);
+      MusicEditorController controller = new MusicEditorController(theView);
+      controller.initializeView();
     } catch (Exception e) {
       return;
     }

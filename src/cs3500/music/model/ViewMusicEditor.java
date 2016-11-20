@@ -49,11 +49,6 @@ public class ViewMusicEditor implements IBasicMusicEditor<INote> {
     return compos;
   }
 
-//  @Override
-//  public SortedMap<Integer, SortedMap<Integer, List<INote>>> getDrawComposition() {
-//    return null;
-//  }
-
   @Override
   public int getMinPitch() {
     return musicEditor.getMinPitch();

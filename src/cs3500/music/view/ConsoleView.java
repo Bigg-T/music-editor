@@ -1,19 +1,16 @@
 package cs3500.music.view;
 
-import cs3500.music.model.INote;
-import cs3500.music.model.IBasicMusicEditor;
-import cs3500.music.model.NoteName;
-import cs3500.music.model.NotePlay;
+import cs3500.music.model.*;
+import cs3500.music.util.CompositionBuilder;
+import cs3500.music.util.MusicReader;
 import cs3500.music.util.Utils;
 
-import java.io.BufferedWriter;
+import java.awt.event.KeyListener;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
-import java.util.ArrayList;
+import java.io.FileReader;
+import java.util.*;
+import java.util.stream.DoubleStream;
+import java.util.stream.StreamSupport;
 
 /**
  * Console View.
@@ -22,29 +19,11 @@ public class ConsoleView implements IView {
 
   private final IBasicMusicEditor<INote> musicEditor;
   private List<List<String>> view = new ArrayList<>();
-  private Appendable appendable = new StringBuilder("");
-  private Readable readable;
 
-  /**
-   * Construct an instance of ConsoleView.
-   *
-   * @param musicEditor the music model
-   */
-  public ConsoleView(IBasicMusicEditor<INote> musicEditor,
-                     Readable readable, Appendable appendable) {
+  public ConsoleView(IBasicMusicEditor<INote> musicEditor) {
     this.musicEditor = musicEditor;
-    this.appendable = appendable;
-    this.readable = readable;
   }
 
-  /**
-   * Get the redable.
-   *
-   * @return the readable.
-   */
-  private Readable readable() {
-    return readable;
-  }
 
   /**
    * The note relative position in the array.
@@ -119,64 +98,42 @@ public class ConsoleView implements IView {
     this.view = initView(maxBeat, minPitch, maxPitch);
 
     for (int i = 0; i <= maxBeat; i++) {
-      final int TEMP = i;
+      final int temp = i;
       try {
         musicEditor.getAllNotesAt(i).values()
                 .forEach(x -> x.forEach(note -> {
                   int notePos = this.notePosition(note.toString());
-                  this.view.get(TEMP).remove(notePos);
-                  this.view.get(TEMP).add(notePos, NotePlay.NOTE_PLAY.toString());
+                  this.view.get(temp).add(notePos, NotePlay.NOTE_PLAY.toString());
                   for (int duration = 1; duration < note.getBeat(); duration++) {
-                    if (this.view.get(TEMP + duration).get(notePos)
+                    if (this.view.get(temp + duration).get(notePos)
                             .equals(NotePlay.NOTE_REST.toString())
-                            && !this.view.get(TEMP + duration).get(notePos)
+                            && !this.view.get(temp + duration).get(notePos)
                             .equals(NotePlay.NOTE_PLAY.toString())) {
-                      this.view.get(TEMP + duration).remove(notePos);
-                      this.view.get(TEMP + duration).add(notePos, NotePlay.NOTE_SUSTAIN.toString());
+                      this.view.get(temp + duration).add(notePos, NotePlay.NOTE_SUSTAIN.toString());
                     }
                   }
                 }));
 
-      }
-      catch (Exception e) {
+      } catch (Exception e) {
         continue;
       }
     }
-    tryCatchAppendableIO(appendable, toString());
-  }
-
-  @Override
-  public long getCurrentTick() {
-    return -1;
-  }
-
-  @Override
-  public void move(long tick) {
-
+    System.out.println(toString());
   }
 
   @Override
   public void update() {
-    try {
-      this.initialize();
-    }
-    catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
-
-  @Override
-  public void jumpToBeginning() {
 
   }
 
   @Override
-  public void jumpToEnd() {
-
+  public IBasicMusicEditor<INote> getMusicEditor() {
+    return null;
   }
 
-  protected Appendable getAppendable() {
-    return appendable;
+  @Override
+  public void addKeyListener(KeyListener keyListener) {
+    return;
   }
 
   List<List<String>> initView(int maxBeat, int minPitch, int maxPitch) {
@@ -209,37 +166,26 @@ public class ConsoleView implements IView {
     return builder.toString();
   }
 
-  /**
-   * EFFECT: append an message to appendable.
-   * A method to try catch IOException for calling appendable.
-   *
-   * @param appendable the appendable object
-   * @param msg        the msg appending to appendable
-   */
-  private void tryCatchAppendableIO(Appendable appendable, String msg) {
+  public static void main(String[] args) throws Exception {
+    File f = null;
     try {
-      String temp = "\n" + msg;
-      appendable.append(temp);
-
-//      FileOutputStream oS = new FileOutputStream(new File("console.txt"));
-//      oS.write(appendable.toString().getBytes());
-
-//      File file = new File("console.txt");
-//
-//      // if file doesnt exists, then create it
-//      if (!file.exists()) {
-//        final boolean newFile = file.createNewFile();
-//      }
-//
-//      FileWriter fw = new FileWriter(file);
-//      BufferedWriter bw = new BufferedWriter(fw);
-//      bw.write(this.appendable.toString());
-//      bw.close();
-    }
-    catch (IOException e) {
-      e.printStackTrace();
+      f = new File("mary-little-lamb.txt");
+    } catch (Exception e) {
+      return;
     }
 
+    Readable fr = new FileReader(f);
+    CompositionBuilder<IBasicMusicEditor<INote>> compBuilder =
+            new BasicMusicEditor.BasicCompositionBuilder();
+    IBasicMusicEditor<INote> musicEditor = MusicReader.parseFile(fr, compBuilder);
+    ConsoleView test = new ConsoleView(musicEditor);
+    test.initialize();
+    //test.view = test.initView(musicEditor.getLastBeat(), musicEditor.getMinPitch(), musicEditor.getMaxPitch());
+    //System.out.println(musicEditor.getMinPitch() - musicEditor.getMaxPitch());
+    System.out.print(test.toString());
+    //test.produceName().forEach(x -> System.out.print(x));
+//    System.out.println("\n" + musicEditor.getMinPitch());
+//    System.out.println(test.notePosition("E 4"));
   }
 
 }
