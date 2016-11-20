@@ -62,8 +62,8 @@ public class ConcreteGuiViewPanel extends JPanel implements Scrollable {
 //    executor.submit(draws);
     drawNotes(g, baseRight, baseDown, currentX - 30, currentX + 60);
     g.setColor(Color.BLACK);
-    verticalLine(g, 0, 0);
-    horizontalLine(g, baseRight, baseDown, 0, x1 + 30);
+    verticalLine(g, currentX - 15, currentX + 70);
+    horizontalLine(g, baseRight, baseDown, currentX - 15, currentX + 70);
     drawPitch(g);
 
     g.setColor(LINE_COLOR);
@@ -76,7 +76,13 @@ public class ConcreteGuiViewPanel extends JPanel implements Scrollable {
    * @param g the graphics.
    */
   private void verticalLine(Graphics g, int top, int bottom) {
-    for (int i = 0; i <= musicEditor.getLastBeat(); i += 2) {
+    if (top < 0) {
+      top = 0;
+    }
+    if (bottom > musicEditor.getLastBeat()) {
+      bottom = musicEditor.getLastBeat();
+    }
+    for (int i = top; i <= bottom; i += 2) {
 
       int x1 = 50 + (i * NOTEWIDTH);
       int y1 = this.y1;
@@ -87,12 +93,18 @@ public class ConcreteGuiViewPanel extends JPanel implements Scrollable {
   }
 
   private void horizontalLine(Graphics g, int baseRight, int baseDown, int left, int right) {
+    if (left < 0) {
+      left = 0;
+    }
+    if (right > musicEditor.getLastBeat()) {
+      right = musicEditor.getLastBeat();
+    }
     for (int j = 0; j <= musicEditor.getMaxPitch() - musicEditor.getMinPitch() + 1; j++) {
-      int x = baseRight;
+      int x = baseRight + (left * NOTEWIDTH);
       int y = baseDown + (j * NOTEHEIGHT);
       int x2;
       if (right < (musicEditor.getLastBeat() * NOTEWIDTH) + baseRight) {
-        x2 = right;
+        x2 = right * NOTEWIDTH;
       } else {
         x2 = (musicEditor.getLastBeat() * NOTEWIDTH) + baseRight;
       }
@@ -149,6 +161,10 @@ public class ConcreteGuiViewPanel extends JPanel implements Scrollable {
     return pitchGraphic;
   }
 
+  void current(double botLeftX) {
+    currentX = (int) (botLeftX - 50) / 25;
+  }
+
   @Override
   public Dimension getPreferredScrollableViewportSize() {
     return getPreferredSize();
@@ -178,10 +194,6 @@ public class ConcreteGuiViewPanel extends JPanel implements Scrollable {
               * NOTEWIDTH
               - currentPosition;
     }
-  }
-
-  void current(double botLeftX) {
-    currentX = (int) (botLeftX - 50) / 25;
   }
 
   @Override
