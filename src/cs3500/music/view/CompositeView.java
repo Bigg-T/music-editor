@@ -1,14 +1,18 @@
 package cs3500.music.view;
 
+import cs3500.music.model.IBasicMusicEditor;
 import cs3500.music.model.INote;
 
+import java.awt.event.ActionListener;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
  * Created by tiger on 11/17/16.
  */
-public class CompositeView implements IView {
+public class CompositeView implements IGuiView {
   private final IMidiView iView1;
   private final IView iView2;
 
@@ -30,8 +34,7 @@ public class CompositeView implements IView {
     while (!executor.isTerminated()) {
       if (currentPosition != iView1.getCurrentTick()) {
         currentPosition = iView1.getCurrentTick();
-        iView2.move(iView1.getCurrentTick());
-        iView1.move(iView2.getCurrentTick());
+        this.move(this.getCurrentTick());
         //System.out.println(currentPosition + "  " + executor.toString());
       }
       if (iView1.getCurrentTick() == 30) {
@@ -58,13 +61,19 @@ public class CompositeView implements IView {
 
   @Override
   public void move(long tick) {
-
+    iView2.move(iView1.getCurrentTick());
+    iView1.move(iView2.getCurrentTick());
   }
 
   @Override
   public void update() {
     this.iView1.update();
     this.iView2.update();
+  }
+
+  @Override
+  public IBasicMusicEditor<INote> getMusicEditor() {
+    return iView2.getMusicEditor();
   }
 
   @Override
@@ -79,4 +88,18 @@ public class CompositeView implements IView {
     this.iView2.jumpToEnd();
   }
 
+  @Override
+  public void addKeyListener(KeyListener listener) {
+
+  }
+
+  @Override
+  public void addActionListener(ActionListener listener) {
+
+  }
+
+  @Override
+  public void addMouseListener(MouseListener mouseListener) {
+
+  }
 }

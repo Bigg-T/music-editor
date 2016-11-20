@@ -17,6 +17,7 @@ import javax.sound.midi.Sequencer;
 import javax.sound.midi.ShortMessage;
 import javax.sound.midi.Synthesizer;
 import javax.sound.midi.Track;
+import java.awt.event.KeyListener;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -152,6 +153,17 @@ public class MidiViewImpl implements IMidiView {
       e.printStackTrace();
     }
   }
+
+  @Override
+  public IBasicMusicEditor<INote> getMusicEditor() {
+    return musicEditor;
+  }
+
+  @Override
+  public void addKeyListener(KeyListener keyListener) {
+
+  }
+
   private Sequence model(IBasicMusicEditor<INote> inote, Sequence sequence) {
     //creating 16 tracks
     Track track = sequence.createTrack();

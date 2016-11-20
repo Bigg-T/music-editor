@@ -59,6 +59,11 @@ public class GuiViewFrame extends JFrame implements IGuiView {
   }
 
   @Override
+  public IBasicMusicEditor<INote> getMusicEditor() {
+    return this.displayPanel.getMusicEditor();
+  }
+
+  @Override
   public void jumpToBeginning() {
     displayPanel.jumpToBeginning();
   }

@@ -6,6 +6,7 @@ import cs3500.music.model.NoteName;
 import cs3500.music.model.NotePlay;
 import cs3500.music.util.Utils;
 
+import java.awt.event.KeyListener;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -163,6 +164,16 @@ public class ConsoleView implements IView {
     catch (Exception e) {
       e.printStackTrace();
     }
+  }
+
+  @Override
+  public IBasicMusicEditor<INote> getMusicEditor() {
+    return musicEditor;
+  }
+
+  @Override
+  public void addKeyListener(KeyListener keyListener) {
+
   }
 
   @Override

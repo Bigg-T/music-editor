@@ -51,7 +51,9 @@ public class ConcreteGuiViewPanel extends JPanel implements Scrollable {
     int height = (NOTEHEIGHT * musicEditor.getLastBeat()) + 80;
     this.setPreferredSize(new Dimension(height, width));
   }
-
+  IBasicMusicEditor<INote> getMusicEditor() {
+    return musicEditor;
+  }
   @Override
   public void paintComponent(Graphics g) {
     // Handle the default painting
