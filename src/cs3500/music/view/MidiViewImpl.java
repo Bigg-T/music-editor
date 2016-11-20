@@ -22,10 +22,11 @@ import java.util.concurrent.TimeUnit;
 /**
  * MIDI playback.
  */
-public class MidiViewImpl implements IView {
+public class MidiViewImpl implements IMidiView {
   private final Synthesizer synth;
   private final Receiver receiver;
   private final IBasicMusicEditor<INote> musicEditor;
+  private Sequencer ss;
 
   //place holder, assuming that getTickPosition() will not produce a 0 at start,
   //-1 mean that the midi is over.
@@ -36,10 +37,13 @@ public class MidiViewImpl implements IView {
    * Creates MidiViewImp.
    */
   public MidiViewImpl(IBasicMusicEditor<INote> musicEditor) {
+
     this.musicEditor = Utils.requireNonNull(musicEditor, "Null MusicEditor");
     Synthesizer synth = null;
     Receiver receiver = null;
     try {
+      ss = MidiSystem.getSequencer();
+
       synth = MidiSystem.getSynthesizer();
       receiver = synth.getReceiver();
       synth.open();
@@ -86,10 +90,10 @@ public class MidiViewImpl implements IView {
 
   void playNote() throws InvalidMidiDataException {
     Sequence test = model(this.musicEditor, new Sequence(Sequence.PPQ, 1));
+
     try {
-      Sequencer ss = MidiSystem.getSequencer();
-      ss.setTempoInMPQ(musicEditor.getTempo());
       ss.open();
+      ss.setTempoInMPQ(musicEditor.getTempo());
       ss.setSequence(test);
       long st = System.nanoTime();
       ss.start();
@@ -133,6 +137,21 @@ public class MidiViewImpl implements IView {
 
   @Override
   public void pause() {
+    ss.stop();
+  }
+
+  @Override
+  public void resume() {
+    ss.start();
+  }
+
+  @Override
+  public void jumpToBeginning() {
+
+  }
+
+  @Override
+  public void jumpToEnd() {
 
   }
 

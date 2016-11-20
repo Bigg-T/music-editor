@@ -24,6 +24,6 @@ public interface IView {
    */
   public void move(long tick);
 
-  public void pause();
+
 
 }

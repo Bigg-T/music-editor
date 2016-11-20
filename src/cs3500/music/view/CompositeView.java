@@ -9,10 +9,10 @@ import java.util.concurrent.Executors;
  * Created by tiger on 11/17/16.
  */
 public class CompositeView implements IView {
-  private final IView iView1;
+  private final IMidiView iView1;
   private final IView iView2;
 
-  CompositeView(IView iView1, IView iView2) {
+  CompositeView(IMidiView iView1, IView iView2) {
     this.iView1 = iView1;
     this.iView2 = iView2;
   }
@@ -58,8 +58,4 @@ public class CompositeView implements IView {
 
   }
 
-  @Override
-  public void pause() {
-
-  }
 }

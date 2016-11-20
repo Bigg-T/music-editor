@@ -19,7 +19,7 @@ public class ViewFactory {
   public static IView viewFactory(String view, IBasicMusicEditor<INote> musicEditor)
           throws InvalidArgumentException {
     IView gui = new GuiViewFrame(musicEditor);
-    IView midi = new MidiViewImpl(musicEditor);
+    IMidiView midi = new MidiViewImpl(musicEditor);
     Reader read = new InputStreamReader(System.in);
     IView console = new ConsoleView(musicEditor, read, System.out);
     switch (view) {
@@ -32,7 +32,7 @@ public class ViewFactory {
       case "midi-vis":
         return new CompositeView(midi, gui);
       case "midi-con":
-        return new CompositeView(console, midi);
+        return new CompositeView(midi, console);
       default:
         throw new IllegalArgumentException("Invalid input");
     }

@@ -54,12 +54,6 @@ public class GuiViewFrame extends JFrame implements IGuiView {
   }
 
   @Override
-  public void pause() {
-
-  }
-
-
-  @Override
   public Dimension getPreferredSize() {
     return new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT);
   }
