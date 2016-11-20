@@ -26,14 +26,14 @@ public class GuiActionRunner implements Runnable {
       int duration = controlTracker.getDuration();
       int volume = controlTracker.getVolume();
       int channel = controlTracker.getChannel();
-      if (isAdd)  {
-        theView.addNote(pitch, startBeat, duration, volume, channel);
-        controlTracker.reset();
-      }
-      else  {
-        theView.removeNote(pitch, startBeat, duration, volume, channel);
-        controlTracker.reset();
-      }
+//      if (isAdd)  {
+//        theView.addNote(pitch, startBeat, duration, volume, channel);
+//        controlTracker.reset();
+//      }
+//      else  {
+//        theView.removeNote(pitch, startBeat, duration, volume, channel);
+//        controlTracker.reset();
+//      }
     } catch (IllegalStateException e)  {
       System.out.println(e.getMessage());
       return;

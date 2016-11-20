@@ -55,7 +55,10 @@ public interface IBasicMusicEditor<K> {
    *
    * @return the whole map of notes
    */
-  public TreeMap<Integer, SortedMap<Integer, List<INote>>> composition();
+  public SortedMap<Integer, SortedMap<Integer, List<INote>>> composition();
+
+  //not rdy for use (null)
+//  public SortedMap<Integer, SortedMap<Integer, List<Integer>>> getDrawComposition();
 
   /**
    * Return the minimum Pitch.

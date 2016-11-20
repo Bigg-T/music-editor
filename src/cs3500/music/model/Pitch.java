@@ -112,6 +112,9 @@ class Pitch {
     return this;
   }
 
+  List<Integer> toIntegerList() {
+    return null;
+  }
   /**
    * Return the longest duration of a note in this Pitch.
    *

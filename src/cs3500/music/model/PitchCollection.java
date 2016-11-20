@@ -48,6 +48,12 @@ final class PitchCollection {
             && pitchTreeMap.get(notePitch).edit(note, duration, volume);
   }
 
+  SortedMap<Integer, List<Integer>> getAllDrawNote() {
+    SortedMap<Integer, List<Integer>> map = new TreeMap<>();
+    this.pitchTreeMap.keySet()
+            .forEach(pitch -> map.put(pitch, this.pitchTreeMap.get(pitch).toIntegerList()));
+    return map;
+  }
   /**
    * Merge the list together.
    *

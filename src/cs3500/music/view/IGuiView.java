@@ -2,6 +2,7 @@ package cs3500.music.view;
 
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
 
 /**
  * Created by tiger on 11/19/16.
@@ -16,4 +17,8 @@ public interface IGuiView extends IView {
   void addKeyListener(KeyListener listener);
 
   void addActionListener(ActionListener listener);
+
+  void addMouseListener(MouseListener mouseListener);
+
+  //void removeMouseListener()
 }

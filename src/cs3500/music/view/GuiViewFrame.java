@@ -11,7 +11,7 @@ import cs3500.music.model.INote;
 /**
  * A skeleton Frame (i.e., a window) in Swing
  */
-public class GuiViewFrame extends JFrame implements IGuiView, Scrollable {
+public class GuiViewFrame extends JFrame implements IGuiView {
   // Define constants for the various dimensions
   private static final int CANVAS_WIDTH = 1400;
   private static final int CANVAS_HEIGHT = 1000;
@@ -44,6 +44,12 @@ public class GuiViewFrame extends JFrame implements IGuiView, Scrollable {
 
   @Override
   public void move(long tick) {
+    if (tick % 50 == 0) {
+      scr.setScrollPosition((int)tick * 25, 0);
+
+      this.displayPanel.current(scr.getScrollPosition().getX());
+      System.out.println(scr.getScrollPosition().getX() + " " + scr.getScrollPosition().getY());
+    }
     this.displayPanel.move(tick);
   }
 
@@ -63,28 +69,4 @@ public class GuiViewFrame extends JFrame implements IGuiView, Scrollable {
 
   }
 
-  @Override
-  public Dimension getPreferredScrollableViewportSize() {
-    return getPreferredSize();
-  }
-
-  @Override
-  public int getScrollableUnitIncrement(Rectangle visibleRect, int orientation, int direction) {
-    return 0;
-  }
-
-  @Override
-  public int getScrollableBlockIncrement(Rectangle visibleRect, int orientation, int direction) {
-    return 0;
-  }
-
-  @Override
-  public boolean getScrollableTracksViewportWidth() {
-    return false;
-  }
-
-  @Override
-  public boolean getScrollableTracksViewportHeight() {
-    return false;
-  }
 }

@@ -7,8 +7,6 @@ import cs3500.music.model.INote;
 
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * A factory for creating views.
