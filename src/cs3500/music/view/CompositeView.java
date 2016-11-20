@@ -66,6 +66,16 @@ public class CompositeView implements IGuiView {
   }
 
   @Override
+  public void pause() {
+
+  }
+
+  @Override
+  public void resume() {
+
+  }
+
+  @Override
   public void update() {
     this.iView1.update();
     this.iView2.update();

@@ -54,6 +54,16 @@ public class GuiViewFrame extends JFrame implements IGuiView {
   }
 
   @Override
+  public void pause() {
+
+  }
+
+  @Override
+  public void resume() {
+
+  }
+
+  @Override
   public void update() {
     displayPanel.update();
   }

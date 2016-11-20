@@ -43,4 +43,7 @@ public interface IView {
   public void jumpToEnd();
 
   public void move(long tick);
+
+  public void pause();
+  public void resume();
 }

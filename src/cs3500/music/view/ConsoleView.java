@@ -157,6 +157,16 @@ public class ConsoleView implements IView {
   }
 
   @Override
+  public void pause() {
+
+  }
+
+  @Override
+  public void resume() {
+
+  }
+
+  @Override
   public void update() {
     try {
       this.initialize();
