@@ -39,7 +39,7 @@ public class MusicEditor {
 
     try {
       IView theView = ViewFactory.viewFactory(args[1], musicEditor);
-      theView.initialize();
+      IMusicEditorController controller = new MusicEditorController(theView, musicEditor);
     } catch (Exception e) {
       return;
     }
