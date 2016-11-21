@@ -24,8 +24,8 @@ public class CompositeView implements IGuiView {
   @Override
   public void initialize() throws Exception {
     ExecutorService executor = Executors.newFixedThreadPool(2);
-    Runnable v1 = () -> {this.createRunnable(iView1);};
-    Runnable v2 = () -> {this.createRunnable(iView2);};
+    Runnable v1 = () -> this.createRunnable(iView1);
+    Runnable v2 = () -> this.createRunnable(iView2);
 
     executor.submit(v1);
     executor.submit(v2);
@@ -75,6 +75,18 @@ public class CompositeView implements IGuiView {
   public void resume() {
     iView1.resume();
     iView2.resume();
+  }
+
+  @Override
+  public void scrollHorizontal(int unit) {
+    this.iView2.scrollHorizontal(unit);
+    this.iView1.scrollVertical(unit);
+  }
+
+  @Override
+  public void scrollVertical(int unit) {
+    this.iView1.scrollVertical(unit);
+    this.iView2.scrollVertical(unit);
   }
 
   @Override

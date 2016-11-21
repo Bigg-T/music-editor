@@ -18,7 +18,7 @@ public class ConcreteGuiViewPanel extends JPanel implements Scrollable {
 
   private IBasicMusicEditor<INote> musicEditor;
   // Define constants for the various dimensions
-  private static final Color LINE_COLOR = Color.GREEN;
+  private static final Color LINE_COLOR = Color.RED;
   private static final int NOTEWIDTH = 25;
   private static final int NOTEHEIGHT = 25;
   private static final int BASEDOWN = 40;
@@ -37,6 +37,8 @@ public class ConcreteGuiViewPanel extends JPanel implements Scrollable {
   private int botRightY;
 
   private int currentX =  0;
+  private int currentY =  0;
+  private Rectangle rectangle = new Rectangle(0, 0, 1200, 900);
 
   ConcreteGuiViewPanel(IBasicMusicEditor<INote> musicEditor) {
 
@@ -75,8 +77,14 @@ public class ConcreteGuiViewPanel extends JPanel implements Scrollable {
   }
 
   void update() {
-
+    paintRec(rectangle);
+    this.repaint(rectangle);
   }
+
+  void paintRec(Rectangle rectangle) {
+    this.rectangle = rectangle;
+  }
+
 
   /**
    * Draw the vertical line.
@@ -101,17 +109,18 @@ public class ConcreteGuiViewPanel extends JPanel implements Scrollable {
   }
 
   private void horizontalLine(Graphics g, int baseRight, int baseDown, int left, int right) {
+
     if (left < 0) {
       left = 0;
     }
     if (right > musicEditor.getLastBeat()) {
-      right = musicEditor.getLastBeat();
+      right = musicEditor.getLastBeat() + NOTEWIDTH + right;
     }
     for (int j = 0; j <= musicEditor.getMaxPitch() - musicEditor.getMinPitch() + 1; j++) {
       int x = baseRight + (left * NOTEWIDTH);
       int y = baseDown + (j * NOTEHEIGHT);
       int x2;
-      if (right < (musicEditor.getLastBeat() * NOTEWIDTH) + baseRight) {
+      if (right < (musicEditor.getLastBeat())) {
         x2 = right * NOTEWIDTH;
       } else {
         x2 = (musicEditor.getLastBeat() * NOTEWIDTH) + baseRight;
@@ -121,7 +130,7 @@ public class ConcreteGuiViewPanel extends JPanel implements Scrollable {
   }
 
   void move(long tick) {
-    if (tick > 4) {
+    if (tick >= 4) {
       //System.out.println(tick);
       x1 += NOTEWIDTH;
       x2 += NOTEHEIGHT;
@@ -171,6 +180,16 @@ public class ConcreteGuiViewPanel extends JPanel implements Scrollable {
 
   void current(double botLeftX) {
     currentX = (int) (botLeftX - 50) / 25;
+
+  }
+
+  void jumpToBeginning() {
+    this.x1 = BASERIGHT;
+    this.x2 = this.x1;
+  }
+
+  void jumpToEnd() {
+    this.x1 = this.musicEditor.getLastBeat();
   }
 
   @Override
@@ -202,15 +221,6 @@ public class ConcreteGuiViewPanel extends JPanel implements Scrollable {
               * NOTEWIDTH
               - currentPosition;
     }
-  }
-
-  void jumpToBeginning() {
-    this.x1 = BASERIGHT;
-    this.x2 = this.x1;
-  }
-
-  void jumpToEnd() {
-    this.x1 = this.musicEditor.getLastBeat();
   }
 
   @Override

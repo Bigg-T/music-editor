@@ -134,6 +134,16 @@ public class MidiViewImpl implements IMidiView {
   }
 
   @Override
+  public void scrollHorizontal(int unit) {
+
+  }
+
+  @Override
+  public void scrollVertical(int unit) {
+
+  }
+
+  @Override
   public void jumpToBeginning() {
     ss.setTickPosition(0);
   }

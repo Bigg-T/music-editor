@@ -45,5 +45,10 @@ public interface IView {
   public void move(long tick);
 
   public void pause();
+
   public void resume();
+
+  public void scrollHorizontal(int unit);
+
+  public void scrollVertical(int unit);
 }

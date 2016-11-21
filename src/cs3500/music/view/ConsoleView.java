@@ -153,17 +153,27 @@ public class ConsoleView implements IView {
 
   @Override
   public void move(long tick) {
-
+    return;
   }
 
   @Override
   public void pause() {
-
+    return;
   }
 
   @Override
   public void resume() {
+    return;
+  }
 
+  @Override
+  public void scrollHorizontal(int unit) {
+    return;
+  }
+
+  @Override
+  public void scrollVertical(int unit) {
+    return;
   }
 
   @Override
@@ -183,17 +193,17 @@ public class ConsoleView implements IView {
 
   @Override
   public void addKeyListener(KeyListener keyListener) {
-
+    return;
   }
 
   @Override
   public void jumpToBeginning() {
-
+    return;
   }
 
   @Override
   public void jumpToEnd() {
-
+    return;
   }
 
   protected Appendable getAppendable() {

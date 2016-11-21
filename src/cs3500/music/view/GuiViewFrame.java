@@ -47,9 +47,12 @@ public class GuiViewFrame extends JFrame implements IGuiView {
     if (tick % 50 == 0) {
       scr.setScrollPosition((int)tick * 25, 0);
 
-      this.displayPanel.current(scr.getScrollPosition().getX());
       System.out.println(scr.getScrollPosition().getX() + " " + scr.getScrollPosition().getY());
     }
+    this.displayPanel.paintRec(scr.getBounds());
+    this.displayPanel.current(scr.getScrollPosition().getX());
+    System.out.println(scr.getBounds().width + " " + scr.getBounds().height + " "
+            + scr.getBounds().getMinX() + " " + scr.getBounds().getMaxX() + " " + scr.getBounds().getX());
     this.displayPanel.move(tick);
   }
 
@@ -64,7 +67,20 @@ public class GuiViewFrame extends JFrame implements IGuiView {
   }
 
   @Override
+  public void scrollHorizontal(int unit) {
+    this.displayPanel.paintRec(scr.getBounds());
+    scr.setScrollPosition(scr.getX(), scr.getY() + unit);
+  }
+
+  @Override
+  public void scrollVertical(int unit) {
+    this.displayPanel.paintRec(scr.getBounds());
+    scr.setScrollPosition(scr.getX() + unit, scr.getY());
+  }
+
+  @Override
   public void update() {
+    this.displayPanel.paintRec(scr.getBounds());
     displayPanel.update();
   }
 
@@ -75,11 +91,13 @@ public class GuiViewFrame extends JFrame implements IGuiView {
 
   @Override
   public void jumpToBeginning() {
+    this.displayPanel.paintRec(scr.getBounds());
     displayPanel.jumpToBeginning();
   }
 
   @Override
   public void jumpToEnd() {
+    this.displayPanel.paintRec(scr.getBounds());
     displayPanel.jumpToEnd();
   }
 
