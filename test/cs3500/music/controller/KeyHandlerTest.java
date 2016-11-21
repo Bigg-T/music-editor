@@ -12,13 +12,6 @@ import static org.junit.Assert.assertEquals;
  */
 public class KeyHandlerTest {
 
-  public class Tracker  {
-    StringBuilder result = new StringBuilder();
-
-    public void add(String s)  {
-      result.append(s);
-    }
-  }
 
   KeyHandler keyHandler;
 
