@@ -85,6 +85,7 @@ public class MusicEditorController implements IMusicEditorController {
     this.keyHandler.addKeyPressed(38, new VerticalScroller(false, this.theView));
     this.keyHandler.addKeyPressed(40, new VerticalScroller(true, this.theView));
     this.mouseHandler.addMouseClick(1, new ActionRunner(this.ct, this.theView, true));
+    this.mouseHandler.addMouseClick(3, new ActionRunner(this.ct, this.theView, false));
   }
 
   @Override
