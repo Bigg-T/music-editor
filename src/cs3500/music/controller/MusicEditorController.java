@@ -74,9 +74,9 @@ public class MusicEditorController implements IMusicEditorController {
     this.keyHandler.addKeyPressed(86, new SetEdit(this.ct, "volume"));
     this.keyHandler.addKeyPressed(67, new SetEdit(this.ct, "channel"));
     this.keyHandler.addKeyPressed(65,
-            new ActionRunner(this.ct, this.theView, true));
+            new ActionRunner(this.ct, this.theView, this.musicEditor, true));
     this.keyHandler.addKeyPressed(82,
-            new ActionRunner(this.ct, this.theView, false));
+            new ActionRunner(this.ct, this.theView, this.musicEditor, false));
     this.keyHandler.addKeyPressed(32, new PausePlayAction(this.theView));
     this.keyHandler.addKeyPressed(36, new JumpView(this.theView, true));
     this.keyHandler.addKeyPressed(35, new JumpView(this.theView, false));
@@ -84,8 +84,10 @@ public class MusicEditorController implements IMusicEditorController {
     this.keyHandler.addKeyPressed(37, new HorizontalScroller(false, this.theView));
     this.keyHandler.addKeyPressed(38, new VerticalScroller(false, this.theView));
     this.keyHandler.addKeyPressed(40, new VerticalScroller(true, this.theView));
-    this.mouseHandler.addMouseClick(1, new ActionRunner(this.ct, this.theView, true));
-    this.mouseHandler.addMouseClick(3, new ActionRunner(this.ct, this.theView, false));
+    this.mouseHandler.addMouseClick(1, new ActionRunner(this.ct, this.theView,
+            this.musicEditor, true));
+    this.mouseHandler.addMouseClick(3, new ActionRunner(this.ct, this.theView,
+            this.musicEditor, false));
   }
 
   @Override
@@ -95,11 +97,6 @@ public class MusicEditorController implements IMusicEditorController {
     } catch (Exception e)  {
       return;
     }
-  }
-
-  @Override
-  public KeyHandler getKeyHandler() {
-    return this.keyHandler;
   }
 
   @Override

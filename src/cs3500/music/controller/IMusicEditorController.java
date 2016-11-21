@@ -14,12 +14,6 @@ public interface IMusicEditorController {
   public void addControl(Integer keyCode, Runnable runnable, String location);
 
   /**
-   * Gets the key handler from this controller.
-   * @return The key handler
-   */
-  public KeyHandler getKeyHandler();
-
-  /**
    * Initializes the view of this controller.
    */
   public void initializeView();
