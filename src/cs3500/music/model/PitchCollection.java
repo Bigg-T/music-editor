@@ -60,6 +60,7 @@ final class PitchCollection {
    * @param thatPitchCollect pitchCollection to change
    * @param offset           offset to use
    */
+  
   void merge(PitchCollection thatPitchCollect, int offset) {
     Utils.requireNonNull(thatPitchCollect, "Null PitchCollection.");
     Set<Integer> thatKeys = thatPitchCollect.pitchTreeMap.keySet();
