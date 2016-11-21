@@ -7,12 +7,7 @@ import cs3500.music.model.NotePlay;
 import cs3500.music.util.Utils;
 
 import java.awt.event.KeyListener;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -252,26 +247,10 @@ public class ConsoleView implements IView {
     try {
       String temp = "\n" + msg;
       appendable.append(temp);
-
-//      FileOutputStream oS = new FileOutputStream(new File("console.txt"));
-//      oS.write(appendable.toString().getBytes());
-
-//      File file = new File("console.txt");
-//
-//      // if file doesnt exists, then create it
-//      if (!file.exists()) {
-//        final boolean newFile = file.createNewFile();
-//      }
-//
-//      FileWriter fw = new FileWriter(file);
-//      BufferedWriter bw = new BufferedWriter(fw);
-//      bw.write(this.appendable.toString());
-//      bw.close();
     }
     catch (IOException e) {
       e.printStackTrace();
     }
-
   }
 
 }
