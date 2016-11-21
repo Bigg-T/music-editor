@@ -10,7 +10,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * Created by tiger on 11/17/16.
+ * For the purposes of creating a composite view, with a syncronized MIDI and Gui.
  */
 public class CompositeView implements IGuiView {
   private final IMidiView iView1;
