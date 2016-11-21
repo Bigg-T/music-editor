@@ -7,6 +7,7 @@ import cs3500.music.model.NotePlay;
 import cs3500.music.util.Utils;
 
 import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
@@ -189,6 +190,11 @@ public class ConsoleView implements IView {
 
   @Override
   public void addKeyListener(KeyListener keyListener) {
+    return;
+  }
+
+  @Override
+  public void addMouseListener(MouseListener mouseListener) {
     return;
   }
 

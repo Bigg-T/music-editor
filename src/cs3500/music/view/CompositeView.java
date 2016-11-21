@@ -16,6 +16,12 @@ public class CompositeView implements IGuiView {
   private final IMidiView iView1;
   private final IView iView2;
 
+  /**
+   * Constructing composite view with Midi and Gui view.
+   *
+   * @param iView1 Midi view.
+   * @param iView2 Gui View
+   */
   CompositeView(IMidiView iView1, IView iView2) {
     this.iView1 = iView1;
     this.iView2 = iView2;
@@ -45,6 +51,11 @@ public class CompositeView implements IGuiView {
     executor.shutdownNow();
   }
 
+  /**
+   * Create a runnable that initialize the view.
+   *
+   * @param view the Iview.
+   */
   private void createRunnable(IView view) {
     try {
       view.initialize();

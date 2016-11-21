@@ -36,8 +36,8 @@ public class ConcreteGuiViewPanel extends JPanel implements Scrollable {
   private int botRightX;
   private int botRightY;
 
-  private int currentX =  0;
-  private int currentY =  0;
+  private int currentX = 0;
+  private int currentY = 0;
   private Rectangle rectangle = new Rectangle(0, 0, 1200, 900);
 
   ConcreteGuiViewPanel(IBasicMusicEditor<INote> musicEditor) {
@@ -53,9 +53,11 @@ public class ConcreteGuiViewPanel extends JPanel implements Scrollable {
     int height = (NOTEHEIGHT * musicEditor.getLastBeat()) + 80;
     this.setPreferredSize(new Dimension(height, width));
   }
+
   IBasicMusicEditor<INote> getMusicEditor() {
     return musicEditor;
   }
+
   @Override
   public void paintComponent(Graphics g) {
     // Handle the default painting
@@ -122,7 +124,8 @@ public class ConcreteGuiViewPanel extends JPanel implements Scrollable {
       int x2;
       if (right < (musicEditor.getLastBeat())) {
         x2 = right * NOTEWIDTH;
-      } else {
+      }
+      else {
         x2 = (musicEditor.getLastBeat() * NOTEWIDTH) + baseRight;
       }
       g.drawLine(x, y, x2, y);
@@ -134,7 +137,7 @@ public class ConcreteGuiViewPanel extends JPanel implements Scrollable {
       //System.out.println(tick);
       x1 += NOTEWIDTH;
       x2 += NOTEHEIGHT;
-      repaint();
+      repaint(rectangle);
     }
   }
 
@@ -147,6 +150,13 @@ public class ConcreteGuiViewPanel extends JPanel implements Scrollable {
             .forEach(beatAt -> drawAllNotesAtPitch(g, baseRight, baseDown, beatAt));
   }
 
+  /**
+   * @param g         the graphic to draw on.
+   * @param baseRight
+   * @param baseDown
+   * @param beatAt
+   * @return
+   */
   private Graphics drawAllNotesAtPitch(Graphics g, int baseRight, int baseDown, int beatAt) {
     SortedMap<Integer, SortedMap<Integer, List<INote>>> comp = musicEditor.composition();
     int x = baseRight + (beatAt * NOTEWIDTH);
@@ -169,6 +179,13 @@ public class ConcreteGuiViewPanel extends JPanel implements Scrollable {
     return g;
   }
 
+  /**
+   * EFFECT: added the pitch to the graphic.
+   * Return the graphic the has been modified.
+   *
+   * @param pitchGraphic the graphic to draw on.
+   * @return the graphic
+   */
   private Graphics drawPitch(Graphics pitchGraphic) {
     for (int j = musicEditor.getMinPitch(); j <= musicEditor.getMaxPitch(); j++) {
       pitchGraphic.drawString(MusicUtils.pitchToString(j), 15, 55 +
@@ -178,16 +195,23 @@ public class ConcreteGuiViewPanel extends JPanel implements Scrollable {
     return pitchGraphic;
   }
 
+
   void current(double botLeftX) {
     currentX = (int) (botLeftX - 50) / 25;
 
   }
 
+  /**
+   * Jump the the beginning.
+   */
   void jumpToBeginning() {
     this.x1 = BASERIGHT;
     this.x2 = this.x1;
   }
 
+  /**
+   * Jump to the end.
+   */
   void jumpToEnd() {
     this.x1 = this.musicEditor.getLastBeat();
   }
@@ -205,7 +229,8 @@ public class ConcreteGuiViewPanel extends JPanel implements Scrollable {
     int currentPosition = 0;
     if (orientation == SwingConstants.HORIZONTAL) {
       currentPosition = visibleRect.x;
-    } else {
+    }
+    else {
       currentPosition = visibleRect.y;
     }
 
@@ -216,7 +241,8 @@ public class ConcreteGuiViewPanel extends JPanel implements Scrollable {
               (currentPosition / NOTEWIDTH)
                       * NOTEWIDTH;
       return (newPosition == 0) ? NOTEWIDTH : newPosition;
-    } else {
+    }
+    else {
       return ((currentPosition / NOTEWIDTH) + 1)
               * NOTEWIDTH
               - currentPosition;

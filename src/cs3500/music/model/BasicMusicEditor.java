@@ -21,7 +21,7 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
    *
    * @param tempo the composition tempo in MPQ
    */
-  BasicMusicEditor(int tempo) {
+  protected BasicMusicEditor(int tempo) {
     this.piece = new TreeMap<>();
     this.tempo = tempo;
   }

@@ -18,6 +18,8 @@ import javax.sound.midi.ShortMessage;
 import javax.sound.midi.Synthesizer;
 import javax.sound.midi.Track;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -37,7 +39,9 @@ public class MidiViewImpl implements IMidiView {
   /**
    * Creates MidiViewImp.
    */
-  public MidiViewImpl(IBasicMusicEditor<INote> musicEditor) {
+  public MidiViewImpl(IBasicMusicEditor<INote> musicEditor, Sequencer ss) {
+    Objects.requireNonNull(musicEditor, "Null music editor");
+    Objects.requireNonNull(ss, "Null sequencer");
     this.musicEditor = Utils.requireNonNull(musicEditor, "Null MusicEditor");
     try {
       ss = MidiSystem.getSequencer();
@@ -172,6 +176,11 @@ public class MidiViewImpl implements IMidiView {
   @Override
   public void addKeyListener(KeyListener keyListener) {
 
+  }
+
+  @Override
+  public void addMouseListener(MouseListener mouseListener) {
+    return;
   }
 
   private Sequence model(IBasicMusicEditor<INote> inote, Sequence sequence) {
