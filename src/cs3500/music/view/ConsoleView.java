@@ -17,7 +17,8 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
- * Console View.
+ * For the purposes of representing a view of the Music Editor from 
+ *   the console.
  */
 public class ConsoleView implements IView {
 
