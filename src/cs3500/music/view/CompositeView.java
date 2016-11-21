@@ -67,12 +67,14 @@ public class CompositeView implements IGuiView {
 
   @Override
   public void pause() {
-
+    iView2.pause();
+    iView1.pause();
   }
 
   @Override
   public void resume() {
-
+    iView1.resume();
+    iView2.resume();
   }
 
   @Override
