@@ -100,16 +100,16 @@ public class CompositeView implements IGuiView {
 
   @Override
   public void addKeyListener(KeyListener listener) {
-
+    return;
   }
 
   @Override
   public void addActionListener(ActionListener listener) {
-
+    return;
   }
 
   @Override
   public void addMouseListener(MouseListener mouseListener) {
-
+    return;
   }
 }
