@@ -51,6 +51,7 @@ public class MusicEditorController implements IMusicEditorController {
     this.theView.addKeyListener(this.keyHandler);
     this.theView.addMouseListener(this.mouseHandler);
     this.initStandard();
+    this.initializeView();
   }
 
   /**
