@@ -10,7 +10,6 @@ import javax.sound.midi.MidiChannel;
 import javax.sound.midi.MidiEvent;
 import javax.sound.midi.MidiMessage;
 import javax.sound.midi.MidiSystem;
-import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Receiver;
 import javax.sound.midi.Sequence;
 import javax.sound.midi.Sequencer;
@@ -20,12 +19,11 @@ import javax.sound.midi.Track;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
 /**
  * MIDI playback.
  */
-public class MidiViewImpl implements IMidiView {
+public class MidiViewImpl implements IView {
 
   private final IBasicMusicEditor<INote> musicEditor;
   private Sequencer ss;
@@ -43,12 +41,7 @@ public class MidiViewImpl implements IMidiView {
     Objects.requireNonNull(musicEditor, "Null music editor");
     Objects.requireNonNull(ss, "Null sequencer");
     this.musicEditor = Utils.requireNonNull(musicEditor, "Null MusicEditor");
-    try {
-      ss = MidiSystem.getSequencer();
-    }
-    catch (MidiUnavailableException e) {
-      e.printStackTrace();
-    }
+    this.ss = ss;
   }
 
   /**
@@ -103,7 +96,7 @@ public class MidiViewImpl implements IMidiView {
       }
       //this.currentPosition = 0;
       //System.out.println(this.currentPosition);
-      ss.close();
+      //ss.close();
 
     }
     catch (Exception e) {
@@ -166,11 +159,6 @@ public class MidiViewImpl implements IMidiView {
     catch (InvalidMidiDataException e) {
       e.printStackTrace();
     }
-  }
-
-  @Override
-  public IBasicMusicEditor<INote> getMusicEditor() {
-    return musicEditor;
   }
 
   @Override

@@ -13,8 +13,8 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
- * For the purposes of representing a view of the Music Editor from 
- *   the console.
+ * For the purposes of representing a view of the Music Editor from
+ * the console.
  */
 public class ConsoleView implements IView {
 
@@ -36,7 +36,7 @@ public class ConsoleView implements IView {
   }
 
   /**
-   * Get the redable.
+   * Get the readable.
    *
    * @return the readable.
    */
@@ -108,7 +108,6 @@ public class ConsoleView implements IView {
     return string;
   }
 
-  //@Todo write the getState method
   @Override
   public void initialize() throws Exception {
     int maxBeat = musicEditor.getLastBeat();
@@ -184,11 +183,6 @@ public class ConsoleView implements IView {
   }
 
   @Override
-  public IBasicMusicEditor<INote> getMusicEditor() {
-    return musicEditor;
-  }
-
-  @Override
   public void addKeyListener(KeyListener keyListener) {
     return;
   }
@@ -208,10 +202,14 @@ public class ConsoleView implements IView {
     return;
   }
 
-  protected Appendable getAppendable() {
-    return appendable;
-  }
-
+  /**
+   * The list of list of string that represent the composition.
+   *
+   * @param maxBeat  the length in beat of the composition.
+   * @param minPitch the min pitch in the composition.
+   * @param maxPitch the max pitch in the composition.
+   * @return the list of list of string that represent the composition.
+   */
   List<List<String>> initView(int maxBeat, int minPitch, int maxPitch) {
     //System.out.println(maxBeat);
     List<List<String>> temp = new ArrayList<>();

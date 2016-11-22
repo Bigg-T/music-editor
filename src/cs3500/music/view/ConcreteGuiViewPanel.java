@@ -65,10 +65,7 @@ public class ConcreteGuiViewPanel extends JPanel implements Scrollable {
     int baseRight = 50;
     int baseDown = 40;
     g.setColor(Color.BLUE);
-//    ExecutorService executor = Executors.newFixedThreadPool(3);
-//    Runnable draws = () -> drawPitch(g);
-//    executor.submit(draws);
-    drawNotes(g, baseRight, baseDown, currentX - 30, currentX + 60);
+    drawNotes(g, currentX - 30, currentX + 60);
     g.setColor(Color.BLACK);
     verticalLine(g, currentX - 15, currentX + 70);
     horizontalLine(g, baseRight, baseDown, currentX - 15, currentX + 70);
@@ -141,29 +138,28 @@ public class ConcreteGuiViewPanel extends JPanel implements Scrollable {
     }
   }
 
-  private void drawNotes(Graphics g, int baseRight, int baseDown,
-                         int leftOnScreen, int rightOnScreen) {
+  private void drawNotes(Graphics g, int leftOnScreen, int rightOnScreen) {
     SortedMap<Integer, SortedMap<Integer, List<INote>>> comp = musicEditor.composition();
     Set<Integer> beats = comp.keySet();
     beats.stream()
             .filter(x -> (x < rightOnScreen) && (x > leftOnScreen))
-            .forEach(beatAt -> drawAllNotesAtPitch(g, baseRight, baseDown, beatAt));
+            .forEach(beatAt -> drawAllNotesAtPitch(g, beatAt));
   }
 
   /**
+   * Draw all the notes in range.
+   *
    * @param g         the graphic to draw on.
-   * @param baseRight
-   * @param baseDown
    * @param beatAt
    * @return
    */
-  private Graphics drawAllNotesAtPitch(Graphics g, int baseRight, int baseDown, int beatAt) {
+  private Graphics drawAllNotesAtPitch(Graphics g, int beatAt) {
     SortedMap<Integer, SortedMap<Integer, List<INote>>> comp = musicEditor.composition();
-    int x = baseRight + (beatAt * NOTEWIDTH);
+    int x = BASERIGHT + (beatAt * NOTEWIDTH);
     Set<Integer> pitches = comp.get(beatAt).keySet();
     pitches.forEach(j ->
     {
-      int y = baseDown + ((musicEditor.getMaxPitch() - j) * NOTEHEIGHT);
+      int y = BASEDOWN + ((musicEditor.getMaxPitch() - j) * NOTEHEIGHT);
       int currentMax = 0;
       for (INote note : comp.get(beatAt).get(j)) {
         if (note.getBeat() > currentMax) {

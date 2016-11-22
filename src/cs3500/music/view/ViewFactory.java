@@ -22,7 +22,7 @@ public class ViewFactory {
   public static IView viewFactory(String view, IBasicMusicEditor<INote> musicEditor)
           throws IllegalArgumentException {
     IView gui = new GuiViewFrame(musicEditor);
-    Sequencer ss = null;
+    Sequencer ss;
     try {
       ss = MidiSystem.getSequencer();
     }
@@ -30,7 +30,7 @@ public class ViewFactory {
       e.printStackTrace();
       throw new IllegalArgumentException("Can't init MIDI");
     }
-    IMidiView midi = new MidiViewImpl(musicEditor, ss);
+    IView midi = new MidiViewImpl(musicEditor, ss);
     Reader read = new InputStreamReader(System.in);
     IView console = new ConsoleView(musicEditor, read, System.out);
     switch (view) {

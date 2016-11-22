@@ -1,8 +1,5 @@
 package cs3500.music.view;
 
-import cs3500.music.model.IBasicMusicEditor;
-import cs3500.music.model.INote;
-
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
@@ -13,7 +10,7 @@ import java.util.concurrent.Executors;
  * For the purposes of creating a composite view, with a syncronized MIDI and Gui.
  */
 public class CompositeView implements IGuiView {
-  private final IMidiView iView1;
+  private final IView iView1;
   private final IView iView2;
 
   /**
@@ -22,7 +19,7 @@ public class CompositeView implements IGuiView {
    * @param iView1 Midi view.
    * @param iView2 Gui View
    */
-  CompositeView(IMidiView iView1, IView iView2) {
+  CompositeView(IView iView1, IView iView2) {
     this.iView1 = iView1;
     this.iView2 = iView2;
   }
@@ -40,7 +37,7 @@ public class CompositeView implements IGuiView {
     while (!executor.isTerminated()) {
       if (currentPosition != iView1.getCurrentTick()) {
         currentPosition = iView1.getCurrentTick();
-        this.move(this.getCurrentTick());
+        //this.move(this.getCurrentTick());
         //System.out.println(currentPosition + "  " + executor.toString());
       }
       if (iView1.getCurrentTick() == 30) {
@@ -104,11 +101,6 @@ public class CompositeView implements IGuiView {
   public void update() {
     this.iView1.update();
     this.iView2.update();
-  }
-
-  @Override
-  public IBasicMusicEditor<INote> getMusicEditor() {
-    return iView2.getMusicEditor();
   }
 
   @Override

@@ -77,7 +77,8 @@ public class MusicEditorController implements IMusicEditorController {
             new ActionRunner(this.ct, this.theView, this.musicEditor, true));
     this.keyHandler.addKeyPressed(82,
             new ActionRunner(this.ct, this.theView, this.musicEditor, false));
-    this.keyHandler.addKeyPressed(32, new PausePlayAction(this.theView));
+    this.keyHandler.addKeyPressed(32, new PauseAction(this.theView));
+    this.keyHandler.addKeyPressed(10, new PlayAction(this.theView));
     this.keyHandler.addKeyPressed(36, new JumpView(this.theView, true));
     this.keyHandler.addKeyPressed(35, new JumpView(this.theView, false));
     this.keyHandler.addKeyPressed(39, new HorizontalScroller(true, this.theView));

@@ -24,13 +24,6 @@ public interface IView {
   public void update();
 
   /**
-   * Gets the music editor from this view.
-   *
-   * @return the music editor from this view
-   */
-  public IBasicMusicEditor<INote> getMusicEditor();
-
-  /**
    * Adds the key listener if possible
    *
    * @param keyListener the key listener to be added

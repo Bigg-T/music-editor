@@ -1,5 +1,7 @@
 package cs3500.music;
 
+import cs3500.music.controller.IMusicEditorController;
+import cs3500.music.controller.MusicEditorController;
 import cs3500.music.model.BasicMusicEditor;
 import cs3500.music.model.IBasicMusicEditor;
 import cs3500.music.model.INote;

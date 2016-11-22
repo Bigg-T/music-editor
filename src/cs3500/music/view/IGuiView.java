@@ -5,7 +5,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 
 /**
- * Created by tiger on 11/19/16.
+ * Create the IGuiView to work with the Controller.
  */
 public interface IGuiView extends IView {
   /**

@@ -9,7 +9,8 @@ import cs3500.music.model.IBasicMusicEditor;
 import cs3500.music.model.INote;
 
 /**
- * A skeleton Frame (i.e., a window) in Swing
+ * A skeleton Frame (i.e., a window) in Swing.
+ * The GuiView JFrame that composes all the components.
  */
 public class GuiViewFrame extends JFrame implements IGuiView {
   // Define constants for the various dimensions
@@ -18,6 +19,7 @@ public class GuiViewFrame extends JFrame implements IGuiView {
 
   private final ConcreteGuiViewPanel displayPanel;
   private final ScrollPane scr;
+
   /**
    * Creates new GuiView.
    */
@@ -45,11 +47,11 @@ public class GuiViewFrame extends JFrame implements IGuiView {
   @Override
   public void move(long tick) {
     if (tick % 50 == 0) {
-      scr.setScrollPosition((int)tick * 25, 0);
+      scr.setScrollPosition((int) tick * 25, 0);
 
       System.out.println(scr.getScrollPosition().getX() + " " + scr.getScrollPosition().getY());
     }
-    this.displayPanel.paintRec(scr.getBounds());
+    this.displayPanel.paintRec(displayPanel.getVisibleRect());
     this.displayPanel.current(scr.getScrollPosition().getX());
     System.out.println(scr.getBounds().width + " " + scr.getBounds().height + " "
             + scr.getBounds().getMinX() + " " + scr.getBounds().getMaxX() + " " + scr.getBounds().getX());
@@ -58,46 +60,41 @@ public class GuiViewFrame extends JFrame implements IGuiView {
 
   @Override
   public void pause() {
-
+    return;
   }
 
   @Override
   public void resume() {
-
+    return;
   }
 
   @Override
   public void scrollHorizontal(int unit) {
-    this.displayPanel.paintRec(scr.getBounds());
+    this.displayPanel.paintRec(displayPanel.getVisibleRect());
     scr.setScrollPosition(scr.getX(), scr.getY() + unit);
   }
 
   @Override
   public void scrollVertical(int unit) {
-    this.displayPanel.paintRec(scr.getBounds());
+    this.displayPanel.paintRec(displayPanel.getVisibleRect());
     scr.setScrollPosition(scr.getX() + unit, scr.getY());
   }
 
   @Override
   public void update() {
-    this.displayPanel.paintRec(scr.getBounds());
+    this.displayPanel.paintRec(displayPanel.getVisibleRect());
     displayPanel.update();
   }
 
   @Override
-  public IBasicMusicEditor<INote> getMusicEditor() {
-    return this.displayPanel.getMusicEditor();
-  }
-
-  @Override
   public void jumpToBeginning() {
-    this.displayPanel.paintRec(scr.getBounds());
+    this.displayPanel.paintRec(displayPanel.getVisibleRect());
     displayPanel.jumpToBeginning();
   }
 
   @Override
   public void jumpToEnd() {
-    this.displayPanel.paintRec(scr.getBounds());
+    this.displayPanel.paintRec(displayPanel.getVisibleRect());
     displayPanel.jumpToEnd();
   }
 

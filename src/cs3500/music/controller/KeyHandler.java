@@ -56,6 +56,7 @@ public class KeyHandler implements KeyListener {
 
   @Override
   public void keyPressed(KeyEvent e) {
+    System.out.println("RAN!!!");
     try  {
       Objects.requireNonNull(keysToBePressed.get(e.getKeyCode()));
       keysToBePressed.get(e.getKeyCode()).run();
