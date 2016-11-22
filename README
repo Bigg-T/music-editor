@@ -19,7 +19,7 @@ The main method takes in two arguments, the first designating which file to read
 Controller specifications:
 
 - To add a note, first press the key for the field you want to set (p for pitch, s for start beat, d for duration, 
-v for volume, c for channel) and then press the key for the number you want to set it to (multiple consecutively 
+v for volume, c for channel) and then press the key for the number you want to set it to (consecutively 
 if it is multiple digits). Repeat this process for all fields, the press a or right mouse click to add.
 Ex: p 6 0 s 1 d 2 c 1 v 5 *left click* adds a half note for middle C at beat 1
 - To remove, go through the same process except press r or left click at the end.
