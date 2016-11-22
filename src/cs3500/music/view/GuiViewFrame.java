@@ -12,8 +12,7 @@ import cs3500.music.model.IBasicMusicEditor;
 import cs3500.music.model.INote;
 
 /**
- * A skeleton Frame (i.e., a window) in Swing.
- * The GuiView JFrame that composes all the components.
+ * A skeleton Frame (i.e., a window) in Swing
  */
 public class GuiViewFrame extends JFrame implements IGuiView {
   // Define constants for the various dimensions
@@ -22,7 +21,6 @@ public class GuiViewFrame extends JFrame implements IGuiView {
 
   private final ConcreteGuiViewPanel displayPanel;
   private final ScrollPane scr;
-
   /**
    * Creates new GuiView.
    */
@@ -31,7 +29,7 @@ public class GuiViewFrame extends JFrame implements IGuiView {
     this.scr = new ScrollPane();
     scr.add(displayPanel);
     this.setTitle("Music Editor");
-
+    this.displayPanel.setFocusable(true);
     this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     this.add(scr);
     this.pack();
@@ -50,14 +48,17 @@ public class GuiViewFrame extends JFrame implements IGuiView {
   @Override
   public void move(long tick) {
     if (tick % 50 == 0) {
-      scr.setScrollPosition((int) tick * 25, 0);
+      scr.setScrollPosition((int)tick * 25, 0);
 
       System.out.println(scr.getScrollPosition().getX() + " " + scr.getScrollPosition().getY());
     }
-    this.displayPanel.paintRec(displayPanel.getVisibleRect());
+    this.displayPanel.paintRec(scr.getBounds());
     this.displayPanel.current(scr.getScrollPosition().getX());
+    /*
     System.out.println(scr.getBounds().width + " " + scr.getBounds().height + " "
-            + scr.getBounds().getMinX() + " " + scr.getBounds().getMaxX() + " " + scr.getBounds().getX());
+            + scr.getBounds().getMinX() + " " + scr.getBounds().getMaxX() + " " + scr.getBounds().
+            getX());
+    */
     this.displayPanel.move(tick);
   }
 

@@ -3,6 +3,7 @@ package cs3500.music.controller;
 import org.junit.Test;
 
 import java.awt.event.KeyEvent;
+import java.util.Objects;
 
 import static org.junit.Assert.assertEquals;
 

@@ -8,13 +8,17 @@ import cs3500.music.util.Utils;
 
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.ArrayList;
 
 /**
- * For the purposes of representing a view of the Music Editor from
- * the console.
+ * Console View.
  */
 public class ConsoleView implements IView {
 
@@ -36,7 +40,7 @@ public class ConsoleView implements IView {
   }
 
   /**
-   * Get the readable.
+   * Get the redable.
    *
    * @return the readable.
    */
@@ -108,6 +112,7 @@ public class ConsoleView implements IView {
     return string;
   }
 
+  //@Todo write the getState method
   @Override
   public void initialize() throws Exception {
     int maxBeat = musicEditor.getLastBeat();
@@ -202,14 +207,10 @@ public class ConsoleView implements IView {
     return;
   }
 
-  /**
-   * The list of list of string that represent the composition.
-   *
-   * @param maxBeat  the length in beat of the composition.
-   * @param minPitch the min pitch in the composition.
-   * @param maxPitch the max pitch in the composition.
-   * @return the list of list of string that represent the composition.
-   */
+  protected Appendable getAppendable() {
+    return appendable;
+  }
+
   List<List<String>> initView(int maxBeat, int minPitch, int maxPitch) {
     //System.out.println(maxBeat);
     List<List<String>> temp = new ArrayList<>();
@@ -251,10 +252,26 @@ public class ConsoleView implements IView {
     try {
       String temp = "\n" + msg;
       appendable.append(temp);
+
+//      FileOutputStream oS = new FileOutputStream(new File("console.txt"));
+//      oS.write(appendable.toString().getBytes());
+
+//      File file = new File("console.txt");
+//
+//      // if file doesnt exists, then create it
+//      if (!file.exists()) {
+//        final boolean newFile = file.createNewFile();
+//      }
+//
+//      FileWriter fw = new FileWriter(file);
+//      BufferedWriter bw = new BufferedWriter(fw);
+//      bw.write(this.appendable.toString());
+//      bw.close();
     }
     catch (IOException e) {
       e.printStackTrace();
     }
+
   }
 
 }

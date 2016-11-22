@@ -21,7 +21,7 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
    *
    * @param tempo the composition tempo in MPQ
    */
-  protected BasicMusicEditor(int tempo) {
+  BasicMusicEditor(int tempo) {
     this.piece = new TreeMap<>();
     this.tempo = tempo;
   }
@@ -154,6 +154,17 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
     this.piece.keySet().forEach(x -> compos.put(x, getAllNotesAt(x)));
     return compos;
   }
+
+//  @Override
+//  public TreeMap<Integer, SortedMap<Integer, List<Integer>>> getDrawComposition() {
+//    TreeMap<Integer, SortedMap<Integer, List<Integer>>> compos = new TreeMap<>();
+//    this.piece.keySet().forEach(x -> compos.put(x, getAllDrawNotesAt(x)));
+//    return compos;
+//  }
+
+//  private TreeMap<Integer, List<Integer>> getAllDrawNotesAt(int beat) {
+//    return this.piece.get(beat).getAllDrawNote();
+//  }
 
   TreeMap<Integer, PitchCollection> getPiece() {
     return this.piece;

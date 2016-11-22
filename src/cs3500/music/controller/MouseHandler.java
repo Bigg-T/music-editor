@@ -34,6 +34,7 @@ public class MouseHandler implements MouseListener {
 
   @Override
   public void mouseClicked(MouseEvent e) {
+    System.out.println("ran");
     this.mouseClickEvent.get(e.getButton()).run();
   }
 

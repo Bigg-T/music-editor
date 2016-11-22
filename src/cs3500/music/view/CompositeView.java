@@ -1,11 +1,13 @@
 package cs3500.music.view;
 
+import cs3500.music.model.IBasicMusicEditor;
+import cs3500.music.model.INote;
+
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 /**
  * For the purposes of creating a composite view, with a syncronized MIDI and Gui.
@@ -14,12 +16,6 @@ public class CompositeView implements IGuiView {
   private final IView iView1;
   private final IView iView2;
 
-  /**
-   * Constructing composite view with Midi and Gui view.
-   *
-   * @param iView1 Midi view.
-   * @param iView2 Gui View
-   */
   CompositeView(IView iView1, IView iView2) {
     this.iView1 = iView1;
     this.iView2 = iView2;
@@ -46,11 +42,6 @@ public class CompositeView implements IGuiView {
     executor.shutdownNow();
   }
 
-  /**
-   * Create a runnable that initialize the view.
-   *
-   * @param view the Iview.
-   */
   private void createRunnable(IView view) {
     try {
       view.initialize();
@@ -79,9 +70,9 @@ public class CompositeView implements IGuiView {
 
   @Override
   public void resume() {
-
     iView2.resume();
     iView1.resume();
+
   }
 
   @Override
@@ -116,7 +107,7 @@ public class CompositeView implements IGuiView {
 
   @Override
   public void addKeyListener(KeyListener listener) {
-    return;
+    this.iView2.addKeyListener(listener);
   }
 
   @Override
@@ -126,6 +117,11 @@ public class CompositeView implements IGuiView {
 
   @Override
   public void addMouseListener(MouseListener mouseListener) {
+    this.iView2.addMouseListener(mouseListener);
+  }
+
+  @Override
+  public void removeMouseListener(MouseListener l) {
     return;
   }
 }

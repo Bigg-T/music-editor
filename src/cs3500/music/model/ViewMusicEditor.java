@@ -49,6 +49,11 @@ public class ViewMusicEditor implements IBasicMusicEditor<INote> {
     return compos;
   }
 
+//  @Override
+//  public SortedMap<Integer, SortedMap<Integer, List<INote>>> getDrawComposition() {
+//    return null;
+//  }
+
   @Override
   public int getMinPitch() {
     return musicEditor.getMinPitch();
@@ -79,7 +84,7 @@ public class ViewMusicEditor implements IBasicMusicEditor<INote> {
     return true;
   }
 
- 
+  //need to change to visitor pattern
   BasicMusicEditor toBasicMusicEditor(IBasicMusicEditor<INote> musicEditor) {
     musicEditor = Utils.requireNonNull(musicEditor, "Null MusicEditor");
     if (musicEditor.isViewEditor()) {

@@ -1,8 +1,6 @@
 package cs3500.music.controller;
-
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -56,7 +54,6 @@ public class KeyHandler implements KeyListener {
 
   @Override
   public void keyPressed(KeyEvent e) {
-    System.out.println("RAN!!!");
     try  {
       Objects.requireNonNull(keysToBePressed.get(e.getKeyCode()));
       keysToBePressed.get(e.getKeyCode()).run();

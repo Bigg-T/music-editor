@@ -26,10 +26,10 @@ public class ConsoleTest {
   private StringBuffer appendable;
   private Reader readable;
 
+  @Before
   /**
    * Sets up init state.
    */
-  @Before
   public void setUp() throws Exception {
     try {
       f = new File("mary-little-lamb.txt");

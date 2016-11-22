@@ -38,7 +38,7 @@ public interface IView {
 
   /**
    * Gets the current tick of the view, if possible.
-   * @return
+   * @return the current tick
    */
   public long getCurrentTick();
 

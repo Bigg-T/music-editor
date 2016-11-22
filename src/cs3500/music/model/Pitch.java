@@ -120,7 +120,6 @@ class Pitch {
    *
    * @return the longest duration
    */
-  
   int longestNoteDuration() {
     try {
       return this.noteList.stream().mapToInt(Note::getBeat).max().getAsInt();
