@@ -81,22 +81,23 @@ public class GuiViewFrame extends JFrame implements IGuiView {
   public void scrollVertical(int unit) {
     this.displayPanel.paintRec(scr.getBounds());
     scr.setScrollPosition(scr.getX(), scr.getY() + unit);
+  }
 
   @Override
   public void update() {
-    this.displayPanel.paintRec(displayPanel.getVisibleRect());
+    this.displayPanel.paintRec(scr.getBounds());
     displayPanel.update();
   }
 
   @Override
   public void jumpToBeginning() {
-    this.displayPanel.paintRec(displayPanel.getVisibleRect());
+    this.displayPanel.paintRec(scr.getBounds());
     displayPanel.jumpToBeginning();
   }
 
   @Override
   public void jumpToEnd() {
-    this.displayPanel.paintRec(displayPanel.getVisibleRect());
+    this.displayPanel.paintRec(scr.getBounds());
     displayPanel.jumpToEnd();
   }
 
@@ -106,8 +107,23 @@ public class GuiViewFrame extends JFrame implements IGuiView {
   }
 
   @Override
-  public void addActionListener(ActionListener listener) {
+  public void addMouseListener(MouseListener mouseListener)  {
+    this.displayPanel.addMouseListener(mouseListener);
+  }
 
+  @Override
+  public void removeMouseListener(MouseListener l) {
+    this.displayPanel.removeMouseListener(l);
+  }
+
+  @Override
+  public void addActionListener(ActionListener listener)  {
+    this.addActionListener(listener);
+  }
+
+  @Override
+  public void addKeyListener(KeyListener listener)  {
+    this.displayPanel.addKeyListener(listener);
   }
 
 }
