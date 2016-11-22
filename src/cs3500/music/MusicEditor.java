@@ -21,8 +21,7 @@ public class MusicEditor {
 
   /**
    * The main to run the program.
-   *
-   * @param args Argument for running program
+   * @param  args                      Argument for running program
    * @throws IOException              file exception
    * @throws InvalidMidiDataException mide exception
    */
@@ -46,6 +45,4 @@ public class MusicEditor {
       return;
     }
   }
-
-
 }
