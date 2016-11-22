@@ -5,6 +5,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 /**
  * For the purposes of creating a composite view, with a syncronized MIDI and Gui.
@@ -37,11 +38,8 @@ public class CompositeView implements IGuiView {
     while (!executor.isTerminated()) {
       if (currentPosition != iView1.getCurrentTick()) {
         currentPosition = iView1.getCurrentTick();
-        //this.move(this.getCurrentTick());
+        this.move(this.getCurrentTick());
         //System.out.println(currentPosition + "  " + executor.toString());
-      }
-      if (iView1.getCurrentTick() == 30) {
-        //this.jumpToBeginning();
       }
     }
 
@@ -81,8 +79,9 @@ public class CompositeView implements IGuiView {
 
   @Override
   public void resume() {
-    iView1.resume();
+
     iView2.resume();
+    iView1.resume();
   }
 
   @Override

@@ -128,6 +128,7 @@ public class MidiViewImpl implements IView {
   @Override
   public void resume() {
     ss.start();
+    ss.setTempoInMPQ(musicEditor.getTempo());
   }
 
   @Override
@@ -153,10 +154,10 @@ public class MidiViewImpl implements IView {
   @Override
   public void update() {
     try {
-      ss.setSequence(this.model(musicEditor, new Sequence(Sequence.PPQ, 1)));
+      //ss.setSequence(this.model(musicEditor, new Sequence(Sequence.PPQ, 1)));
       ss.setTempoInMPQ(musicEditor.getTempo());
     }
-    catch (InvalidMidiDataException e) {
+    catch (Exception e) {
       e.printStackTrace();
     }
   }
