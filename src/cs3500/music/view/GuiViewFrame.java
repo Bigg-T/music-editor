@@ -70,15 +70,14 @@ public class GuiViewFrame extends JFrame implements IGuiView {
 
   @Override
   public void scrollHorizontal(int unit) {
-    this.displayPanel.paintRec(displayPanel.getVisibleRect());
-    scr.setScrollPosition(scr.getX(), scr.getY() + unit);
+    this.displayPanel.paintRec(scr.getBounds());
+    scr.setScrollPosition(scr.getX() + unit, scr.getY());
   }
 
   @Override
   public void scrollVertical(int unit) {
-    this.displayPanel.paintRec(displayPanel.getVisibleRect());
-    scr.setScrollPosition(scr.getX() + unit, scr.getY());
-  }
+    this.displayPanel.paintRec(scr.getBounds());
+    scr.setScrollPosition(scr.getX(), scr.getY() + unit);
 
   @Override
   public void update() {
