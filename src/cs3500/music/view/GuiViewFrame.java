@@ -1,9 +1,12 @@
 package cs3500.music.view;
 
-import java.awt.*;
+import java.awt.ScrollPane;
+import java.awt.Dimension;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
 
-import javax.swing.*;
+import javax.swing.JFrame;
 
 import cs3500.music.model.IBasicMusicEditor;
 import cs3500.music.model.INote;
