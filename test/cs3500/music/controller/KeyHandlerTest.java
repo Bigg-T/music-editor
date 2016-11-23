@@ -3,7 +3,6 @@ package cs3500.music.controller;
 import org.junit.Test;
 
 import java.awt.event.KeyEvent;
-import java.util.Objects;
 
 import static org.junit.Assert.assertEquals;
 
@@ -12,13 +11,6 @@ import static org.junit.Assert.assertEquals;
  */
 public class KeyHandlerTest {
 
-  public class Tracker  {
-    StringBuilder result = new StringBuilder();
-
-    public void add(String s)  {
-      result.append(s);
-    }
-  }
 
   KeyHandler keyHandler;
 
@@ -28,9 +20,10 @@ public class KeyHandlerTest {
 
   /**
    * Sets up for tests.
+   *
    * @return Tracker to be used
    */
-  Tracker setUp()  {
+  Tracker setUp() {
     Tracker t = new Tracker();
     ke1.setKeyCode(1);
     ke2.setKeyCode(2);
@@ -43,16 +36,15 @@ public class KeyHandlerTest {
     return t;
   }
 
-
   @Test
-  public void testKeyPressed()  {
+  public void testKeyPressed() {
     Tracker t = this.setUp();
     keyHandler.keyPressed(ke1);
     assertEquals("a", t.result.toString());
   }
 
   @Test
-  public void testKeyTyped()  {
+  public void testKeyTyped() {
     Tracker t = this.setUp();
     keyHandler.keyTyped(ke2);
     assertEquals("b", t.result.toString());
