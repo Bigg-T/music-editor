@@ -10,23 +10,24 @@ import javax.sound.midi.MidiChannel;
 import javax.sound.midi.MidiEvent;
 import javax.sound.midi.MidiMessage;
 import javax.sound.midi.MidiSystem;
-import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Receiver;
 import javax.sound.midi.Sequence;
 import javax.sound.midi.Sequencer;
 import javax.sound.midi.ShortMessage;
 import javax.sound.midi.Synthesizer;
 import javax.sound.midi.Track;
-import java.util.concurrent.TimeUnit;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
+import java.util.Objects;
 
 /**
  * MIDI playback.
  */
-public class MidiViewImpl implements IMidiView {
-  private final Synthesizer synth;
-  private final Receiver receiver;
+public class MidiViewImpl implements IView {
+
   private final IBasicMusicEditor<INote> musicEditor;
   private Sequencer ss;
+  private Sequence sequence;
 
   //place holder, assuming that getTickPosition() will not produce a 0 at start,
   //-1 mean that the midi is over.
@@ -36,24 +37,11 @@ public class MidiViewImpl implements IMidiView {
   /**
    * Creates MidiViewImp.
    */
-  public MidiViewImpl(IBasicMusicEditor<INote> musicEditor) {
-
+  public MidiViewImpl(IBasicMusicEditor<INote> musicEditor, Sequencer ss) {
+    Objects.requireNonNull(musicEditor, "Null music editor");
+    Objects.requireNonNull(ss, "Null sequencer");
     this.musicEditor = Utils.requireNonNull(musicEditor, "Null MusicEditor");
-    Synthesizer synth = null;
-    Receiver receiver = null;
-    try {
-      ss = MidiSystem.getSequencer();
-
-      synth = MidiSystem.getSynthesizer();
-      receiver = synth.getReceiver();
-      synth.open();
-    }
-    catch (MidiUnavailableException e) {
-      e.printStackTrace();
-    }
-
-    this.synth = synth;
-    this.receiver = receiver;
+    this.ss = ss;
   }
 
   /**
@@ -89,17 +77,14 @@ public class MidiViewImpl implements IMidiView {
    */
 
   void playNote() throws InvalidMidiDataException {
-    Sequence test = model(this.musicEditor, new Sequence(Sequence.PPQ, 1));
+    this.sequence = model(this.musicEditor, new Sequence(Sequence.PPQ, 1));
 
     try {
       ss.open();
       ss.setTempoInMPQ(musicEditor.getTempo());
-      ss.setSequence(test);
-      long st = System.nanoTime();
+      ss.setSequence(sequence);
       ss.start();
       ss.setTempoInMPQ(musicEditor.getTempo());
-      receiver.close();
-      synth.close();
 
       while (ss.isRunning()) {
         long currentPosition = ss.getTickPosition();
@@ -111,7 +96,7 @@ public class MidiViewImpl implements IMidiView {
       }
       //this.currentPosition = 0;
       //System.out.println(this.currentPosition);
-      ss.close();
+      //ss.close();
 
     }
     catch (Exception e) {
@@ -132,7 +117,7 @@ public class MidiViewImpl implements IMidiView {
 
   @Override
   public void move(long tick) {
-
+    return;
   }
 
   @Override
@@ -143,16 +128,48 @@ public class MidiViewImpl implements IMidiView {
   @Override
   public void resume() {
     ss.start();
+    ss.setTempoInMPQ(musicEditor.getTempo());
+  }
+
+  @Override
+  public void scrollHorizontal(int unit) {
+    return;
+  }
+
+  @Override
+  public void scrollVertical(int unit) {
+    return;
   }
 
   @Override
   public void jumpToBeginning() {
-
+    ss.setTickPosition(0);
   }
 
   @Override
   public void jumpToEnd() {
+    ss.setTickPosition(musicEditor.getLastBeat());
+  }
 
+  @Override
+  public void update() {
+    try {
+      //ss.setSequence(this.model(musicEditor, new Sequence(Sequence.PPQ, 1)));
+      ss.setTempoInMPQ(musicEditor.getTempo());
+    }
+    catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  @Override
+  public void addKeyListener(KeyListener keyListener) {
+    return;
+  }
+
+  @Override
+  public void addMouseListener(MouseListener mouseListener) {
+    return;
   }
 
   private Sequence model(IBasicMusicEditor<INote> inote, Sequence sequence) {

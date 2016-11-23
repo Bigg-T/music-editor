@@ -4,7 +4,10 @@ import cs3500.music.model.NoteName;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static cs3500.music.util.Utils.*;
+import static cs3500.music.util.Utils.padding;
+import static cs3500.music.util.Utils.requireNonNull;
+import static cs3500.music.util.Utils.stringCenter;
+import static cs3500.music.util.Utils.toPosMod;
 
 
 /**

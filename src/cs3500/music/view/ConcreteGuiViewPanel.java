@@ -1,11 +1,16 @@
 package cs3500.music.view;
 
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.util.List;
 import java.util.Set;
 import java.util.SortedMap;
-import javax.swing.*;
+import javax.swing.JPanel;
+import javax.swing.Scrollable;
+import javax.swing.SwingConstants;
 
 import cs3500.music.model.IBasicMusicEditor;
 import cs3500.music.model.INote;
@@ -18,9 +23,11 @@ public class ConcreteGuiViewPanel extends JPanel implements Scrollable {
 
   private IBasicMusicEditor<INote> musicEditor;
   // Define constants for the various dimensions
-  private static final Color LINE_COLOR = Color.GREEN;
+  private static final Color LINE_COLOR = Color.RED;
   private static final int NOTEWIDTH = 25;
   private static final int NOTEHEIGHT = 25;
+  private static final int BASEDOWN = 40;
+  private static final int BASERIGHT = 50;
 
   // The moving line from (x1, y1) to (x2, y2), initially position at the center
   private int x1;
@@ -34,7 +41,9 @@ public class ConcreteGuiViewPanel extends JPanel implements Scrollable {
   private int botRightX;
   private int botRightY;
 
-  private int currentX =  0;
+  private int currentX = 0;
+  private int currentY = 0;
+  private Rectangle rectangle = new Rectangle(0, 0, 1200, 900);
 
   ConcreteGuiViewPanel(IBasicMusicEditor<INote> musicEditor) {
 
@@ -57,18 +66,30 @@ public class ConcreteGuiViewPanel extends JPanel implements Scrollable {
     int baseRight = 50;
     int baseDown = 40;
     g.setColor(Color.BLUE);
-//    ExecutorService executor = Executors.newFixedThreadPool(3);
-//    Runnable draws = () -> drawPitch(g);
-//    executor.submit(draws);
     drawNotes(g, baseRight, baseDown, currentX - 30, currentX + 60);
     g.setColor(Color.BLACK);
-    verticalLine(g, 0, 0);
-    horizontalLine(g, baseRight, baseDown, 0, x1 + 30);
+    verticalLine(g, currentX - 15, currentX + 70);
+    horizontalLine(g, baseRight, baseDown, currentX - 15, currentX + 70);
     drawPitch(g);
 
     g.setColor(LINE_COLOR);
     g.drawLine(x1, y1, x2, y2); // Draw the line
   }
+
+  void update() {
+    paintRec(rectangle);
+    this.repaint(rectangle);
+  }
+
+  /**
+   * Repaint with the rectangle
+   *
+   * @param rectangle the rect to paint in.
+   */
+  void paintRec(Rectangle rectangle) {
+    this.rectangle = rectangle;
+  }
+
 
   /**
    * Draw the vertical line.
@@ -76,7 +97,13 @@ public class ConcreteGuiViewPanel extends JPanel implements Scrollable {
    * @param g the graphics.
    */
   private void verticalLine(Graphics g, int top, int bottom) {
-    for (int i = 0; i <= musicEditor.getLastBeat(); i += 2) {
+    if (top < 0) {
+      top = 0;
+    }
+    if (bottom > musicEditor.getLastBeat()) {
+      bottom = musicEditor.getLastBeat();
+    }
+    for (int i = top; i <= bottom; i += 2) {
 
       int x1 = 50 + (i * NOTEWIDTH);
       int y1 = this.y1;
@@ -87,13 +114,21 @@ public class ConcreteGuiViewPanel extends JPanel implements Scrollable {
   }
 
   private void horizontalLine(Graphics g, int baseRight, int baseDown, int left, int right) {
+
+    if (left < 0) {
+      left = 0;
+    }
+    if (right > musicEditor.getLastBeat()) {
+      right = musicEditor.getLastBeat() + NOTEWIDTH + right;
+    }
     for (int j = 0; j <= musicEditor.getMaxPitch() - musicEditor.getMinPitch() + 1; j++) {
-      int x = baseRight;
+      int x = baseRight + (left * NOTEWIDTH);
       int y = baseDown + (j * NOTEHEIGHT);
       int x2;
-      if (right < (musicEditor.getLastBeat() * NOTEWIDTH) + baseRight) {
-        x2 = right;
-      } else {
+      if (right < (musicEditor.getLastBeat())) {
+        x2 = right * NOTEWIDTH;
+      }
+      else {
         x2 = (musicEditor.getLastBeat() * NOTEWIDTH) + baseRight;
       }
       g.drawLine(x, y, x2, y);
@@ -101,7 +136,7 @@ public class ConcreteGuiViewPanel extends JPanel implements Scrollable {
   }
 
   void move(long tick) {
-    if (tick > 4) {
+    if (tick >= 4) {
       //System.out.println(tick);
       x1 += NOTEWIDTH;
       x2 += NOTEHEIGHT;
@@ -122,8 +157,7 @@ public class ConcreteGuiViewPanel extends JPanel implements Scrollable {
     SortedMap<Integer, SortedMap<Integer, List<INote>>> comp = musicEditor.composition();
     int x = baseRight + (beatAt * NOTEWIDTH);
     Set<Integer> pitches = comp.get(beatAt).keySet();
-    pitches.forEach(j ->
-    {
+    pitches.forEach(j -> {
       int y = baseDown + ((musicEditor.getMaxPitch() - j) * NOTEHEIGHT);
       int currentMax = 0;
       for (INote note : comp.get(beatAt).get(j)) {
@@ -149,6 +183,19 @@ public class ConcreteGuiViewPanel extends JPanel implements Scrollable {
     return pitchGraphic;
   }
 
+  void current(double botLeftX) {
+    currentX = (int) (botLeftX - 50) / 25;
+  }
+
+  void jumpToBeginning() {
+    this.x1 = BASERIGHT;
+    this.x2 = this.x1;
+  }
+
+  void jumpToEnd() {
+    this.x1 = this.musicEditor.getLastBeat();
+  }
+
   @Override
   public Dimension getPreferredScrollableViewportSize() {
     return getPreferredSize();
@@ -162,10 +209,10 @@ public class ConcreteGuiViewPanel extends JPanel implements Scrollable {
     int currentPosition = 0;
     if (orientation == SwingConstants.HORIZONTAL) {
       currentPosition = visibleRect.x;
-    } else {
+    }
+    else {
       currentPosition = visibleRect.y;
     }
-
     //Return the number of pixels between currentPosition
     //and the nearest tick mark in the indicated direction.
     if (direction < 0) {
@@ -173,23 +220,22 @@ public class ConcreteGuiViewPanel extends JPanel implements Scrollable {
               (currentPosition / NOTEWIDTH)
                       * NOTEWIDTH;
       return (newPosition == 0) ? NOTEWIDTH : newPosition;
-    } else {
+    }
+    else {
       return ((currentPosition / NOTEWIDTH) + 1)
               * NOTEWIDTH
               - currentPosition;
     }
   }
 
-  void current(double botLeftX) {
-    currentX = (int) (botLeftX - 50) / 25;
-  }
-
   @Override
   public int getScrollableBlockIncrement(Rectangle visibleRect, int orientation, int direction) {
-    if (orientation == SwingConstants.HORIZONTAL)
+    if (orientation == SwingConstants.HORIZONTAL) {
       return visibleRect.width - NOTEWIDTH;
-    else
+    }
+    else {
       return visibleRect.height - NOTEHEIGHT;
+    }
   }
 
   @Override

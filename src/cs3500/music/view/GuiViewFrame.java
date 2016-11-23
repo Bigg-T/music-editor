@@ -1,9 +1,12 @@
 package cs3500.music.view;
 
-import java.awt.*;
+import java.awt.ScrollPane;
+import java.awt.Dimension;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
 
-import javax.swing.*;
+import javax.swing.JFrame;
 
 import cs3500.music.model.IBasicMusicEditor;
 import cs3500.music.model.INote;
@@ -18,6 +21,7 @@ public class GuiViewFrame extends JFrame implements IGuiView {
 
   private final ConcreteGuiViewPanel displayPanel;
   private final ScrollPane scr;
+
   /**
    * Creates new GuiView.
    */
@@ -26,7 +30,7 @@ public class GuiViewFrame extends JFrame implements IGuiView {
     this.scr = new ScrollPane();
     scr.add(displayPanel);
     this.setTitle("Music Editor");
-
+    this.displayPanel.setFocusable(true);
     this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     this.add(scr);
     this.pack();
@@ -45,12 +49,58 @@ public class GuiViewFrame extends JFrame implements IGuiView {
   @Override
   public void move(long tick) {
     if (tick % 50 == 0) {
-      scr.setScrollPosition((int)tick * 25, 0);
+      scr.setScrollPosition((int) tick * 25, 0);
 
-      this.displayPanel.current(scr.getScrollPosition().getX());
       System.out.println(scr.getScrollPosition().getX() + " " + scr.getScrollPosition().getY());
     }
+    this.displayPanel.paintRec(scr.getBounds());
+    this.displayPanel.current(scr.getScrollPosition().getX());
+    /*
+    System.out.println(scr.getBounds().width + " " + scr.getBounds().height + " "
+            + scr.getBounds().getMinX() + " " + scr.getBounds().getMaxX() + " " + scr.getBounds().
+            getX());
+    */
     this.displayPanel.move(tick);
+  }
+
+  @Override
+  public void pause() {
+    return;
+  }
+
+  @Override
+  public void resume() {
+    return;
+  }
+
+  @Override
+  public void scrollHorizontal(int unit) {
+    this.displayPanel.paintRec(scr.getBounds());
+    scr.setScrollPosition(scr.getX() + unit, scr.getY());
+  }
+
+  @Override
+  public void scrollVertical(int unit) {
+    this.displayPanel.paintRec(scr.getBounds());
+    scr.setScrollPosition(scr.getX(), scr.getY() + unit);
+  }
+
+  @Override
+  public void update() {
+    this.displayPanel.paintRec(scr.getBounds());
+    displayPanel.update();
+  }
+
+  @Override
+  public void jumpToBeginning() {
+    this.displayPanel.paintRec(scr.getBounds());
+    displayPanel.jumpToBeginning();
+  }
+
+  @Override
+  public void jumpToEnd() {
+    this.displayPanel.paintRec(scr.getBounds());
+    displayPanel.jumpToEnd();
   }
 
   @Override
@@ -59,8 +109,23 @@ public class GuiViewFrame extends JFrame implements IGuiView {
   }
 
   @Override
-  public void addActionListener(ActionListener listener) {
+  public void addMouseListener(MouseListener mouseListener) {
+    this.displayPanel.addMouseListener(mouseListener);
+  }
 
+  @Override
+  public void removeMouseListener(MouseListener l) {
+    this.displayPanel.removeMouseListener(l);
+  }
+
+  @Override
+  public void addActionListener(ActionListener listener) {
+    this.addActionListener(listener);
+  }
+
+  @Override
+  public void addKeyListener(KeyListener listener) {
+    this.displayPanel.addKeyListener(listener);
   }
 
 }

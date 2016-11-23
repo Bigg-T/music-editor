@@ -3,7 +3,6 @@ package cs3500.music.controller;
 import org.junit.Test;
 
 import java.awt.event.KeyEvent;
-import java.util.Objects;
 
 import static org.junit.Assert.assertEquals;
 
@@ -12,15 +11,6 @@ import static org.junit.Assert.assertEquals;
  */
 public class KeyHandlerTest {
 
-  public class Tracker  {
-    String result = "";
-
-    public void add(String s)  {
-      result += s;
-    }
-  }
-
-  Tracker t;
 
   KeyHandler keyHandler;
 
@@ -28,39 +18,43 @@ public class KeyHandlerTest {
   KeyEvent ke2 = new KeyEvent(new MockComponent(), 0, 0, 0, 0, 'a');
 
 
-
-  void setUp()  {
-    t = new Tracker();
+  /**
+   * Sets up for tests.
+   *
+   * @return Tracker to be used
+   */
+  Tracker setUp() {
+    Tracker t = new Tracker();
     ke1.setKeyCode(1);
     ke2.setKeyCode(2);
     keyHandler = new KeyHandler();
-    Runnable r1 = new Runner1(this.t);
+    Runnable r1 = new Runner1(t);
     keyHandler.addKeyPressed(1, r1);
-    Runnable r2 = new Runner2(this.t);
+    Runnable r2 = new Runner2(t);
     keyHandler.addKeyTyped(2, r2);
     keyHandler.addKeyReleased(1, r2);
+    return t;
   }
 
-
   @Test
-  public void testKeyPressed()  {
-    this.setUp();
+  public void testKeyPressed() {
+    Tracker t = this.setUp();
     keyHandler.keyPressed(ke1);
-    assertEquals("a", this.t.result);
+    assertEquals("a", t.result.toString());
   }
 
   @Test
-  public void testKeyTyped()  {
-    this.setUp();
+  public void testKeyTyped() {
+    Tracker t = this.setUp();
     keyHandler.keyTyped(ke2);
-    assertEquals("b", this.t.result);
+    assertEquals("b", t.result.toString());
   }
 
   @Test
   public void testKeyReleased() {
-    this.setUp();
+    Tracker t = this.setUp();
     keyHandler.keyReleased(ke1);
-    assertEquals("b", this.t.result);
+    assertEquals("b", t.result.toString());
   }
 
 }

@@ -1,5 +1,7 @@
 package cs3500.music;
 
+import cs3500.music.controller.IMusicEditorController;
+import cs3500.music.controller.MusicEditorController;
 import cs3500.music.model.BasicMusicEditor;
 import cs3500.music.model.IBasicMusicEditor;
 import cs3500.music.model.INote;
@@ -19,8 +21,7 @@ public class MusicEditor {
 
   /**
    * The main to run the program.
-   *
-   * @param args Argument for running program
+   * @param  args                      Argument for running program
    * @throws IOException              file exception
    * @throws InvalidMidiDataException mide exception
    */
@@ -39,11 +40,9 @@ public class MusicEditor {
 
     try {
       IView theView = ViewFactory.viewFactory(args[1], musicEditor);
-      theView.initialize();
+      IMusicEditorController controller = new MusicEditorController(theView, musicEditor);
     } catch (Exception e) {
       return;
     }
   }
-
-
 }

@@ -140,7 +140,9 @@ public class ControlTracker {
         this.pitch *= 10;
         this.pitch += i;
       }
-      else  { this.pitch = i; }
+      else  {
+        this.pitch = i;
+      }
       return;
     }
     else if (this.editDuration)  {
@@ -148,7 +150,9 @@ public class ControlTracker {
         this.duration *= 10;
         this.duration += i;
       }
-      else  { this.duration = i; }
+      else  {
+        this.duration = i;
+      }
       return;
     }
     else if (this.editStartBeat)  {
@@ -156,7 +160,9 @@ public class ControlTracker {
         this.startBeat *= 10;
         this.startBeat += i;
       }
-      else  { this.startBeat = i; }
+      else  {
+        this.startBeat = i;
+      }
       return;
     }
     else if (this.editChannel)  {
@@ -164,7 +170,9 @@ public class ControlTracker {
         this.channel *= 10;
         this.channel += i;
       }
-      else  { this.channel = i; }
+      else  {
+        this.channel = i;
+      }
       return;
     }
     else if (this.editVolume)  {
@@ -172,7 +180,9 @@ public class ControlTracker {
         this.volume *= 10;
         this.volume += i;
       }
-      else  { this.volume = i; }
+      else  {
+        this.volume = i;
+      }
       return;
     }
     else  {

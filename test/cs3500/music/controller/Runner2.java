@@ -8,9 +8,9 @@ public class Runner2 implements Runnable {
   /**
    * For the purposes of tracking actions.
    */
-  KeyHandlerTest.Tracker tracker;
+  Tracker tracker;
 
-  public Runner2(KeyHandlerTest.Tracker tracker) {
+  public Runner2(Tracker tracker) {
     this.tracker = tracker;
   }
 

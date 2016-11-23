@@ -3,7 +3,7 @@ package cs3500.music.util;
 import cs3500.music.model.NoteName;
 
 /**
- * Created by tiger on 10/31/16.
+ * The music util for convience.
  */
 public final class MusicUtils {
 
@@ -20,14 +20,15 @@ public final class MusicUtils {
 
   /**
    * Returns String representation of the given pitch.
+   *
    * @param pitch Pitch to be represented
-   * @return      String representation
+   * @return String representation
    */
-  public static String pitchToString(int pitch)  {
+  public static String pitchToString(int pitch) {
     int note = pitch % 12;
     int octave = (pitch / 12) - 1;
     String noteName;
-    switch (note)  {
+    switch (note) {
       case 0:
         noteName = "C ";
         break;
@@ -68,8 +69,45 @@ public final class MusicUtils {
     return noteName + octave;
   }
 
-  public static int toTrack(int channel) {
-    return channel % 16;
+  /**
+   * Convert to the correct notename.
+   *
+   * @param pitch the pitch number
+   * @return correct note mane.
+   */
+  public static NoteName pitchToNoteName(int pitch) {
+    int note = pitch % 12;
+    String noteName;
+    switch (note) {
+      case 0:
+        return NoteName.C;
+      case 1:
+        return NoteName.CX;
+      case 2:
+        return NoteName.D;
+      case 3:
+        return NoteName.DX;
+      case 4:
+        return NoteName.E;
+      case 5:
+        return NoteName.F;
+      case 6:
+        return NoteName.FX;
+      case 7:
+        return NoteName.G;
+      case 8:
+        return NoteName.GX;
+      case 9:
+        return NoteName.A;
+      case 10:
+        return NoteName.AX;
+      default:
+        return NoteName.B;
+    }
+  }
+
+  public static int getOctave(int pitch) {
+    return (pitch / 12) - 1;
   }
 
 }
