@@ -21,6 +21,7 @@ public class GuiViewFrame extends JFrame implements IGuiView {
 
   private final ConcreteGuiViewPanel displayPanel;
   private final ScrollPane scr;
+
   /**
    * Creates new GuiView.
    */
@@ -48,7 +49,7 @@ public class GuiViewFrame extends JFrame implements IGuiView {
   @Override
   public void move(long tick) {
     if (tick % 50 == 0) {
-      scr.setScrollPosition((int)tick * 25, 0);
+      scr.setScrollPosition((int) tick * 25, 0);
 
       System.out.println(scr.getScrollPosition().getX() + " " + scr.getScrollPosition().getY());
     }
@@ -108,7 +109,7 @@ public class GuiViewFrame extends JFrame implements IGuiView {
   }
 
   @Override
-  public void addMouseListener(MouseListener mouseListener)  {
+  public void addMouseListener(MouseListener mouseListener) {
     this.displayPanel.addMouseListener(mouseListener);
   }
 
@@ -118,12 +119,12 @@ public class GuiViewFrame extends JFrame implements IGuiView {
   }
 
   @Override
-  public void addActionListener(ActionListener listener)  {
+  public void addActionListener(ActionListener listener) {
     this.addActionListener(listener);
   }
 
   @Override
-  public void addKeyListener(KeyListener listener)  {
+  public void addKeyListener(KeyListener listener) {
     this.displayPanel.addKeyListener(listener);
   }
 

@@ -1,13 +1,9 @@
 package cs3500.music.controller;
 
-import com.sun.tools.javap.TypeAnnotationWriter;
 
 import cs3500.music.model.IBasicMusicEditor;
 import cs3500.music.model.INote;
-import cs3500.music.view.GuiViewFrame;
-import cs3500.music.view.IGuiView;
 import cs3500.music.view.IView;
-import cs3500.music.view.ViewFactory;
 
 /**
  * To represent the controller for a MusicEditor.
@@ -41,9 +37,10 @@ public class MusicEditorController implements IMusicEditorController {
 
   /**
    * Constructs a MusicEditorController.
+   *
    * @param theView View to be used here
    */
-  public MusicEditorController(IView theView, IBasicMusicEditor<INote> musicEditor)  {
+  public MusicEditorController(IView theView, IBasicMusicEditor<INote> musicEditor) {
     this.theView = theView;
     this.musicEditor = musicEditor;
     this.ct = new ControlTracker();
@@ -58,7 +55,7 @@ public class MusicEditorController implements IMusicEditorController {
   /**
    * Initializes standard controls for this controller.
    */
-  void initStandard()  {
+  void initStandard() {
     this.keyHandler.addKeyPressed(48, new AddKeyNumber(this.ct, 0));
     this.keyHandler.addKeyPressed(49, new AddKeyNumber(this.ct, 1));
     this.keyHandler.addKeyPressed(50, new AddKeyNumber(this.ct, 2));
@@ -93,17 +90,18 @@ public class MusicEditorController implements IMusicEditorController {
   }
 
   @Override
-  public void initializeView()  {
+  public void initializeView() {
     try {
       this.theView.initialize();
-    } catch (Exception e)  {
+    }
+    catch (Exception e) {
       return;
     }
   }
 
   @Override
   public void addControl(Integer keyCode, Runnable runnable, String location) {
-    switch (location)  {
+    switch (location) {
       case "pressed":
         this.keyHandler.addKeyPressed(keyCode, runnable);
         return;

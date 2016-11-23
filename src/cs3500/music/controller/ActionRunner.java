@@ -27,6 +27,13 @@ public class ActionRunner implements Runnable {
 
   final IBasicMusicEditor<INote> musicEditor;
 
+  /**
+   * Construct the ActionRunner.
+   * @param controlTracker Constructs an action controller
+   * @param theView        The view to use here
+   * @param musicEditor    The music editor to use here
+   * @param isAdd          True if adding
+   */
   public ActionRunner(ControlTracker controlTracker, IView theView,
                       IBasicMusicEditor<INote> musicEditor, boolean isAdd) {
     this.controlTracker = controlTracker;
@@ -37,8 +44,8 @@ public class ActionRunner implements Runnable {
 
 
   @Override
-  public void run()  {
-    try  {
+  public void run() {
+    try {
       int pitch = controlTracker.getPitch();
       int startBeat = controlTracker.getStartBeat();
       int duration = controlTracker.getDuration();
@@ -47,17 +54,18 @@ public class ActionRunner implements Runnable {
       INote note = new NoteBuilder().setNoteName(MusicUtils.pitchToNoteName(pitch)).
               setOctave(MusicUtils.getOctave(pitch)).setStartDuration(startBeat).setVolume(volume).
               setChannel(channel).setNumBeats(duration).buildNote();
-      if (isAdd)  {
+      if (isAdd) {
         musicEditor.add(note);
         theView.update();
         controlTracker.reset();
       }
-      else  {
+      else {
         musicEditor.add(note);
         theView.update();
         controlTracker.reset();
       }
-    } catch (IllegalStateException e)  {
+    }
+    catch (IllegalStateException e) {
       return;
     }
   }

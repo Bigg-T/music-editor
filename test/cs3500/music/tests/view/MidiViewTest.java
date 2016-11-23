@@ -7,19 +7,13 @@ import cs3500.music.util.CompositionBuilder;
 import cs3500.music.util.MusicReader;
 import cs3500.music.view.IView;
 import cs3500.music.view.MidiViewImpl;
-import cs3500.music.view.ViewFactory;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
-import javax.sound.midi.MidiEvent;
 import javax.sound.midi.MidiSystem;
-import javax.sound.midi.Sequence;
 import javax.sound.midi.Sequencer;
-import javax.sound.midi.Track;
 import java.io.File;
 import java.io.FileReader;
-import java.util.Objects;
 
 /**
  * Test the midiView.

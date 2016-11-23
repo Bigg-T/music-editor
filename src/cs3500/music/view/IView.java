@@ -3,9 +3,6 @@ package cs3500.music.view;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 
-import cs3500.music.model.IBasicMusicEditor;
-import cs3500.music.model.INote;
-
 /**
  * Represents a View.
  */
@@ -24,7 +21,7 @@ public interface IView {
   public void update();
 
   /**
-   * Adds the key listener if possible
+   * Adds the key listener if possible.
    *
    * @param keyListener the key listener to be added
    */
@@ -32,12 +29,14 @@ public interface IView {
 
   /**
    * Adds the key listener if possible.
+   *
    * @param mouseListener the mouse listener to be used.
    */
   public void addMouseListener(MouseListener mouseListener);
 
   /**
    * Gets the current tick of the view, if possible.
+   *
    * @return the current tick
    */
   public long getCurrentTick();
@@ -54,6 +53,7 @@ public interface IView {
 
   /**
    * Moves to tick location.
+   *
    * @param tick tick location
    */
   public void move(long tick);
@@ -70,13 +70,15 @@ public interface IView {
 
   /**
    * Scrolls horizontally.
-   * @param unit  Amount to be scrolled.
+   *
+   * @param unit Amount to be scrolled.
    */
   public void scrollHorizontal(int unit);
 
   /**
    * Scrolls vertically.
-   * @param unit  Amount to be scrolled
+   *
+   * @param unit Amount to be scrolled
    */
   public void scrollVertical(int unit);
 }

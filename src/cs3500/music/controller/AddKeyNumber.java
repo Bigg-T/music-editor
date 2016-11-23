@@ -6,7 +6,7 @@ package cs3500.music.controller;
 public class AddKeyNumber implements Runnable {
 
   /**
-   * Tracking edits
+   * Tracking edits.
    */
   ControlTracker controlTracker;
 

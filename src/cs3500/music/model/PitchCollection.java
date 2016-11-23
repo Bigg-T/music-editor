@@ -54,6 +54,7 @@ final class PitchCollection {
             .forEach(pitch -> map.put(pitch, this.pitchTreeMap.get(pitch).toIntegerList()));
     return map;
   }
+
   /**
    * Merge the list together.
    *
@@ -64,16 +65,27 @@ final class PitchCollection {
     Utils.requireNonNull(thatPitchCollect, "Null PitchCollection.");
     Set<Integer> thatKeys = thatPitchCollect.pitchTreeMap.keySet();
 
-    thatKeys.forEach(x
-        -> this.pitchTreeMap.get(x).merge(thatPitchCollect.pitchTreeMap.get(x), offset));
+    thatKeys.forEach(x -> this.pitchTreeMap.get(x)
+            .merge(thatPitchCollect.pitchTreeMap.get(x), offset));
 
   }
 
+  /**
+   * Offset all the beat.
+   *
+   * @param offset the offset.
+   * @return the new pitch collection that is offset.
+   */
   PitchCollection adjustBeat(int offset) {
     this.pitchTreeMap.values().forEach(x -> x.offsetStartBeat(offset));
     return this;
   }
 
+  /**
+   * Get the logset beat.
+   *
+   * @return the volngset beat.
+   */
   int longestNoteDuration() {
     try {
       int max = this.pitchTreeMap.values().stream()
@@ -83,7 +95,8 @@ final class PitchCollection {
 
       //System.out.println(max);
       return max;
-    } catch (Exception e) {
+    }
+    catch (Exception e) {
       throw new IllegalArgumentException("Number doesn't exist.");
     }
   }
@@ -96,7 +109,8 @@ final class PitchCollection {
   int getMinPitch() {
     try {
       return this.pitchTreeMap.keySet().stream().min(Integer::compare).get();
-    } catch (Exception e) {
+    }
+    catch (Exception e) {
       throw new IllegalArgumentException("List doesn't have any item.");
     }
   }
@@ -109,7 +123,8 @@ final class PitchCollection {
   int getMaxPitch() {
     try {
       return this.pitchTreeMap.keySet().stream().max(Integer::compare).get();
-    } catch (Exception e) {
+    }
+    catch (Exception e) {
       throw new IllegalArgumentException("List doesn't have any item.");
     }
   }

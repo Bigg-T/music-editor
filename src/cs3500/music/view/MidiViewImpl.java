@@ -117,7 +117,7 @@ public class MidiViewImpl implements IView {
 
   @Override
   public void move(long tick) {
-
+    return;
   }
 
   @Override
@@ -133,12 +133,12 @@ public class MidiViewImpl implements IView {
 
   @Override
   public void scrollHorizontal(int unit) {
-
+    return;
   }
 
   @Override
   public void scrollVertical(int unit) {
-
+    return;
   }
 
   @Override
@@ -164,7 +164,7 @@ public class MidiViewImpl implements IView {
 
   @Override
   public void addKeyListener(KeyListener keyListener) {
-
+    return;
   }
 
   @Override

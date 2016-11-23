@@ -7,16 +7,21 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 
 /**
- * Created by tiger on 11/2/16.
+ * The view model that can't get mutate.
  */
 public class ViewMusicEditor implements IBasicMusicEditor<INote> {
-  
+
   private final BasicMusicEditor musicEditor;
-  
+
+  /**
+   * Construct the music editor.
+   *
+   * @param musicEditor the music editor.
+   */
   public ViewMusicEditor(BasicMusicEditor musicEditor) {
     this.musicEditor = musicEditor;
   }
-  
+
   @Override
   public boolean add(INote note) {
     return false;
@@ -48,11 +53,6 @@ public class ViewMusicEditor implements IBasicMusicEditor<INote> {
     this.musicEditor.getPiece().keySet().forEach(x -> compos.put(x, getAllNotesAt(x)));
     return compos;
   }
-
-//  @Override
-//  public SortedMap<Integer, SortedMap<Integer, List<INote>>> getDrawComposition() {
-//    return null;
-//  }
 
   @Override
   public int getMinPitch() {

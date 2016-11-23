@@ -1,11 +1,16 @@
 package cs3500.music.view;
 
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.util.List;
 import java.util.Set;
 import java.util.SortedMap;
-import javax.swing.*;
+import javax.swing.JPanel;
+import javax.swing.Scrollable;
+import javax.swing.SwingConstants;
 
 import cs3500.music.model.IBasicMusicEditor;
 import cs3500.music.model.INote;
@@ -36,8 +41,8 @@ public class ConcreteGuiViewPanel extends JPanel implements Scrollable {
   private int botRightX;
   private int botRightY;
 
-  private int currentX =  0;
-  private int currentY =  0;
+  private int currentX = 0;
+  private int currentY = 0;
   private Rectangle rectangle = new Rectangle(0, 0, 1200, 900);
 
   ConcreteGuiViewPanel(IBasicMusicEditor<INote> musicEditor) {
@@ -61,9 +66,6 @@ public class ConcreteGuiViewPanel extends JPanel implements Scrollable {
     int baseRight = 50;
     int baseDown = 40;
     g.setColor(Color.BLUE);
-//    ExecutorService executor = Executors.newFixedThreadPool(3);
-//    Runnable draws = () -> drawPitch(g);
-//    executor.submit(draws);
     drawNotes(g, baseRight, baseDown, currentX - 30, currentX + 60);
     g.setColor(Color.BLACK);
     verticalLine(g, currentX - 15, currentX + 70);
@@ -79,6 +81,11 @@ public class ConcreteGuiViewPanel extends JPanel implements Scrollable {
     this.repaint(rectangle);
   }
 
+  /**
+   * Repaint with the rectangle
+   *
+   * @param rectangle the rect to paint in.
+   */
   void paintRec(Rectangle rectangle) {
     this.rectangle = rectangle;
   }
@@ -120,7 +127,8 @@ public class ConcreteGuiViewPanel extends JPanel implements Scrollable {
       int x2;
       if (right < (musicEditor.getLastBeat())) {
         x2 = right * NOTEWIDTH;
-      } else {
+      }
+      else {
         x2 = (musicEditor.getLastBeat() * NOTEWIDTH) + baseRight;
       }
       g.drawLine(x, y, x2, y);
@@ -149,8 +157,7 @@ public class ConcreteGuiViewPanel extends JPanel implements Scrollable {
     SortedMap<Integer, SortedMap<Integer, List<INote>>> comp = musicEditor.composition();
     int x = baseRight + (beatAt * NOTEWIDTH);
     Set<Integer> pitches = comp.get(beatAt).keySet();
-    pitches.forEach(j ->
-    {
+    pitches.forEach(j -> {
       int y = baseDown + ((musicEditor.getMaxPitch() - j) * NOTEHEIGHT);
       int currentMax = 0;
       for (INote note : comp.get(beatAt).get(j)) {
@@ -178,7 +185,6 @@ public class ConcreteGuiViewPanel extends JPanel implements Scrollable {
 
   void current(double botLeftX) {
     currentX = (int) (botLeftX - 50) / 25;
-
   }
 
   void jumpToBeginning() {
@@ -203,10 +209,10 @@ public class ConcreteGuiViewPanel extends JPanel implements Scrollable {
     int currentPosition = 0;
     if (orientation == SwingConstants.HORIZONTAL) {
       currentPosition = visibleRect.x;
-    } else {
+    }
+    else {
       currentPosition = visibleRect.y;
     }
-
     //Return the number of pixels between currentPosition
     //and the nearest tick mark in the indicated direction.
     if (direction < 0) {
@@ -214,7 +220,8 @@ public class ConcreteGuiViewPanel extends JPanel implements Scrollable {
               (currentPosition / NOTEWIDTH)
                       * NOTEWIDTH;
       return (newPosition == 0) ? NOTEWIDTH : newPosition;
-    } else {
+    }
+    else {
       return ((currentPosition / NOTEWIDTH) + 1)
               * NOTEWIDTH
               - currentPosition;
@@ -223,10 +230,12 @@ public class ConcreteGuiViewPanel extends JPanel implements Scrollable {
 
   @Override
   public int getScrollableBlockIncrement(Rectangle visibleRect, int orientation, int direction) {
-    if (orientation == SwingConstants.HORIZONTAL)
+    if (orientation == SwingConstants.HORIZONTAL) {
       return visibleRect.width - NOTEWIDTH;
-    else
+    }
+    else {
       return visibleRect.height - NOTEHEIGHT;
+    }
   }
 
   @Override

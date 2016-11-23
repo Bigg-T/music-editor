@@ -16,9 +16,10 @@ import java.io.Reader;
 import java.io.StringReader;
 
 /**
- * .
+ * Testing the console.
  */
 public class ConsoleTest {
+
   File f = null;
   Readable fr = null;
   ConsoleView test;
@@ -26,14 +27,16 @@ public class ConsoleTest {
   private StringBuffer appendable;
   private Reader readable;
 
-  @Before
+
   /**
    * Sets up init state.
    */
+  @Before
   public void setUp() throws Exception {
     try {
       f = new File("mary-little-lamb.txt");
-    } catch (Exception e) {
+    }
+    catch (Exception e) {
       return;
     }
 

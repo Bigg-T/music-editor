@@ -3,8 +3,6 @@ package cs3500.music.controller;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 
-import cs3500.music.model.IBasicMusicEditor;
-import cs3500.music.model.INote;
 import cs3500.music.view.IView;
 
 /**

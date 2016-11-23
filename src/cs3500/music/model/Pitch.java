@@ -8,7 +8,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
- * Created by tiger on 11/1/16.
+ * Create the pitch.
  */
 class Pitch {
   private List<Note> noteList;
@@ -115,15 +115,18 @@ class Pitch {
   List<Integer> toIntegerList() {
     return null;
   }
+
   /**
    * Return the longest duration of a note in this Pitch.
    *
    * @return the longest duration
    */
   int longestNoteDuration() {
+
     try {
       return this.noteList.stream().mapToInt(Note::getBeat).max().getAsInt();
-    } catch (Exception e) {
+    }
+    catch (Exception e) {
       throw new IllegalArgumentException("Number doesn't exist.");
     }
     //return Note.longestNoteDuration(this.noteList).getAsInt();
