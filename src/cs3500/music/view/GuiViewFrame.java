@@ -70,6 +70,8 @@ public class GuiViewFrame extends JFrame implements IGuiView {
 
   @Override
   public void resume() {
+
+    this.update();
     return;
   }
 
@@ -83,6 +85,11 @@ public class GuiViewFrame extends JFrame implements IGuiView {
   public void scrollVertical(int unit) {
     this.displayPanel.paintRec(scr.getBounds());
     scr.setScrollPosition(scr.getX(), scr.getY() + unit);
+  }
+
+  @Override
+  public boolean isRunning() {
+    return true;
   }
 
   @Override

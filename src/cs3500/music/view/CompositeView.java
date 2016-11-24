@@ -67,9 +67,26 @@ public class CompositeView implements IGuiView {
 
   @Override
   public void resume() {
-    iView2.resume();
-    iView1.resume();
 
+    ExecutorService executor = Executors.newFixedThreadPool(3);
+    Runnable r1 = () -> iView2.resume();
+    Runnable r2 = () -> iView1.resume();
+    Runnable r3 = () -> keepMoving();
+    executor.submit(r1);
+    executor.submit(r2);
+    executor.submit(r3);
+
+  }
+
+  private void keepMoving() {
+    long currentPosition = -1;
+    while (isRunning()) {
+      if (currentPosition != iView1.getCurrentTick()) {
+        currentPosition = iView1.getCurrentTick();
+        this.move(this.getCurrentTick());
+        System.out.println(currentPosition + "  " + isRunning());
+      }
+    }
   }
 
   @Override
@@ -82,6 +99,11 @@ public class CompositeView implements IGuiView {
   public void scrollVertical(int unit) {
     this.iView1.scrollVertical(unit);
     this.iView2.scrollVertical(unit);
+  }
+
+  @Override
+  public boolean isRunning() {
+    return iView1.isRunning() || iView2.isRunning();
   }
 
   @Override

@@ -172,6 +172,11 @@ public class ConsoleView implements IView {
   }
 
   @Override
+  public boolean isRunning() {
+    return false;
+  }
+
+  @Override
   public void update() {
     try {
       this.initialize();

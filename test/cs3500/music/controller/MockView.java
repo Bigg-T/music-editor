@@ -71,4 +71,9 @@ public class MockView implements IView {
   public void scrollVertical(int unit) {
     result.append("verti ");
   }
+
+  @Override
+  public boolean isRunning() {
+    return false;
+  }
 }

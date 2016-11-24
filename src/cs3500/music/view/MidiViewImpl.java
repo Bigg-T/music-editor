@@ -142,6 +142,11 @@ public class MidiViewImpl implements IView {
   }
 
   @Override
+  public boolean isRunning() {
+    return ss.isRunning();
+  }
+
+  @Override
   public void jumpToBeginning() {
     ss.setTickPosition(0);
   }
