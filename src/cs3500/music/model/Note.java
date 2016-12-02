@@ -11,10 +11,10 @@ import java.util.OptionalInt;
 /**
  * This represent the a model cs3500.model.model.Note.
  */
-class Note implements INote {
+public class Note implements INote {
 
-  private final NoteName noteName;
-  private final int octave;
+  private NoteName noteName;
+  private int octave;
   private final Duration duration;
   private final int channel;
   private int volume;
@@ -144,9 +144,9 @@ class Note implements INote {
   @Override
   public boolean equals(Object o) {
     // Fast path for pointer equality:
-    if (this == o) {
-      return true;
-    }
+//    if (this == o) {
+//      return true;
+//    }
 
     // If o isn't the right class then it can't be equal:
     if (!(o instanceof Note)) {
@@ -155,17 +155,30 @@ class Note implements INote {
 
     Note that = (Note) o;
 
-    return this.toString().equals(that.toString())
-            && this.duration.getStart() == that.duration.getStart()
-            && this.duration.getBeat() == that.duration.getBeat()
-            && this.channel == that.channel
-            && this.volume == that.volume;
+    if (this.getAbsolutePitch() == null) {
+      return that.getStartTime() == this.getStartTime()
+              && that.getEndTime() == this.getEndTime()
+              && that.getAbsolutePitch().equals(this.getAbsolutePitch());
+    }
+    else {
+      return this.toString().equals(that.toString())
+              && this.duration.getStart() == that.duration.getStart()
+              && this.duration.getBeat() == that.duration.getBeat()
+              && this.channel == that.channel
+              && this.volume == that.volume;
+    }
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(noteName, duration.getBeat(), duration.getStart(), octave,
-            this.toString(), this.channel, this.volume);
+    if (this.getAbsolutePitch() == null) {
+      return Objects.hash(this.getStartTime(), this.getEndTime(), this.getAbsolutePitch());
+    }
+    else {
+      return Objects.hash(noteName, duration.getBeat(), duration.getStart(), octave,
+              this.toString(), this.channel, this.volume);
+
+    }
   }
 
   /**
@@ -222,13 +235,13 @@ class Note implements INote {
   static class NoteComparators {
 
     static final Comparator<Note> DURATION = (thisNote, thatNote)
-        -> Integer.compare(thisNote.duration.getBeat(), thatNote.duration.getBeat());
+            -> Integer.compare(thisNote.duration.getBeat(), thatNote.duration.getBeat());
 
     static final Comparator<Note> OCTAVE = (thisNote, thatNote)
-        -> Integer.compare(thisNote.octave, thatNote.octave);
+            -> Integer.compare(thisNote.octave, thatNote.octave);
 
     static final Comparator<Note> NOTE = (thisNote, thatNote)
-        -> {
+            -> {
       if (thisNote.getNoteName().compareTo(thatNote.getNoteName()) == 0) {
         return NoteComparators.OCTAVE.compare(thisNote, thatNote);
       }
@@ -237,7 +250,7 @@ class Note implements INote {
 
     //sort by pitch
     static final Comparator<Note> PITCH = (thisNote, thatNote)
-        -> Integer.compare(MusicUtils.toPitch(thisNote.noteName, thisNote.octave),
+            -> Integer.compare(MusicUtils.toPitch(thisNote.noteName, thisNote.octave),
             MusicUtils.toPitch(thatNote.noteName, thatNote.octave));
 
   }
@@ -301,6 +314,102 @@ class Note implements INote {
       this.beat = end;
     }
 
+  }
+
+  /*
+  All code below are from profider to make things works because provider view is depeding on
+  the concrete Note class of their own. Since their note is concrete I can't adapt but to copy,
+  their implementation.
+   */
+
+  private AbsolutePitch absolutePitch = null;
+
+  /**
+   * Convenience constructor for a note.
+   *
+   * @param relativePitch The relative pitch of this note
+   * @param octave        The octave this note is in
+   * @param startTime     The start time of this note
+   * @param endTime       The end time of this note
+   */
+  public Note(RelativePitch relativePitch, int octave, int startTime, int endTime) {
+    this(new AbsolutePitch(relativePitch, octave), startTime, endTime);
+  }
+
+  /**
+   * Default constructor for a note.
+   *
+   * @param absolutePitch The absolute pitch of this note
+   * @param startTime     The start time of this note
+   * @param endTime       the end time of this note
+   */
+  public Note(AbsolutePitch absolutePitch, int startTime, int endTime) {
+    this(absolutePitch, startTime, endTime, 1, 50);
+  }
+
+  /**
+   * Instrument/Volume constructor for a note.
+   *
+   * @param absolutePitch The absolute pitch of this note
+   * @param startTime     The start time of this note
+   * @param endTime       the end time of this note
+   * @param instrument    The instrument number (to be interpreted by MIDI)
+   * @param volume        The volume (in the range [0, 127])
+   */
+  public Note(AbsolutePitch absolutePitch, int startTime, int endTime, int instrument, int volume) {
+    if (startTime > endTime || startTime < 0) {
+      throw new IllegalArgumentException("Not a valid note");
+    }
+    this.duration = new Duration(startTime, endTime - startTime);
+    this.absolutePitch = absolutePitch;
+    this.channel = instrument;
+    this.volume = volume;
+  }
+
+  /**
+   * A Copy Constructor for a Note.
+   *
+   * @param note The note who's parameters are to be copied to a new note
+   */
+  public Note(Note note) {
+    this(note.getAbsolutePitch(), note.getStartTime(), note.getEndTime(), note.getInstrument(), note.getVolume());
+  }
+
+  /**
+   * Gets the duration of this Note.
+   *
+   * @return The duration of this Note
+   */
+  public final int getDurationTime() {
+    return duration.getStart() + duration.getBeat();
+  }
+
+  /**
+   * The start time of this note.
+   */
+  public int getStartTime() {
+    return this.getDuration().getStart();
+  }
+
+  /**
+   * The end time of this note.
+   */
+  public int getEndTime() {
+    return this.getDuration().getStart() + this.getDuration().getBeat();
+  }
+
+  /**
+   * The pitch of this note as represented by an AbsolutePitch.
+   */
+  public AbsolutePitch getAbsolutePitch() {
+    return absolutePitch;
+  }
+
+  /**
+   * The instrument number (to be interpreted by MIDI).
+   */
+  public int getInstrument() {
+    return getChannel();
   }
 
 }
