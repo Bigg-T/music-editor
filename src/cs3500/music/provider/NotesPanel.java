@@ -9,8 +9,8 @@ import java.awt.*;
 import java.util.HashSet;
 import java.util.Set;
 
-import static cs3500.music.view.GuiViewImpl.COLUMN_WIDTH;
-import static cs3500.music.view.GuiViewImpl.ROW_HEIGHT;
+import static cs3500.music.provider.GuiViewImpl.COLUMN_WIDTH;
+import static cs3500.music.provider.GuiViewImpl.ROW_HEIGHT;
 
 /**
  * Represents a view panel that renders notes.

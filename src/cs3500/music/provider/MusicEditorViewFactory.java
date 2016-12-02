@@ -25,7 +25,7 @@ public class MusicEditorViewFactory {
     try {
       switch (type) {
         case "console":
-          return new ConsoleView();
+          //return new ConsoleView();
         case "visual":
           return new GuiViewImpl();
         case "midi":

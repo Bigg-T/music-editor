@@ -7,8 +7,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import static cs3500.music.view.GuiViewImpl.COLUMN_WIDTH;
-import static cs3500.music.view.GuiViewImpl.ROW_HEIGHT;
+import static cs3500.music.provider.GuiViewImpl.COLUMN_WIDTH;
+import static cs3500.music.provider.GuiViewImpl.ROW_HEIGHT;
 
 /**
  * A Notes Panel that also draws a red line representing the current position of playback.
