@@ -147,6 +147,6 @@ class Pitch {
    * @return list a list of INote
    */
   List<Note> toINoteList(boolean hold) {
-    return this.noteList.stream().collect(Collectors.toList());
+    return this.noteList;
   }
 }

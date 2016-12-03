@@ -1,6 +1,7 @@
 package cs3500.music.model;
 
 import cs3500.music.util.MusicUtils;
+import cs3500.music.util.Utils;
 
 import java.util.Comparator;
 import java.util.Iterator;
@@ -28,13 +29,11 @@ public class Note implements INote {
    * @param numBeat       the duration of this note
    */
   Note(NoteName noteName, int octave, int startDuration, int numBeat, int volume, int channel) {
-    requireNonNull(noteName);
-
+    this(new AbsolutePitch(MusicUtils.convertRelativeEnum(noteName.toInt()), octave),
+            startDuration, (startDuration + numBeat), channel, volume);
     this.noteName = noteName;
     this.octave = octave;
-    this.duration = new Duration(startDuration, numBeat);
     this.volume = volume;
-    this.channel = channel;
   }
 
   @Override
@@ -409,7 +408,7 @@ public class Note implements INote {
    * The instrument number (to be interpreted by MIDI).
    */
   public int getInstrument() {
-    return getChannel();
+    return getChannel() % 16;
   }
 
 }

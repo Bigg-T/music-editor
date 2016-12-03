@@ -2,6 +2,7 @@ package cs3500.music.model;
 
 import cs3500.music.util.CompositionBuilder;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.SortedMap;
@@ -166,7 +167,11 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
 
   @Override
   public List<Note> getNotesAtBeat(int beat) throws IllegalStateException {
-    return this.piece.get(beat).getAllNote(true);
+    if (this.piece.get(beat) == null) {
+      return new ArrayList<>();
+    } else {
+      return this.piece.get(beat).getAllNote(true);
+    }
   }
 
   /**
