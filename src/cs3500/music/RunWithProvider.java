@@ -1,5 +1,7 @@
 package cs3500.music;
 
+import cs3500.music.controller.IMusicEditorController;
+import cs3500.music.controller.MusicControllerGui;
 import cs3500.music.model.BasicMusicEditor;
 import cs3500.music.model.IBasicMusicEditor;
 import cs3500.music.model.INote;
@@ -42,8 +44,10 @@ public class RunWithProvider {
 
     GuiPlayerView view = new GuiViewImpl();
 
-    view.setReadOnlyModel(musicAdaptedModel);
-    view.display();
+    IMusicEditorController controller = new MusicControllerGui(musicEditor, view);
+    controller.initializeView();
+//    view.setReadOnlyModel(musicAdaptedModel);
+//    view.display();
 
 
   }
