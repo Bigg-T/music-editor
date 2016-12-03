@@ -66,7 +66,7 @@ public class KeyHandler implements KeyListener {
       return;
     }
     catch (Exception ex) {
-      return;
+     return;
     }
   }
 

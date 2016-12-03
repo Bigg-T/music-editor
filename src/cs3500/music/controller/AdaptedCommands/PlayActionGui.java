@@ -18,7 +18,7 @@ public class PlayActionGui implements Runnable {
 
   @Override
   public void run() {
-    theView.pause();
+    theView.play();
   }
 
 }

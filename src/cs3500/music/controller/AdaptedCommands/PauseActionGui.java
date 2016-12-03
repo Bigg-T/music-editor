@@ -18,6 +18,7 @@ public class PauseActionGui implements Runnable {
 
   @Override
   public void run() {
+    System.out.println("ran");
     theView.pause();
   }
 }

@@ -51,6 +51,7 @@ public class MusicControllerGui implements IMusicEditorController {
     this.mouseHandler = new MouseHandler();
     this.theView.addKeyListener(this.keyHandler);
     this.theView.addMouseListener(this.mouseHandler);
+    this.initStandard();
   }
 
   /**
