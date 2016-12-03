@@ -31,12 +31,16 @@ public class ReadOnlyModel implements ReadOnlyMusicModel {
 
   @Override
   public List<Note> getNotesAtBeat(int beat) throws IllegalStateException {
-    return null;
+    List<Note> notes = new ArrayList<>();
+    if (model.getAllNotesAt(beat) != null) {
+      model.getAllNotesAt(beat).values().forEach(x -> notes.add((Note)x));
+    }
+    return notes;
   }
 
   @Override
   public int getBeatsPerMeasure() throws IllegalStateException {
-    return 0;
+    return 4;
   }
 
   @Override
