@@ -46,7 +46,7 @@ public interface IBasicMusicEditor<K> {
    */
   public void merge(IBasicMusicEditor<K> piece, boolean isConsecutive);
 
-  SortedMap<Integer, List<INote>> getAllNotesAt(int beatNum);
+  SortedMap<Integer, List<K>> getAllNotesAt(int beatNum);
 
   /**
    * Integer -> is the beat number.
@@ -54,7 +54,7 @@ public interface IBasicMusicEditor<K> {
    *
    * @return the whole map of notes
    */
-  public SortedMap<Integer, SortedMap<Integer, List<INote>>> composition();
+  public SortedMap<Integer, SortedMap<Integer, List<K>>> composition();
 
   /**
    * Return the minimum Pitch.
