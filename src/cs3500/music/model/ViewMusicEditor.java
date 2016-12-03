@@ -84,6 +84,11 @@ public class ViewMusicEditor implements IBasicMusicEditor<INote> {
     return true;
   }
 
+  @Override
+  public List<Note> getNotesAtBeat(int beat) throws IllegalStateException {
+    return musicEditor.getNotesAtBeat(beat);
+  }
+
   //need to change to visitor pattern
   BasicMusicEditor toBasicMusicEditor(IBasicMusicEditor<INote> musicEditor) {
     musicEditor = Utils.requireNonNull(musicEditor, "Null MusicEditor");

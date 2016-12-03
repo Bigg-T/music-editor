@@ -97,4 +97,13 @@ public interface IBasicMusicEditor<K> {
    * @return true if an ViewEditor
    */
   boolean isViewEditor();
+
+  /**
+   * Returns all of the notes that are present during the given beat.
+   *
+   * @param beat The beat at which we are finding all notes present
+   * @return The notes present at the given beat
+   * @throws IllegalArgumentException When model has not been initialized
+   */
+  List<Note> getNotesAtBeat(int beat) throws IllegalStateException;
 }

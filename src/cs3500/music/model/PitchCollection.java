@@ -2,6 +2,7 @@ package cs3500.music.model;
 
 import cs3500.music.util.Utils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.SortedMap;
@@ -133,6 +134,12 @@ final class PitchCollection {
     SortedMap<Integer, List<INote>> map = new TreeMap<>();
     this.pitchTreeMap.keySet().forEach(x -> map.put(x, this.pitchTreeMap.get(x).toINoteList()));
     return map;
+  }
+
+  List<Note> getAllNote(boolean hold) {
+    List<Note> notes = new ArrayList<>();
+    this.pitchTreeMap.keySet().forEach(x -> notes.addAll(this.pitchTreeMap.get(x).toINoteList(true)));
+    return notes;
   }
 
   public static void main(String[] args) {

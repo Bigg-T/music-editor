@@ -164,6 +164,11 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
     return false;
   }
 
+  @Override
+  public List<Note> getNotesAtBeat(int beat) throws IllegalStateException {
+    return this.piece.get(beat).getAllNote(true);
+  }
+
   /**
    * Builder for CompositionBuilder.
    */

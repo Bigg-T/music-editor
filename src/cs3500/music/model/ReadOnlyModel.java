@@ -21,21 +21,14 @@ public class ReadOnlyModel implements ReadOnlyMusicModel {
   @Override
   public List<Note> getNotes() throws IllegalStateException {
     List<Note> notes = new ArrayList<>();
-    this.model.composition().values()
-            .forEach(x -> x.values()
-                    .forEach(y -> {
-                      notes.add((Note) y);
-                    }));
+    this.model.composition().keySet()
+            .forEach(x -> notes.addAll(getNotesAtBeat(x)));
     return notes;
   }
 
   @Override
   public List<Note> getNotesAtBeat(int beat) throws IllegalStateException {
-    List<Note> notes = new ArrayList<>();
-    if (model.getAllNotesAt(beat) != null) {
-      model.getAllNotesAt(beat).values().forEach(x -> notes.add((Note)x));
-    }
-    return notes;
+    return model.getNotesAtBeat(beat);
   }
 
   @Override
