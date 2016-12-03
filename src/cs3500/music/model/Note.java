@@ -1,7 +1,6 @@
 package cs3500.music.model;
 
 import cs3500.music.util.MusicUtils;
-import cs3500.music.util.Utils;
 
 import java.util.Comparator;
 import java.util.Iterator;
