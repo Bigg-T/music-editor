@@ -380,7 +380,7 @@ public class Note implements INote {
    * @return The duration of this Note
    */
   public final int getDurationTime() {
-    return duration.getStart() + duration.getBeat();
+    return duration.getBeat();
   }
 
   /**
