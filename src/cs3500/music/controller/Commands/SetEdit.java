@@ -22,7 +22,7 @@ public class SetEdit implements Runnable {
    * @param controlTracker control tracker to use
    * @param toEdit         to be edited
    */
-  SetEdit(ControlTracker controlTracker, String toEdit) {
+  public SetEdit(ControlTracker controlTracker, String toEdit) {
     this.controlTracker = controlTracker;
     this.toEdit = toEdit;
   }
