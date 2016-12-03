@@ -1,22 +1,20 @@
 package cs3500.music.controller;
 
-
-import cs3500.music.controller.Commands.ActionRunner;
+import cs3500.music.controller.AdaptedCommands.ActionRunnerGui;
+import cs3500.music.controller.AdaptedCommands.JumpGuiView;
+import cs3500.music.controller.AdaptedCommands.PauseActionGui;
+import cs3500.music.controller.AdaptedCommands.PlayActionGui;
 import cs3500.music.controller.Commands.AddKeyNumber;
-import cs3500.music.controller.Commands.HorizontalScroller;
-import cs3500.music.controller.Commands.JumpView;
-import cs3500.music.controller.Commands.PauseAction;
-import cs3500.music.controller.Commands.PlayAction;
 import cs3500.music.controller.Commands.SetEdit;
-import cs3500.music.controller.Commands.VerticalScroller;
 import cs3500.music.model.IBasicMusicEditor;
 import cs3500.music.model.INote;
-import cs3500.music.view.IView;
+import cs3500.music.model.ReadOnlyModel;
+import cs3500.music.provider.GuiPlayerView;
 
 /**
- * To represent the controller for a MusicEditor.
+ * For the purposes of representing a controller for the Music Editor.
  */
-public class MusicEditorController implements IMusicEditorController {
+public class MusicControllerGui implements IMusicEditorController {
 
   /**
    * KeyHandler for controlling key events.
@@ -34,30 +32,25 @@ public class MusicEditorController implements IMusicEditorController {
   IBasicMusicEditor<INote> musicEditor;
 
   /**
-   * View for the controller.
+   * For the purposes of viewing the playing music.
    */
-  IView theView;
+  GuiPlayerView theView;
 
   /**
-   * Tracks the controls being used.
+   * Tracks controls being recieved by the controller.
    */
   ControlTracker ct;
 
-  /**
-   * Constructs a MusicEditorController.
-   *
-   * @param theView View to be used here
-   */
-  public MusicEditorController(IView theView, IBasicMusicEditor<INote> musicEditor) {
-    this.theView = theView;
+
+  public MusicControllerGui(IBasicMusicEditor<INote> musicEditor, GuiPlayerView theView) {
     this.musicEditor = musicEditor;
+    this.theView = theView;
+    theView.setReadOnlyModel(new ReadOnlyModel(this.musicEditor));
     this.ct = new ControlTracker();
     this.keyHandler = new KeyHandler();
     this.mouseHandler = new MouseHandler();
     this.theView.addKeyListener(this.keyHandler);
     this.theView.addMouseListener(this.mouseHandler);
-    this.initStandard();
-    this.initializeView();
   }
 
   /**
@@ -80,27 +73,21 @@ public class MusicEditorController implements IMusicEditorController {
     this.keyHandler.addKeyPressed(86, new SetEdit(this.ct, "volume"));
     this.keyHandler.addKeyPressed(67, new SetEdit(this.ct, "channel"));
     this.keyHandler.addKeyPressed(65,
-            new ActionRunner(this.ct, this.theView, this.musicEditor, true));
+            new ActionRunnerGui(this.ct, true, this.theView, this.musicEditor));
     this.keyHandler.addKeyPressed(82,
-            new ActionRunner(this.ct, this.theView, this.musicEditor, false));
-    this.keyHandler.addKeyPressed(32, new PauseAction(this.theView));
-    this.keyHandler.addKeyPressed(10, new PlayAction(this.theView));
-    this.keyHandler.addKeyPressed(36, new JumpView(this.theView, true));
-    this.keyHandler.addKeyPressed(35, new JumpView(this.theView, false));
-    this.keyHandler.addKeyPressed(39, new HorizontalScroller(true, this.theView));
-    this.keyHandler.addKeyPressed(37, new HorizontalScroller(false, this.theView));
-    this.keyHandler.addKeyPressed(38, new VerticalScroller(false, this.theView));
-    this.keyHandler.addKeyPressed(40, new VerticalScroller(true, this.theView));
-    this.mouseHandler.addMouseClick(1, new ActionRunner(this.ct, this.theView,
-            this.musicEditor, true));
-    this.mouseHandler.addMouseClick(3, new ActionRunner(this.ct, this.theView,
-            this.musicEditor, false));
+            new ActionRunnerGui(this.ct, false, this.theView, this.musicEditor));
+    this.keyHandler.addKeyPressed(32, new PauseActionGui(this.theView));
+    this.keyHandler.addKeyPressed(10, new PlayActionGui(this.theView));
+    this.keyHandler.addKeyPressed(36, new JumpGuiView(this.theView, true));
+    this.keyHandler.addKeyPressed(35, new JumpGuiView(this.theView, false));
+    this.keyHandler.addKeyPressed(39, theView.getScrollHandler()::scrollLeft);
+    this.keyHandler.addKeyPressed(37, theView.getScrollHandler()::scrollRight);
   }
 
   @Override
   public void initializeView() {
     try {
-      this.theView.initialize();
+      this.theView.display();
     }
     catch (Exception e) {
       return;
@@ -123,4 +110,5 @@ public class MusicEditorController implements IMusicEditorController {
         return;
     }
   }
+
 }
