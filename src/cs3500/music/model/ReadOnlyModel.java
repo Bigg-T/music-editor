@@ -38,6 +38,6 @@ public class ReadOnlyModel implements ReadOnlyMusicModel {
 
   @Override
   public int getTempo() {
-    return model.getTempo();
+    return 60000000 / model.getTempo();
   }
 }
