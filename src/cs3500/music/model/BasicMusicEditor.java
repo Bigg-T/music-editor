@@ -178,6 +178,7 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
     }
   }
 
+  //@TODO - need to finish of optimization and enable to do cool shit
   @Override
   public SortedMap<Integer, SortedMap<Integer, List<INote>>> getViewComposition() {
     SortedMap<Integer, SortedMap<Integer, List<INote>>> mapSortedMap = composition();
