@@ -50,10 +50,10 @@ public class MidiViewImpl implements IView {
    */
   public MidiViewImpl(IBasicMusicEditor<INote> musicEditor) {
     Objects.requireNonNull(musicEditor, "Null music editor");
-    Objects.requireNonNull(ss, "Null sequencer");
     this.musicEditor = Utils.requireNonNull(musicEditor, "Null MusicEditor");
     try {
       this.ss = MidiSystem.getSequencer();
+      Objects.requireNonNull(ss, "Null sequencer");
     }
     catch (MidiUnavailableException e) {
       e.printStackTrace();
