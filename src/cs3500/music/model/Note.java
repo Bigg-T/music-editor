@@ -1,5 +1,6 @@
 package cs3500.music.model;
 
+import cs3500.music.util.ModelUtils;
 import cs3500.music.util.MusicUtils;
 
 import java.util.Comparator;
@@ -28,7 +29,7 @@ public class Note implements INote {
    * @param numBeat       the duration of this note
    */
   Note(NoteName noteName, int octave, int startDuration, int numBeat, int volume, int channel) {
-    this(new AbsolutePitch(MusicUtils.convertRelativeEnum(noteName.toInt()), octave),
+    this(new AbsolutePitch(ModelUtils.convertRelativeEnum(noteName.toInt()), octave),
             startDuration, (startDuration + numBeat), channel, volume);
     this.noteName = noteName;
     this.octave = octave;

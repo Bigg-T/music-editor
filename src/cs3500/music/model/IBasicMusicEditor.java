@@ -106,4 +106,20 @@ public interface IBasicMusicEditor<K> {
    * @throws IllegalArgumentException When model has not been initialized
    */
   List<Note> getNotesAtBeat(int beat) throws IllegalStateException;
+
+  /**
+   * Integer -> is the beat number.
+   * SortedMap Integer -> the pitch number.
+   * This will build a repeated.
+   *
+   * @return the whole map of notes
+   */
+  public SortedMap<Integer, SortedMap<Integer, List<K>>> getViewComposition();
+
+  /**
+   * Return a list of notes.
+   *
+   * @return list of K
+   */
+  public List<K> getAllNotesList();
 }

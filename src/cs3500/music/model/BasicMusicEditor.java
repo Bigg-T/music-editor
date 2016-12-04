@@ -36,7 +36,8 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
   private Note castToNote(INote note) {
     if (note == null) {
       throw new IllegalArgumentException("Note is null.");
-    } else if (note.isViewNote()) {
+    }
+    else if (note.isViewNote()) {
       throw new IllegalArgumentException("Can't modified Note.");
     }
     return (Note) note;
@@ -90,7 +91,8 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
           return;
         }
         this.piece.get(s).merge(pitchCollection, 0);
-      } else {
+      }
+      else {
         int offset = s + getLastBeat();
         this.piece.put(offset, pitchCollection.adjustBeat(getLastBeat()));
         return;
@@ -109,7 +111,8 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
   private BasicMusicEditor toBasicMusicEditor(IBasicMusicEditor<INote> musicEditor) {
     if (musicEditor == null) {
       throw new IllegalArgumentException("Null MusicEditor.");
-    } else if (musicEditor.isViewEditor()) {
+    }
+    else if (musicEditor.isViewEditor()) {
       ViewMusicEditor viewMusicEditor = (ViewMusicEditor) musicEditor;
       return viewMusicEditor.toBasicMusicEditor(musicEditor);
     }
@@ -169,9 +172,29 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
   public List<Note> getNotesAtBeat(int beat) throws IllegalStateException {
     if (this.piece.get(beat) == null) {
       return new ArrayList<>();
-    } else {
+    }
+    else {
       return this.piece.get(beat).getAllNote(true);
     }
+  }
+
+  @Override
+  public SortedMap<Integer, SortedMap<Integer, List<INote>>> getViewComposition() {
+    SortedMap<Integer, SortedMap<Integer, List<INote>>> mapSortedMap = composition();
+
+    this.getAllNotesList()
+            .forEach(x -> {
+
+            });
+    return mapSortedMap;
+  }
+
+  @Override
+  public List<INote> getAllNotesList() {
+    List<INote> notes = new ArrayList<>();
+    this.composition().keySet()
+            .forEach(x -> notes.addAll(getNotesAtBeat(x)));
+    return notes;
   }
 
   /**
@@ -195,7 +218,7 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
 
     @Override
     public CompositionBuilder<IBasicMusicEditor<INote>>
-        addNote(int start, int end, int instrument, int pitch, int volume) {
+    addNote(int start, int end, int instrument, int pitch, int volume) {
       Note note = new NoteBuilder()
               .setNoteName(NoteName.toNoteName(pitch % 12))
               .setChannel(instrument)

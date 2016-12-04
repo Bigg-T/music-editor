@@ -1,7 +1,6 @@
 package cs3500.music.util;
 
 import cs3500.music.model.NoteName;
-import cs3500.music.model.RelativePitch;
 
 /**
  * The music util for convience.
@@ -104,43 +103,6 @@ public final class MusicUtils {
         return NoteName.AX;
       default:
         return NoteName.B;
-    }
-  }
-
-  /**
-   * Convert to the correct notename.
-   *
-   * @param pitch the pitch number
-   * @return correct note mane.
-   */
-  public static RelativePitch convertRelativeEnum(int pitch) {
-    int note = pitch % 12;
-    String noteName;
-    switch (note) {
-      case 0:
-        return RelativePitch.C;
-      case 1:
-        return RelativePitch.CSHARP;
-      case 2:
-        return RelativePitch.D;
-      case 3:
-        return RelativePitch.DSHARP;
-      case 4:
-        return RelativePitch.E;
-      case 5:
-        return RelativePitch.F;
-      case 6:
-        return RelativePitch.FSHARP;
-      case 7:
-        return RelativePitch.G;
-      case 8:
-        return RelativePitch.GSHARP;
-      case 9:
-        return RelativePitch.A;
-      case 10:
-        return RelativePitch.ASHARP;
-      default:
-        return RelativePitch.B;
     }
   }
 
