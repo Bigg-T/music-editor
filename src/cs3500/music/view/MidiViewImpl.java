@@ -10,6 +10,7 @@ import javax.sound.midi.MidiChannel;
 import javax.sound.midi.MidiEvent;
 import javax.sound.midi.MidiMessage;
 import javax.sound.midi.MidiSystem;
+import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Receiver;
 import javax.sound.midi.Sequence;
 import javax.sound.midi.Sequencer;
@@ -35,13 +36,28 @@ public class MidiViewImpl implements IView {
   private volatile long currentPosition = 0;
 
   /**
-   * Creates MidiViewImp.
+   * Creates MidiViewImp, for testing.
    */
   public MidiViewImpl(IBasicMusicEditor<INote> musicEditor, Sequencer ss) {
     Objects.requireNonNull(musicEditor, "Null music editor");
     Objects.requireNonNull(ss, "Null sequencer");
     this.musicEditor = Utils.requireNonNull(musicEditor, "Null MusicEditor");
     this.ss = ss;
+  }
+
+  /**
+   * Creates MidiViewImp.
+   */
+  public MidiViewImpl(IBasicMusicEditor<INote> musicEditor) {
+    Objects.requireNonNull(musicEditor, "Null music editor");
+    Objects.requireNonNull(ss, "Null sequencer");
+    this.musicEditor = Utils.requireNonNull(musicEditor, "Null MusicEditor");
+    try {
+      this.ss = MidiSystem.getSequencer();
+    }
+    catch (MidiUnavailableException e) {
+      e.printStackTrace();
+    }
   }
 
   /**
