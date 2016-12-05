@@ -11,13 +11,13 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * Represents a textual view for a music editor that prints to System.out or whatever appendable is
+ * Represents a textual provider for a music editor that prints to System.out or whatever appendable is
  * given.
  */
 public class ConsoleView implements MusicEditorView {
 
   /**
-   * The model that this view will draw.
+   * The model that this provider will draw.
    */
   private ReadOnlyMusicModel model;
   private Appendable out;
@@ -56,7 +56,7 @@ public class ConsoleView implements MusicEditorView {
   }
 
   /**
-   * Sets the readOnlyModel of this view.
+   * Sets the readOnlyModel of this provider.
    *
    * @param readOnlyModel the readonly model to be set.
    */
@@ -73,7 +73,7 @@ public class ConsoleView implements MusicEditorView {
   /**
    * Parses the data in the model into a single String.
    *
-   * @return A String representation of the model in this view
+   * @return A String representation of the model in this provider
    */
   private String parseModel() {
     NotePitchComparator npc = new NotePitchComparator();

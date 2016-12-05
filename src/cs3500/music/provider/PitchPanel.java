@@ -11,7 +11,7 @@ import static cs3500.music.provider.GuiViewImpl.COLUMN_WIDTH;
 import static cs3500.music.provider.GuiViewImpl.ROW_HEIGHT;
 
 /**
- * Represents a view panel that displays music pitches.
+ * Represents a provider panel that displays music pitches.
  */
 public class PitchPanel extends JPanel {
   /**

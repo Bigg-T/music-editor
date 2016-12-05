@@ -1,7 +1,5 @@
 package cs3500.music.provider;
 
-import cs3500.music.view.ConsoleView;
-
 import javax.sound.midi.MidiUnavailableException;
 
 /**
@@ -25,7 +23,7 @@ public class MusicEditorViewFactory {
     try {
       switch (type) {
         case "console":
-          //return new ConsoleView();
+          return new ConsoleView();
         case "visual":
           return new GuiViewImpl();
         case "midi":

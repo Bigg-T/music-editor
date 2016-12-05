@@ -11,7 +11,7 @@ import java.awt.*;
 import java.awt.event.MouseListener;
 
 /**
- * A Graphical user interface view of a piece of music.
+ * A Graphical user interface provider of a piece of music.
  */
 public class GuiViewImpl extends JFrame implements GuiPlayerView {
 
@@ -85,7 +85,7 @@ public class GuiViewImpl extends JFrame implements GuiPlayerView {
   }
 
   /**
-   * Resets the the focuses in this view to this view.
+   * Resets the the focuses in this provider to this provider.
    */
   private void resetFocus() {
     this.setFocusable(true);
@@ -180,7 +180,7 @@ public class GuiViewImpl extends JFrame implements GuiPlayerView {
   }
 
   /**
-   * A Private inner class for a ScrollHandler that keeps track of how this view should handle
+   * A Private inner class for a ScrollHandler that keeps track of how this provider should handle
    * scrolling.
    */
   private class GuiScrollHandler implements ScrollHandler {

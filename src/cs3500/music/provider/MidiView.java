@@ -32,7 +32,7 @@ public class MidiView implements MusicPlayingView {
   private Sequence sequence;
 
   /**
-   * The read-only model passed to the view.
+   * The read-only model passed to the provider.
    */
   private ReadOnlyMusicModel readOnlyModel;
 
@@ -43,7 +43,7 @@ public class MidiView implements MusicPlayingView {
 
 
   /**
-   * The default constructor for the midi view, initializes the sequencer.
+   * The default constructor for the midi provider, initializes the sequencer.
    * Used for convenience.
    */
   public MidiView() throws MidiUnavailableException {

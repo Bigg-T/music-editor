@@ -13,7 +13,7 @@ import static cs3500.music.provider.GuiViewImpl.COLUMN_WIDTH;
 import static cs3500.music.provider.GuiViewImpl.ROW_HEIGHT;
 
 /**
- * Represents a view panel that renders notes.
+ * Represents a provider panel that renders notes.
  */
 public class NotesPanel extends JPanel {
   /**
@@ -103,7 +103,7 @@ public class NotesPanel extends JPanel {
     g.setColor(Color.GREEN);
     for(Note n : notes) {
       g.fillRect(n.getStartTime() * COLUMN_WIDTH, ROW_HEIGHT * (maxPitch - n.getAbsolutePitch().intValue()),
-              n.getDurationTime() * COLUMN_WIDTH, ROW_HEIGHT);
+              n.getDuration() * COLUMN_WIDTH, ROW_HEIGHT);
     }
     // Draw black squares.
     g.setColor(Color.BLACK);

@@ -77,7 +77,7 @@ public class Note implements INote {
    * @param offset the new starting beat
    */
   void offsetStartBeat(int offset) {
-    this.getDuration().setStart(this.getDuration().getStart() + offset);
+    this.getClassDuration().setStart(this.getClassDuration().getStart() + offset);
   }
 
   /**
@@ -90,7 +90,7 @@ public class Note implements INote {
   }
 
   void setBeat(int duration) {
-    this.getDuration().setBeat(duration);
+    this.getClassDuration().setBeat(duration);
   }
 
   /**
@@ -98,7 +98,7 @@ public class Note implements INote {
    *
    * @return this note Duration
    */
-  private Duration getDuration() {
+  private Duration getClassDuration() {
     return duration;
   }
 
@@ -379,7 +379,7 @@ public class Note implements INote {
    *
    * @return The duration of this Note
    */
-  public final int getDurationTime() {
+  public final int getDuration() {
     return duration.getBeat();
   }
 
@@ -387,14 +387,14 @@ public class Note implements INote {
    * The start time of this note.
    */
   public int getStartTime() {
-    return this.getDuration().getStart();
+    return this.getClassDuration().getStart();
   }
 
   /**
    * The end time of this note.
    */
   public int getEndTime() {
-    return this.getDuration().getStart() + this.getDuration().getBeat();
+    return this.getClassDuration().getStart() + this.getClassDuration().getBeat();
   }
 
   /**
