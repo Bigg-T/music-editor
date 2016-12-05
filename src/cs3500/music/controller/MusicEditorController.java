@@ -1,14 +1,14 @@
 package cs3500.music.controller;
 
 
-import cs3500.music.controller.Commands.ActionRunner;
-import cs3500.music.controller.Commands.AddKeyNumber;
-import cs3500.music.controller.Commands.HorizontalScroller;
-import cs3500.music.controller.Commands.JumpView;
-import cs3500.music.controller.Commands.PauseAction;
-import cs3500.music.controller.Commands.PlayAction;
-import cs3500.music.controller.Commands.SetEdit;
-import cs3500.music.controller.Commands.VerticalScroller;
+import cs3500.music.controller.commands.ActionRunner;
+import cs3500.music.controller.commands.AddKeyNumber;
+import cs3500.music.controller.commands.HorizontalScroller;
+import cs3500.music.controller.commands.JumpView;
+import cs3500.music.controller.commands.PauseAction;
+import cs3500.music.controller.commands.PlayAction;
+import cs3500.music.controller.commands.SetEdit;
+import cs3500.music.controller.commands.VerticalScroller;
 import cs3500.music.model.IBasicMusicEditor;
 import cs3500.music.model.INote;
 import cs3500.music.view.IView;

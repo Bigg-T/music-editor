@@ -64,9 +64,8 @@ public class KeyHandler implements KeyListener {
       Objects.requireNonNull(keysToBePressed.get(e.getKeyCode()));
       keysToBePressed.get(e.getKeyCode()).run();
       return;
-    }
-    catch (Exception ex) {
-     return;
+    } catch (Exception ex) {
+      return;
     }
   }
 

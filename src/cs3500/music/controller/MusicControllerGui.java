@@ -1,11 +1,11 @@
 package cs3500.music.controller;
 
-import cs3500.music.controller.AdaptedCommands.ActionRunnerGui;
-import cs3500.music.controller.AdaptedCommands.JumpGuiView;
-import cs3500.music.controller.AdaptedCommands.PauseActionGui;
-import cs3500.music.controller.AdaptedCommands.PlayActionGui;
-import cs3500.music.controller.Commands.AddKeyNumber;
-import cs3500.music.controller.Commands.SetEdit;
+import cs3500.music.controller.adaptedcommands.ActionRunnerGui;
+import cs3500.music.controller.adaptedcommands.JumpGuiView;
+import cs3500.music.controller.adaptedcommands.PauseActionGui;
+import cs3500.music.controller.adaptedcommands.PlayActionGui;
+import cs3500.music.controller.commands.AddKeyNumber;
+import cs3500.music.controller.commands.SetEdit;
 import cs3500.music.model.IBasicMusicEditor;
 import cs3500.music.model.INote;
 import cs3500.music.model.ReadOnlyModel;
@@ -42,6 +42,11 @@ public class MusicControllerGui implements IMusicEditorController {
   ControlTracker ct;
 
 
+  /**
+   * Constructs an instance of a Music editor controller using a GUI view
+   * @param musicEditor Music editor to be used
+   * @param theView     GUI to be used
+   */
   public MusicControllerGui(IBasicMusicEditor<INote> musicEditor, GuiPlayerView theView) {
     this.musicEditor = musicEditor;
     this.theView = theView;
