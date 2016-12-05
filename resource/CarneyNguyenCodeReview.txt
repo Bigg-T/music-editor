@@ -32,13 +32,3 @@ to not need to expose ourselves to their raw implementations.
 
  However, ultimately these were mistakes within a (relatively) large project, and they did much
  more right that they did wrong.
-
-
-
-
-
-
-To talk about:
-* Exposure of implementations (example AbsolutePitch in view), notes depend on impl of abspitch
-* Note is implementation, no promised functionality
-*
