@@ -1,0 +1,8 @@
+The view that was given to our team required internal implementation such as Note, AbsolutePitch
+and the util classes. Some part part of the view used field of field access in the note. I asked
+our provider to encapsulate all the fields access to getter methods. By having getter methods,
+it allowed us to adapt our code. Not only that, if the library author wanted to change the field
+to a different name. Then the author only need to change the field in the getter method instead
+of hunting down to every usage of that field.
+
+
