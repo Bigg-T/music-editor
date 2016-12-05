@@ -1,0 +1,21 @@
+﻿Rob Carney and Thien Nguyen
+Homework 8 Code Review
+
+
+        For this assignment, we were required to adapt another group’s code to ensure compatibility with our own. Being that most people in the course have a solid but not extensive background in coding, we imagined that this could get quite difficult. Coding is difficult, a coding in a clean, efficient, easy to read way is exceptionally difficult. However, the group who provided us with their code well exceeded our expectations in their code quality.
+
+
+        We worked specifically with their view. The class architecture was solid, with interfaces promising functionality when appropriate, and abstract class implementations for implementing inheritance. Specifically, the interfaces established were MusicEditorView (functionality required for all views of the music editor), GuiView, GuiPlayerView (for composite views), MusicPlayingView (for views which can play music), among others for more specific implementation (such as one specifically for scrollables). This allowed for clear functionality within the code, allowing us to not need to expose ourselves to their raw implementations.
+
+
+        Despite their code being well written and fairly easy to use overall, there were a few problems. Mainly, we saw problems regarding raw implementations. Although their View made good use of interfacing, the same cannot be said for their model. For example, they make their model use a raw implementation of Note (rather than an interface). This is rather inconvenient, and ultimately unnecessary. In addition, their AbsolutePitch class (a raw implementation) is referenced a number of times. However, ultimately these were mistakes within a (relatively) large project, and they did much more right that they did wrong. 
+
+
+
+
+
+
+To talk about:
+* Exposure of implementations (example AbsolutePitch in view), notes depend on impl of abspitch
+* Note is implementation, no promised functionality
+*
