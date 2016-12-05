@@ -5,4 +5,9 @@ it allowed us to adapt our code. Not only that, if the library author wanted to 
 to a different name. Then the author only need to change the field in the getter method instead
 of hunting down to every usage of that field.
 
-
+The have dependency on the internal implementation on the in the model made in it harder to adapt.
+The code is not decoupled. I would suggest the provider to added a Note interface, and high the
+AbsolutePitch class to be internal. Though, I think the AbsolutePitch class is unnecessary. That
+class could be combine with the Note class. Note, itself should have the information. With the INote
+interface then the will be completely decoupled from the model. Any user who want to use the View
+only have to write an adapter to for INote and the ReadOnlyMusicModel to use the view.
