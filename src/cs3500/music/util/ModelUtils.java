@@ -49,7 +49,6 @@ public final class ModelUtils {
    */
   public static RelativePitch convertRelativeEnum(int pitch) {
     int note = pitch % 12;
-    String noteName;
     switch (note) {
       case 0:
         return RelativePitch.C;
