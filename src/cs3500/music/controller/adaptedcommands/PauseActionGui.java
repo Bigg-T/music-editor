@@ -3,7 +3,7 @@ package cs3500.music.controller.adaptedcommands;
 import cs3500.music.provider.GuiPlayerView;
 
 /**
- * Created by robertcarney on 12/3/16.
+ * Purpose of this is to pause the music.
  */
 public class PauseActionGui implements Runnable {
 
