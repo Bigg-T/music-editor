@@ -159,6 +159,11 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
     return compos;
   }
 
+  /**
+   * Return the  music piece.
+   *
+   * @return te music piece.
+   */
   TreeMap<Integer, PitchCollection> getPiece() {
     return this.piece;
   }

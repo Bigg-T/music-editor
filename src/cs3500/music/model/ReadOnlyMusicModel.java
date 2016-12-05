@@ -39,7 +39,6 @@ public interface ReadOnlyMusicModel {
 
   /**
    * Returns the tempo of this piece of music.
-   *
    */
   int getTempo();
 
