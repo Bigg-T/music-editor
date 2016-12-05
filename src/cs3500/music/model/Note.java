@@ -142,10 +142,6 @@ public class Note implements INote {
 
   @Override
   public boolean equals(Object o) {
-    // Fast path for pointer equality:
-//    if (this == o) {
-//      return true;
-//    }
 
     // If o isn't the right class then it can't be equal:
     if (!(o instanceof Note)) {
@@ -233,14 +229,15 @@ public class Note implements INote {
    */
   static class NoteComparators {
 
-    static final Comparator<Note> DURATION = (thisNote, thatNote)
-            -> Integer.compare(thisNote.duration.getBeat(), thatNote.duration.getBeat());
+    static final Comparator<Note> DURATION = (thisNote, thatNote) -> {
+      return Integer.compare(thisNote.duration.getBeat(), thatNote.duration.getBeat());
+    };
 
-    static final Comparator<Note> OCTAVE = (thisNote, thatNote)
-            -> Integer.compare(thisNote.octave, thatNote.octave);
+    static final Comparator<Note> OCTAVE = (thisNote, thatNote) -> {
+      return Integer.compare(thisNote.octave, thatNote.octave);
+    };
 
-    static final Comparator<Note> NOTE = (thisNote, thatNote)
-            -> {
+    static final Comparator<Note> NOTE = (thisNote, thatNote) -> {
       if (thisNote.getNoteName().compareTo(thatNote.getNoteName()) == 0) {
         return NoteComparators.OCTAVE.compare(thisNote, thatNote);
       }
@@ -248,10 +245,10 @@ public class Note implements INote {
     };
 
     //sort by pitch
-    static final Comparator<Note> PITCH = (thisNote, thatNote)
-            -> Integer.compare(MusicUtils.toPitch(thisNote.noteName, thisNote.octave),
-            MusicUtils.toPitch(thatNote.noteName, thatNote.octave));
-
+    static final Comparator<Note> PITCH = (thisNote, thatNote) -> {
+      return Integer.compare(MusicUtils.toPitch(thisNote.noteName, thisNote.octave),
+              MusicUtils.toPitch(thatNote.noteName, thatNote.octave));
+    };
   }
 
   /**
@@ -371,7 +368,8 @@ public class Note implements INote {
    * @param note The note who's parameters are to be copied to a new note
    */
   public Note(Note note) {
-    this(note.getAbsolutePitch(), note.getStartTime(), note.getEndTime(), note.getInstrument(), note.getVolume());
+    this(note.getAbsolutePitch(), note.getStartTime(), note.getEndTime(),
+            note.getInstrument(), note.getVolume());
   }
 
   /**

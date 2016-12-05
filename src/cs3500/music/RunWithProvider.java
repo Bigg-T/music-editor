@@ -18,7 +18,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 /**
- * Created by tiger on 12/3/16.
+ * To run the program.
  */
 public class RunWithProvider {
 
@@ -46,9 +46,5 @@ public class RunWithProvider {
 
     IMusicEditorController controller = new MusicControllerGui(musicEditor, view);
     controller.initializeView();
-//    view.setReadOnlyModel(musicAdaptedModel);
-//    view.display();
-
-
   }
 }

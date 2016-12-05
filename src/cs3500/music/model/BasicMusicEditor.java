@@ -223,8 +223,9 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
     }
 
     @Override
-    public CompositionBuilder<IBasicMusicEditor<INote>>
-    addNote(int start, int end, int instrument, int pitch, int volume) {
+    public CompositionBuilder<IBasicMusicEditor<INote>> addNote(int start,
+                                                                int end, int instrument,
+                                                                int pitch, int volume) {
       Note note = new NoteBuilder()
               .setNoteName(NoteName.toNoteName(pitch % 12))
               .setChannel(instrument)

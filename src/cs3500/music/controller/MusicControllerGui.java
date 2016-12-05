@@ -43,7 +43,8 @@ public class MusicControllerGui implements IMusicEditorController {
 
 
   /**
-   * Constructs an instance of a Music editor controller using a GUI view
+   * Constructs an instance of a Music editor controller using a GUI view.
+   *
    * @param musicEditor Music editor to be used
    * @param theView     GUI to be used
    */
