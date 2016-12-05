@@ -2,13 +2,36 @@
 Homework 8 Code Review
 
 
-        For this assignment, we were required to adapt another group’s code to ensure compatibility with our own. Being that most people in the course have a solid but not extensive background in coding, we imagined that this could get quite difficult. Coding is difficult, a coding in a clean, efficient, easy to read way is exceptionally difficult. However, the group who provided us with their code well exceeded our expectations in their code quality.
+For this assignment, we were required to adapt another group’s code to ensure compatibility
+with our own. Being that most people in the course have a solid but not extensive background
+in coding, we imagined that this could get quite difficult. Coding is difficult, a coding in a
+clean, efficient, easy to read way is exceptionally difficult. However, the group who provided
+us with their code well exceeded our expectations in their code quality.
 
+We worked specifically with their view. The class architecture was solid, with interfaces
+promising functionality when appropriate, and abstract class implementations for implementing
+inheritance. Specifically, the interfaces established were MusicEditorView (functionality required
+for all views of the music editor), GuiView, GuiPlayerView (for composite views), MusicPlayingView
+(for views which can play music), among others for more specific implementation (such as one
+specifically for scrollables). This allowed for clear functionality within the code, allowing us
+to not need to expose ourselves to their raw implementations.
 
-        We worked specifically with their view. The class architecture was solid, with interfaces promising functionality when appropriate, and abstract class implementations for implementing inheritance. Specifically, the interfaces established were MusicEditorView (functionality required for all views of the music editor), GuiView, GuiPlayerView (for composite views), MusicPlayingView (for views which can play music), among others for more specific implementation (such as one specifically for scrollables). This allowed for clear functionality within the code, allowing us to not need to expose ourselves to their raw implementations.
+ The view that was given to our team required internal implementation such as Note, AbsolutePitch
+ and the util classes. Some part part of the view used field of field access in the note. I asked
+ our provider to encapsulate all the fields access to getter methods. By having getter methods,
+ it allowed us to adapt our code. Not only that, if the library author wanted to change the field
+ to a different name. Then the author only need to change the field in the getter method instead
+ of hunting down to every usage of that field.
 
+ The have dependency on the internal implementation on the in the model made in it harder to adapt.
+ The code is not decoupled. I would suggest the provider to added a Note interface, and high the
+ AbsolutePitch class to be internal. Though, I think the AbsolutePitch class is unnecessary. That
+ class could be combine with the Note class. Note, itself should have the information. With the INote
+ interface then the will be completely decoupled from the model. Any user who want to use the View
+ only have to write an adapter to for INote and the ReadOnlyMusicModel to use the view.
 
-        Despite their code being well written and fairly easy to use overall, there were a few problems. Mainly, we saw problems regarding raw implementations. Although their View made good use of interfacing, the same cannot be said for their model. For example, they make their model use a raw implementation of Note (rather than an interface). This is rather inconvenient, and ultimately unnecessary. In addition, their AbsolutePitch class (a raw implementation) is referenced a number of times. However, ultimately these were mistakes within a (relatively) large project, and they did much more right that they did wrong. 
+ However, ultimately these were mistakes within a (relatively) large project, and they did much
+ more right that they did wrong.
 
 
 
