@@ -1,13 +1,6 @@
 package cs3500.music.model;
 
-
 import org.junit.Test;
-
-import java.util.SortedMap;
-
-import cs3500.music.model.BasicMusicEditor;
-import cs3500.music.model.ReadOnlyModel;
-import cs3500.music.model.ReadOnlyMusicModel;
 
 import static org.junit.Assert.assertEquals;
 
@@ -19,9 +12,6 @@ public class ReadOnlyMusicTest {
   ReadOnlyMusicModel model = new ReadOnlyModel(new
           BasicMusicEditor.BasicCompositionBuilder().setTempo(120).addNote(1, 2, 1, 60, 3).
           build());
-
-
-
 
   @Test
   public void testBPM()  {
