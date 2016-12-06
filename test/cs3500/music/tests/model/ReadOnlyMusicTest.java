@@ -1,5 +1,8 @@
-package cs3500.music.model;
+package cs3500.music.tests.model;
 
+import cs3500.music.model.BasicMusicEditor;
+import cs3500.music.model.ReadOnlyModel;
+import cs3500.music.model.ReadOnlyMusicModel;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
