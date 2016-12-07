@@ -28,7 +28,6 @@ public class MidiViewImpl implements IView {
 
   private final IBasicMusicEditor<INote> musicEditor;
   private Sequencer ss;
-  private Sequence sequence;
 
   //place holder, assuming that getTickPosition() will not produce a 0 at start,
   //-1 mean that the midi is over.
@@ -93,7 +92,7 @@ public class MidiViewImpl implements IView {
    */
 
   void playNote() throws InvalidMidiDataException {
-    this.sequence = model(this.musicEditor, new Sequence(Sequence.PPQ, 1));
+    Sequence sequence = model(this.musicEditor, new Sequence(Sequence.PPQ, 1));
 
     try {
       ss.open();

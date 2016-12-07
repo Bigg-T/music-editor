@@ -122,4 +122,9 @@ public interface IBasicMusicEditor<K> {
    * @return list of K
    */
   public List<K> getAllNotesList();
+
+  public List<Integer> getRepeat();
+
+  public List<Integer> getEndRepeat();
+
 }

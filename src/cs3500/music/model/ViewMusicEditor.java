@@ -99,6 +99,16 @@ public class ViewMusicEditor implements IBasicMusicEditor<INote> {
     return musicEditor.getAllNotesList();
   }
 
+  @Override
+  public List<Integer> getRepeat() {
+    return musicEditor.getRepeat();
+  }
+
+  @Override
+  public List<Integer> getEndRepeat() {
+    return musicEditor.getEndRepeat();
+  }
+
   //need to change to visitor pattern
   BasicMusicEditor toBasicMusicEditor(IBasicMusicEditor<INote> musicEditor) {
     musicEditor = Utils.requireNonNull(musicEditor, "Null MusicEditor");
