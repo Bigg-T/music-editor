@@ -15,6 +15,7 @@ import java.util.TreeMap;
  */
 public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
 
+
   //Integer is a the starting beat of a note
   private TreeMap<Integer, PitchCollection> piece;
   private final int tempo;
@@ -22,8 +23,7 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
   /*
   Invariants: The list will always be ordered.
    */
-  private List<Integer> repeatAtBeat;
-  private List<Integer> endRepeatAt;
+  private List<IRepetition> repeats;
 
   /**
    * Construct an instance of BasicMusic Editor.
@@ -213,14 +213,13 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
 
   //@TODO
   @Override
-  public List<Integer> getRepeat() {
-    return null;
+  public List<IRepetition> getRepeats()  {
+    return this.repeats;
   }
 
-  //TODO
   @Override
-  public List<Integer> getEndRepeat() {
-    return null;
+  public void addRepeat(int start, int end, int skipAt) {
+
   }
 
   /**

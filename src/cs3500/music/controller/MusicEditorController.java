@@ -3,10 +3,12 @@ package cs3500.music.controller;
 
 import cs3500.music.controller.commands.ActionRunner;
 import cs3500.music.controller.commands.AddKeyNumber;
+import cs3500.music.controller.commands.AddRepeat;
 import cs3500.music.controller.commands.HorizontalScroller;
 import cs3500.music.controller.commands.JumpView;
 import cs3500.music.controller.commands.PauseAction;
 import cs3500.music.controller.commands.PlayAction;
+import cs3500.music.controller.commands.RepeatEdit;
 import cs3500.music.controller.commands.SetEdit;
 import cs3500.music.controller.commands.VerticalScroller;
 import cs3500.music.model.IBasicMusicEditor;
@@ -44,6 +46,11 @@ public class MusicEditorController implements IMusicEditorController {
   ControlTracker ct;
 
   /**
+   * Tracks the repetition commands logged.
+   */
+  RepeatTracker rt;
+
+  /**
    * Constructs a MusicEditorController.
    *
    * @param theView View to be used here
@@ -52,6 +59,7 @@ public class MusicEditorController implements IMusicEditorController {
     this.theView = theView;
     this.musicEditor = musicEditor;
     this.ct = new ControlTracker();
+    this.rt = new RepeatTracker();
     this.keyHandler = new KeyHandler();
     this.mouseHandler = new MouseHandler();
     this.theView.addKeyListener(this.keyHandler);
@@ -91,6 +99,10 @@ public class MusicEditorController implements IMusicEditorController {
     this.keyHandler.addKeyPressed(37, new HorizontalScroller(false, this.theView));
     this.keyHandler.addKeyPressed(38, new VerticalScroller(false, this.theView));
     this.keyHandler.addKeyPressed(40, new VerticalScroller(true, this.theView));
+    this.keyHandler.addKeyPressed(81, new RepeatEdit("start", this.rt));
+    this.keyHandler.addKeyPressed(87, new RepeatEdit("end", this.rt));
+    this.keyHandler.addKeyPressed(69, new RepeatEdit("skip", this.rt));
+    this.keyHandler.addKeyPressed(84, new AddRepeat(this.musicEditor, this.rt));
     this.mouseHandler.addMouseClick(1, new ActionRunner(this.ct, this.theView,
             this.musicEditor, true));
     this.mouseHandler.addMouseClick(3, new ActionRunner(this.ct, this.theView,

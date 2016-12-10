@@ -100,14 +100,15 @@ public class ViewMusicEditor implements IBasicMusicEditor<INote> {
   }
 
   @Override
-  public List<Integer> getRepeat() {
-    return musicEditor.getRepeat();
+  public List<IRepetition> getRepeats() {
+    return null;
   }
 
   @Override
-  public List<Integer> getEndRepeat() {
-    return musicEditor.getEndRepeat();
+  public void addRepeat(int start, int end, int skipAt) {
+
   }
+
 
   //need to change to visitor pattern
   BasicMusicEditor toBasicMusicEditor(IBasicMusicEditor<INote> musicEditor) {

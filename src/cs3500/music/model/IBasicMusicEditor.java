@@ -123,8 +123,11 @@ public interface IBasicMusicEditor<K> {
    */
   public List<K> getAllNotesList();
 
-  public List<Integer> getRepeat();
+  /**
+   * Gets all the repeats for this piece.
+   * @return All repeats
+   */
+  public List<IRepetition> getRepeats();
 
-  public List<Integer> getEndRepeat();
-
+  public void addRepeat(int start, int end, int skipAt);
 }
