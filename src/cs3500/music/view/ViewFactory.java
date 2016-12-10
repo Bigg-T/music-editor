@@ -41,7 +41,7 @@ public class ViewFactory {
       case "console":
         return console;
       case "composite":
-        return new CompositeView(midi, gui);
+        return new CompositeView(gui, midi);
       default:
         throw new IllegalArgumentException("Invalid input");
     }

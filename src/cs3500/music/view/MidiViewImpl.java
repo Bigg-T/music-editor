@@ -24,7 +24,7 @@ import java.util.Objects;
 /**
  * MIDI playback.
  */
-public class MidiViewImpl implements IView {
+public class MidiViewImpl implements IMidi, IView {
 
   private final IBasicMusicEditor<INote> musicEditor;
   private Sequencer ss;
@@ -99,16 +99,18 @@ public class MidiViewImpl implements IView {
       ss.setTempoInMPQ(musicEditor.getTempo());
       ss.setSequence(sequence);
       ss.start();
+      ss.stop();
+      ss.start();
       ss.setTempoInMPQ(musicEditor.getTempo());
 
-      while (ss.isRunning()) {
-        long currentPosition = ss.getTickPosition();
-        if (currentPosition != this.currentPosition) {
-          //System.out.println(this.currentPosition);
-          this.currentPosition = currentPosition;
-          //System.out.println(ss.getMicrosecondPosition());
-        }
-      }
+//      while (ss.isRunning()) {
+//        long currentPosition = ss.getTickPosition();
+//        if (currentPosition != this.currentPosition) {
+//          //System.out.println(this.currentPosition);
+//          this.currentPosition = currentPosition;
+//          //System.out.println(ss.getMicrosecondPosition());
+//        }
+//      }
       //this.currentPosition = 0;
       //System.out.println(this.currentPosition);
       //ss.close();
@@ -122,12 +124,12 @@ public class MidiViewImpl implements IView {
 
   @Override
   public void initialize() throws Exception {
-    this.playNote();
+    initialize(0);
   }
 
   @Override
   public long getCurrentTick() {
-    return this.currentPosition;
+    return this.ss.getTickPosition();
   }
 
   @Override
@@ -142,7 +144,10 @@ public class MidiViewImpl implements IView {
 
   @Override
   public void resume() {
+    ss.setTickPosition(ss.getTickPosition());
     ss.start();
+    ss.setTickPosition(ss.getTickPosition());
+
     ss.setTempoInMPQ(musicEditor.getTempo());
   }
 
@@ -229,5 +234,11 @@ public class MidiViewImpl implements IView {
       });
     });
     return sequence;
+  }
+
+  @Override
+  public void initialize(int playAt) throws Exception {
+    playNote();
+    ss.setTickPosition(playAt);
   }
 }

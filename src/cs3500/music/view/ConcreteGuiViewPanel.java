@@ -140,6 +140,7 @@ public class ConcreteGuiViewPanel extends JPanel implements Scrollable {
       //System.out.println(tick);
       x1 += NOTEWIDTH;
       x2 += NOTEHEIGHT;
+      System.out.println(x1+ " x2:" + x2);
       repaint();
     }
   }

@@ -10,32 +10,34 @@ import java.util.concurrent.Executors;
  * For the purposes of creating a composite view, with a syncronized MIDI and Gui.
  */
 public class CompositeView implements IGuiView {
-  private final IView iView1;
-  private final IView iView2;
+  private final IView guiView;
+  private final IView midiView;
 
-  CompositeView(IView iView1, IView iView2) {
-    this.iView1 = iView1;
-    this.iView2 = iView2;
+
+  CompositeView(IView guiView, IView midiView) {
+    this.guiView = guiView;
+    this.midiView = midiView;
   }
 
+  ExecutorService executor = Executors.newFixedThreadPool(2);
   @Override
   public void initialize() throws Exception {
-    ExecutorService executor = Executors.newFixedThreadPool(2);
-    Runnable v1 = () -> this.createRunnable(iView1);
-    Runnable v2 = () -> this.createRunnable(iView2);
+    Runnable v1 = () -> this.createRunnable(guiView);
+    Runnable v2 = () -> this.createRunnable(midiView);
 
     executor.submit(v1);
     executor.submit(v2);
 
-    long currentPosition = -1;
-    while (!executor.isTerminated()) {
-      if (currentPosition != iView1.getCurrentTick()) {
-        currentPosition = iView1.getCurrentTick();
-        this.move(this.getCurrentTick());
-        //System.out.println(currentPosition + "  " + executor.toString());
-      }
-    }
-
+//    long currentPosition = -1;
+//    while (!executor.isTerminated()) {
+//      if (currentPosition != midiView.getCurrentTick()) {
+//        currentPosition = midiView.getCurrentTick();
+//        this.move(this.getCurrentTick());
+//        System.out.println(currentPosition + "  " + executor.toString());
+//      }
+//    }
+    this.guiView.initialize();
+    this.keepMoving();
     executor.shutdownNow();
   }
 
@@ -55,22 +57,22 @@ public class CompositeView implements IGuiView {
 
   @Override
   public void move(long tick) {
-    iView2.move(iView1.getCurrentTick());
-    iView1.move(iView2.getCurrentTick());
+    midiView.move(guiView.getCurrentTick());
+    guiView.move(midiView.getCurrentTick());
   }
 
   @Override
   public void pause() {
-    iView2.pause();
-    iView1.pause();
+    midiView.pause();
+    guiView.pause();
   }
 
   @Override
   public void resume() {
 
     ExecutorService executor = Executors.newFixedThreadPool(3);
-    Runnable r1 = () -> iView2.resume();
-    Runnable r2 = () -> iView1.resume();
+    Runnable r1 = () -> midiView.resume();
+    Runnable r2 = () -> guiView.resume();
     Runnable r3 = () -> keepMoving();
     executor.submit(r1);
     executor.submit(r2);
@@ -78,55 +80,56 @@ public class CompositeView implements IGuiView {
 
   }
 
-  private void keepMoving() {
+  private synchronized void keepMoving() {
     long currentPosition = -1;
-    while (isRunning()) {
-      if (currentPosition != iView1.getCurrentTick()) {
-        currentPosition = iView1.getCurrentTick();
+    System.out.println(executor.isShutdown());
+    while (!executor.isTerminated()) {
+      if (currentPosition != midiView.getCurrentTick()) {
+        currentPosition = midiView.getCurrentTick();
         this.move(this.getCurrentTick());
-        System.out.println(currentPosition + "  " + isRunning());
+        //System.out.println(currentPosition + "  " + isRunning());
       }
     }
   }
 
   @Override
   public void scrollHorizontal(int unit) {
-    this.iView2.scrollHorizontal(unit);
-    this.iView1.scrollVertical(unit);
+    this.midiView.scrollHorizontal(unit);
+    this.guiView.scrollVertical(unit);
   }
 
   @Override
   public void scrollVertical(int unit) {
-    this.iView1.scrollVertical(unit);
-    this.iView2.scrollVertical(unit);
+    this.guiView.scrollVertical(unit);
+    this.midiView.scrollVertical(unit);
   }
 
   @Override
   public boolean isRunning() {
-    return iView1.isRunning() || iView2.isRunning();
+    return guiView.isRunning() || midiView.isRunning();
   }
 
   @Override
   public void update() {
-    this.iView1.update();
-    this.iView2.update();
+    this.guiView.update();
+    this.midiView.update();
   }
 
   @Override
   public void jumpToBeginning() {
-    this.iView1.jumpToBeginning();
-    this.iView2.jumpToBeginning();
+    this.guiView.jumpToBeginning();
+    this.midiView.jumpToBeginning();
   }
 
   @Override
   public void jumpToEnd() {
-    this.iView1.jumpToEnd();
-    this.iView2.jumpToEnd();
+    this.guiView.jumpToEnd();
+    this.midiView.jumpToEnd();
   }
 
   @Override
   public void addKeyListener(KeyListener listener) {
-    this.iView2.addKeyListener(listener);
+    this.guiView.addKeyListener(listener);
   }
 
   @Override
@@ -136,7 +139,7 @@ public class CompositeView implements IGuiView {
 
   @Override
   public void addMouseListener(MouseListener mouseListener) {
-    this.iView2.addMouseListener(mouseListener);
+    this.guiView.addMouseListener(mouseListener);
   }
 
   @Override

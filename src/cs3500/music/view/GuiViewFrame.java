@@ -61,6 +61,7 @@ public class GuiViewFrame extends JFrame implements IGuiView {
             getX());
     */
     this.displayPanel.move(tick);
+    this.update();
   }
 
   @Override
@@ -70,7 +71,6 @@ public class GuiViewFrame extends JFrame implements IGuiView {
 
   @Override
   public void resume() {
-
     this.update();
     return;
   }
