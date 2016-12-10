@@ -20,6 +20,7 @@ import javax.sound.midi.Track;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 /**
  * MIDI playback.
