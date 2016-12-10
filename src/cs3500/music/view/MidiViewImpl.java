@@ -114,7 +114,6 @@ public class MidiViewImpl implements IMidi, IView {
       //this.currentPosition = 0;
       //System.out.println(this.currentPosition);
       //ss.close();
-
     }
     catch (Exception e) {
       e.printStackTrace();
