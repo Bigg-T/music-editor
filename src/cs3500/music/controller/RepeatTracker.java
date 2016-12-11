@@ -1,5 +1,8 @@
 package cs3500.music.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * For the purposes of tracking repeat commands.
  */
@@ -7,9 +10,11 @@ public class RepeatTracker {
 
   private int start;
 
-  private int end;
+  private List<Integer> ends;
 
   private int skipAt;
+
+  private int currentEnd;
 
   private boolean startEdit;
 
@@ -18,9 +23,10 @@ public class RepeatTracker {
   private boolean skipEdit;
 
   public RepeatTracker() {
-    this.end = 0;
+    this.ends = new ArrayList<Integer>();
     this.start = 0;
     this.skipAt = 0;
+    this.currentEnd = 0;
     this.endEdit = false;
     this.startEdit = false;
     this.skipEdit = false;
@@ -58,24 +64,24 @@ public class RepeatTracker {
       start += i;
     }
     else if (endEdit)  {
-      end *= 10;
-      end += i;
-    }
-    else if (skipEdit)  {
-      skipAt *= 10;
-      skipAt += i;
+      currentEnd *= 10;
+      currentEnd += i;
     }
     else  {
       return;
     }
   }
 
+  public void addCurrentEnd()  {
+
+  }
+
   public int getStart()  {
     return start;
   }
 
-  public int getEnd()  {
-    return end;
+  public List<Integer> getEnds()  {
+    return ends;
   }
 
   public int getSkipAt()  {
