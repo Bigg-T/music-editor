@@ -1,5 +1,7 @@
 package cs3500.music.model;
 
+import java.util.Comparator;
+
 /**
  * For the purpose of representing a musical repetition.
  */
@@ -13,7 +15,10 @@ public class Repetition implements IRepetition {
 
   private boolean hasPlayed;
 
-  public Repetition(int start, int end, int skipAt) {
+  public Repetition(int start, int end, int skipAt) throws IllegalArgumentException {
+    if (start > end || start > skipAt || skipAt > end)  {
+      throw new IllegalArgumentException("Invalid repetition parameters");
+    }
     this.start = start;
     this.end = end;
     this.skipAt = skipAt;
@@ -44,12 +49,18 @@ public class Repetition implements IRepetition {
   public boolean isOverlap(IRepetition repetition) {
     try  {
       Repetition r = (Repetition) repetition;
-      if (r.start > this.start && r.start < this.end)  {
+      if (r.start >= this.end || r.end <= this.start || r.start == this.start)  {
         return false;
       }
       return true;
     } catch (Exception e)  {
-      return false;
+      return true;
     }
+  }
+
+  static class RepeatComparator {
+    static final Comparator<IRepetition> smallToLargeEnding = (thisRep, thatRep) -> {
+      return Integer.compare(thisRep.getEnd(), thatRep.getEnd());
+    };
   }
 }
