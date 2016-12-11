@@ -30,7 +30,7 @@ public class ViewFactory {
     catch (MidiUnavailableException e) {
       e.printStackTrace();
     }
-    IView midi = new MidiViewImpl(musicEditor, sequencer);
+    IMidi midi = new MidiViewImpl(musicEditor, sequencer);
     Reader read = new InputStreamReader(System.in);
     IView console = new ConsoleView(musicEditor, read, System.out);
     switch (view) {

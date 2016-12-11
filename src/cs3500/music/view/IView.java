@@ -83,4 +83,7 @@ public interface IView {
   public void scrollVertical(int unit);
 
   public boolean isRunning();
+
+  public void setTickPosition(long position);
+
 }

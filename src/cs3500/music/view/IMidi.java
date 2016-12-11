@@ -16,4 +16,6 @@ public interface IMidi extends IView {
    * @throws Exception if view can't not be initiallize.
    */
   public void initialize(int playAt) throws Exception;
+
+
 }

@@ -76,4 +76,9 @@ public class MockView implements IView {
   public boolean isRunning() {
     return false;
   }
+
+  @Override
+  public void setTickPosition(long position) {
+    return;
+  }
 }

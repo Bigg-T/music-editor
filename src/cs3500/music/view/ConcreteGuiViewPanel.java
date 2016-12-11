@@ -138,8 +138,8 @@ public class ConcreteGuiViewPanel extends JPanel implements Scrollable {
   void move(long tick) {
     if (tick >= 4) {
       //System.out.println(tick);
-      x1 += NOTEWIDTH;
-      x2 += NOTEHEIGHT;
+      x1 = (int) tick * NOTEWIDTH + 50;
+      x2 = (int) tick * NOTEHEIGHT + 50;
       System.out.println(x1+ " x2:" + x2);
       repaint();
     }

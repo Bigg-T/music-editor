@@ -43,7 +43,7 @@ public class CompositeView implements IGuiView {
 
   @Override
   public long getCurrentTick() {
-    return 0;
+    return midiView.getCurrentTick();
   }
 
   @Override
@@ -80,6 +80,10 @@ public class CompositeView implements IGuiView {
         this.move(this.getCurrentTick());
         //System.out.println(currentPosition + "  " + isRunning());
       }
+
+//      if (this.getCurrentTick() == 20 ) {
+//        midiView.setTickPosition(0);
+//      }
     }
   }
 
@@ -98,6 +102,11 @@ public class CompositeView implements IGuiView {
   @Override
   public boolean isRunning() {
     return midiView.isRunning();
+  }
+
+  @Override
+  public void setTickPosition(long position) {
+    return;
   }
 
   @Override

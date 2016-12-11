@@ -177,6 +177,11 @@ public class ConsoleView implements IView {
   }
 
   @Override
+  public void setTickPosition(long position) {
+    return;
+  }
+
+  @Override
   public void update() {
     try {
       this.initialize();

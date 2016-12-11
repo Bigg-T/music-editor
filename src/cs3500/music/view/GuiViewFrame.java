@@ -93,6 +93,11 @@ public class GuiViewFrame extends JFrame implements IGuiView {
   }
 
   @Override
+  public void setTickPosition(long position) {
+
+  }
+
+  @Override
   public void update() {
     this.displayPanel.paintRec(scr.getBounds());
     displayPanel.update();
