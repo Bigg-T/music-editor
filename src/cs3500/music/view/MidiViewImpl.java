@@ -20,7 +20,6 @@ import javax.sound.midi.Track;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
 /**
  * MIDI playback.
@@ -210,7 +209,7 @@ public class MidiViewImpl implements IMidi, IView {
           int channel = (note.getChannel() - 1) % 16;
           int volume = note.getVolume();
           //System.out.println(channel);
-          int startBeat = (note.getStartDuration()) + (4); //384 is the revolution
+          int startBeat = (note.getStartDuration()); //384 is the revolution
           //MusicUtils.toTrack(channel)];
 
           try {

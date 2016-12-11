@@ -19,7 +19,7 @@ public class CompositeView implements IGuiView {
     this.midiView = midiView;
   }
 
-  ExecutorService executor = Executors.newFixedThreadPool(2);
+  private ExecutorService executor = Executors.newFixedThreadPool(2);
   @Override
   public void initialize() throws Exception {
     Runnable v1 = () -> this.createRunnable(guiView);
@@ -60,15 +60,7 @@ public class CompositeView implements IGuiView {
 
   @Override
   public void resume() {
-    ExecutorService executor = Executors.newFixedThreadPool(3);
-//    Runnable r1 = () -> midiView.resume();
-//    Runnable r2 = () -> guiView.resume();
     midiView.resume();
-    //Runnable r3 = () -> keepMoving();
-//    executor.submit(r1);
-//    executor.submit(r2);
-    //executor.submit(r3);
-
   }
 
   private synchronized void keepMoving() {
@@ -81,9 +73,9 @@ public class CompositeView implements IGuiView {
         //System.out.println(currentPosition + "  " + isRunning());
       }
 
-//      if (this.getCurrentTick() == 20 ) {
-//        midiView.setTickPosition(0);
-//      }
+      if (this.getCurrentTick() == 20 ) {
+        midiView.setTickPosition(0);
+      }
     }
   }
 
