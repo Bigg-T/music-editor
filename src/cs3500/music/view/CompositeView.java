@@ -28,15 +28,6 @@ public class CompositeView implements IGuiView {
     executor.submit(v1);
     executor.submit(v2);
 
-//    long currentPosition = -1;
-//    while (!executor.isTerminated()) {
-//      if (currentPosition != midiView.getCurrentTick()) {
-//        currentPosition = midiView.getCurrentTick();
-//        this.move(this.getCurrentTick());
-//        System.out.println(currentPosition + "  " + executor.toString());
-//      }
-//    }
-    this.guiView.initialize();
     this.keepMoving();
     executor.shutdownNow();
   }
@@ -57,7 +48,7 @@ public class CompositeView implements IGuiView {
 
   @Override
   public void move(long tick) {
-    midiView.move(guiView.getCurrentTick());
+    //midiView.move(guiView.getCurrentTick());
     guiView.move(midiView.getCurrentTick());
   }
 
@@ -69,14 +60,14 @@ public class CompositeView implements IGuiView {
 
   @Override
   public void resume() {
-
     ExecutorService executor = Executors.newFixedThreadPool(3);
-    Runnable r1 = () -> midiView.resume();
-    Runnable r2 = () -> guiView.resume();
-    Runnable r3 = () -> keepMoving();
-    executor.submit(r1);
-    executor.submit(r2);
-    executor.submit(r3);
+//    Runnable r1 = () -> midiView.resume();
+//    Runnable r2 = () -> guiView.resume();
+    midiView.resume();
+    //Runnable r3 = () -> keepMoving();
+//    executor.submit(r1);
+//    executor.submit(r2);
+    //executor.submit(r3);
 
   }
 
@@ -106,7 +97,7 @@ public class CompositeView implements IGuiView {
 
   @Override
   public boolean isRunning() {
-    return guiView.isRunning() || midiView.isRunning();
+    return midiView.isRunning();
   }
 
   @Override

@@ -99,10 +99,10 @@ public class MidiViewImpl implements IMidi, IView {
       ss.open();
       ss.setTempoInMPQ(musicEditor.getTempo());
       ss.setSequence(sequence);
-      ss.start();
-      ss.stop();
-      ss.start();
-      ss.setTempoInMPQ(musicEditor.getTempo());
+//      ss.start();
+//      ss.stop();
+//      ss.start();
+//      ss.setTempoInMPQ(musicEditor.getTempo());
 
 //      while (ss.isRunning()) {
 //        long currentPosition = ss.getTickPosition();
@@ -146,8 +146,6 @@ public class MidiViewImpl implements IMidi, IView {
   public void resume() {
     ss.setTickPosition(ss.getTickPosition());
     ss.start();
-    ss.setTickPosition(ss.getTickPosition());
-
     ss.setTempoInMPQ(musicEditor.getTempo());
   }
 
@@ -180,7 +178,11 @@ public class MidiViewImpl implements IMidi, IView {
   public void update() {
     try {
       //ss.setSequence(this.model(musicEditor, new Sequence(Sequence.PPQ, 1)));
+      playNote();
+      ss.setTickPosition(this.getCurrentTick());
+      ss.start();
       ss.setTempoInMPQ(musicEditor.getTempo());
+      //ss.setTempoInMPQ(musicEditor.getTempo());
     }
     catch (Exception e) {
       e.printStackTrace();
@@ -240,5 +242,7 @@ public class MidiViewImpl implements IMidi, IView {
   public void initialize(int playAt) throws Exception {
     playNote();
     ss.setTickPosition(playAt);
+    ss.start();
+    ss.setTempoInMPQ(musicEditor.getTempo());
   }
 }

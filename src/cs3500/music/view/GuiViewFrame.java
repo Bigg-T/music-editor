@@ -51,7 +51,7 @@ public class GuiViewFrame extends JFrame implements IGuiView {
     if (tick % 50 == 0) {
       scr.setScrollPosition((int) tick * 25, 0);
 
-      System.out.println(scr.getScrollPosition().getX() + " " + scr.getScrollPosition().getY());
+      //System.out.println(scr.getScrollPosition().getX() + " " + scr.getScrollPosition().getY());
     }
     this.displayPanel.paintRec(scr.getBounds());
     this.displayPanel.current(scr.getScrollPosition().getX());
