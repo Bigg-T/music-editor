@@ -1,5 +1,7 @@
 package cs3500.music.model;
 
+import java.util.List;
+
 /**
  * Represents functionality for a repeat sign.
  */
@@ -15,7 +17,7 @@ public interface IRepetition {
    * Gets the ending beat of this repetition.
    * @return Ending beat
    */
-  public int getEnd();
+  public List<Integer> getEnds();
 
   /**
    * Tells whether the repetition has played.
@@ -35,6 +37,7 @@ public interface IRepetition {
    * @return           True if
    */
   public boolean isOverlap(IRepetition repetition);
+
 
 
 }

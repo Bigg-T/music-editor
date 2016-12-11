@@ -132,8 +132,7 @@ public interface IBasicMusicEditor<K> {
   /**
    * Adds a repeat with the given parameters.
    * @param start   Where to start.
-   * @param end     Where to end
-   * @param skipAt  Where to skip
+   * @param ends    Where to end
    */
-  public void addRepeat(int start, int end, int skipAt);
+  public void addRepeat(int start, List<Integer> ends);
 }

@@ -1,6 +1,9 @@
 package cs3500.music.model;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 /**
  * For the purpose of representing a musical repetition.
@@ -9,19 +12,27 @@ public class Repetition implements IRepetition {
 
   private final int start;
 
-  private final int end;
+  private final List<Integer> ends;
 
   private final int skipAt;
 
   private boolean hasPlayed;
 
-  public Repetition(int start, int end, int skipAt) throws IllegalArgumentException {
-    if (start > end || start > skipAt || skipAt > end)  {
-      throw new IllegalArgumentException("Invalid repetition parameters");
+  public Repetition(int start, List<Integer> ends) throws IllegalArgumentException {
+    Collections.sort(ends);
+    for (Integer end : ends) {
+      if (start > end || ends.size() < 1) {
+        throw new IllegalArgumentException("Invalid repetition parameters");
+      }
     }
     this.start = start;
-    this.end = end;
-    this.skipAt = skipAt;
+    this.ends = ends;
+    if (ends.size() < 2)  {
+      this.skipAt = this.ends.get(0);
+    }
+    else  {
+      this.skipAt = this.ends.get(0) - (this.ends.get(1) - this.ends.get(0));
+    }
     this.hasPlayed = false;
   }
 
@@ -31,8 +42,8 @@ public class Repetition implements IRepetition {
   }
 
   @Override
-  public int getEnd() {
-    return this.end;
+  public List<Integer> getEnds() {
+    return this.ends;
   }
 
   @Override
@@ -49,7 +60,7 @@ public class Repetition implements IRepetition {
   public boolean isOverlap(IRepetition repetition) {
     try  {
       Repetition r = (Repetition) repetition;
-      if (r.start >= this.end || r.end <= this.start || r.start == this.start)  {
+      if (r.start >= this.ends.get(this.ends.size()) || r.ends.get(r.ends.size()) <= this.start)  {
         return false;
       }
       return true;
@@ -60,7 +71,7 @@ public class Repetition implements IRepetition {
 
   static class RepeatComparator {
     static final Comparator<IRepetition> smallToLargeEnding = (thisRep, thatRep) -> {
-      return Integer.compare(thisRep.getEnd(), thatRep.getEnd());
+      return Integer.compare(thisRep.getStart(), thatRep.getStart());
     };
   }
 }

@@ -218,10 +218,10 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
   }
 
   @Override
-  public void addRepeat(int start, int end, int skipAt) {
+  public void addRepeat(int start, List<Integer> ends) {
     IRepetition repetition;
     try {
-      repetition = new Repetition(start, end, skipAt);
+      repetition = new Repetition(start, ends);
     } catch (IllegalArgumentException e)  {
       return;
     }

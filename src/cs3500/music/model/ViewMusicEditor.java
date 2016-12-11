@@ -105,7 +105,7 @@ public class ViewMusicEditor implements IBasicMusicEditor<INote> {
   }
 
   @Override
-  public void addRepeat(int start, int end, int skipAt) {
+  public void addRepeat(int start, List<Integer> ends) {
 
   }
 
