@@ -38,7 +38,7 @@ public class MidiViewImpl implements IMidi, IView {
   /**
    * Creates MidiViewImp, for testing.
    */
-  public MidiViewImpl(IBasicMusicEditor<INote> musicEditor, Sequencer ss) {
+  protected MidiViewImpl(IBasicMusicEditor<INote> musicEditor, Sequencer ss) {
     Objects.requireNonNull(musicEditor, "Null music editor");
     Objects.requireNonNull(ss, "Null sequencer");
     this.musicEditor = Utils.requireNonNull(musicEditor, "Null MusicEditor");
@@ -48,7 +48,7 @@ public class MidiViewImpl implements IMidi, IView {
   /**
    * Creates MidiViewImp.
    */
-  public MidiViewImpl(IBasicMusicEditor<INote> musicEditor) {
+  protected MidiViewImpl(IBasicMusicEditor<INote> musicEditor) {
     Objects.requireNonNull(musicEditor, "Null music editor");
     this.musicEditor = Utils.requireNonNull(musicEditor, "Null MusicEditor");
     try {

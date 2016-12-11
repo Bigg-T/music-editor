@@ -27,7 +27,7 @@ public class ConsoleView implements IView {
    *
    * @param musicEditor the music model
    */
-  public ConsoleView(IBasicMusicEditor<INote> musicEditor,
+  protected ConsoleView(IBasicMusicEditor<INote> musicEditor,
                      Readable readable, Appendable appendable) {
     this.musicEditor = musicEditor;
     this.appendable = appendable;
