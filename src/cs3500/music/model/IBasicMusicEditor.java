@@ -46,7 +46,7 @@ public interface IBasicMusicEditor<K> {
    */
   public void merge(IBasicMusicEditor<K> piece, boolean isConsecutive);
 
-  SortedMap<Integer, List<INote>> getAllNotesAt(int beatNum);
+  SortedMap<Integer, List<K>> getAllNotesAt(int beatNum);
 
   /**
    * Integer -> is the beat number.
@@ -54,7 +54,7 @@ public interface IBasicMusicEditor<K> {
    *
    * @return the whole map of notes
    */
-  public SortedMap<Integer, SortedMap<Integer, List<INote>>> composition();
+  public SortedMap<Integer, SortedMap<Integer, List<K>>> composition();
 
   /**
    * Return the minimum Pitch.
@@ -97,4 +97,42 @@ public interface IBasicMusicEditor<K> {
    * @return true if an ViewEditor
    */
   boolean isViewEditor();
+
+  /**
+   * Returns all of the notes that are present during the given beat.
+   *
+   * @param beat The beat at which we are finding all notes present
+   * @return The notes present at the given beat
+   * @throws IllegalArgumentException When model has not been initialized
+   */
+  List<Note> getNotesAtBeat(int beat) throws IllegalStateException;
+
+  /**
+   * Integer -> is the beat number.
+   * SortedMap Integer -> the pitch number.
+   * This will build a repeated.
+   *
+   * @return the whole map of notes
+   */
+  public SortedMap<Integer, SortedMap<Integer, List<K>>> getViewComposition();
+
+  /**
+   * Return a list of notes.
+   *
+   * @return list of K
+   */
+  public List<K> getAllNotesList();
+
+  /**
+   * Gets all the repeats for this piece.
+   * @return All repeats
+   */
+  public List<IRepetition> getRepeats();
+
+  /**
+   * Adds a repeat with the given parameters.
+   * @param start   Where to start.
+   * @param ends    Where to end
+   */
+  public void addRepeat(int start, List<Integer> ends);
 }

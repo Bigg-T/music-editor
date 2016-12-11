@@ -2,6 +2,9 @@ package cs3500.music.model;
 
 import cs3500.music.util.CompositionBuilder;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.SortedMap;
@@ -12,9 +15,15 @@ import java.util.TreeMap;
  */
 public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
 
+
   //Integer is a the starting beat of a note
   private TreeMap<Integer, PitchCollection> piece;
   private final int tempo;
+
+  /*
+  Invariants: The list will always be ordered.
+   */
+  private List<IRepetition> repeats;
 
   /**
    * Construct an instance of BasicMusic Editor.
@@ -35,7 +44,8 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
   private Note castToNote(INote note) {
     if (note == null) {
       throw new IllegalArgumentException("Note is null.");
-    } else if (note.isViewNote()) {
+    }
+    else if (note.isViewNote()) {
       throw new IllegalArgumentException("Can't modified Note.");
     }
     return (Note) note;
@@ -89,7 +99,8 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
           return;
         }
         this.piece.get(s).merge(pitchCollection, 0);
-      } else {
+      }
+      else {
         int offset = s + getLastBeat();
         this.piece.put(offset, pitchCollection.adjustBeat(getLastBeat()));
         return;
@@ -108,7 +119,8 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
   private BasicMusicEditor toBasicMusicEditor(IBasicMusicEditor<INote> musicEditor) {
     if (musicEditor == null) {
       throw new IllegalArgumentException("Null MusicEditor.");
-    } else if (musicEditor.isViewEditor()) {
+    }
+    else if (musicEditor.isViewEditor()) {
       ViewMusicEditor viewMusicEditor = (ViewMusicEditor) musicEditor;
       return viewMusicEditor.toBasicMusicEditor(musicEditor);
     }
@@ -155,6 +167,11 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
     return compos;
   }
 
+  /**
+   * Return the  music piece.
+   *
+   * @return te music piece.
+   */
   TreeMap<Integer, PitchCollection> getPiece() {
     return this.piece;
   }
@@ -162,6 +179,59 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
   @Override
   public boolean isViewEditor() {
     return false;
+  }
+
+  @Override
+  public List<Note> getNotesAtBeat(int beat) throws IllegalStateException {
+    if (this.piece.get(beat) == null) {
+      return new ArrayList<>();
+    }
+    else {
+      return this.piece.get(beat).getAllNote(true);
+    }
+  }
+
+  //@TODO - need to finish of optimization and enable to do cool shit
+  @Override
+  public SortedMap<Integer, SortedMap<Integer, List<INote>>> getViewComposition() {
+    SortedMap<Integer, SortedMap<Integer, List<INote>>> mapSortedMap = composition();
+
+    this.getAllNotesList()
+            .forEach(x -> {
+
+            });
+    return mapSortedMap;
+  }
+
+  @Override
+  public List<INote> getAllNotesList() {
+    List<INote> notes = new ArrayList<>();
+    this.composition().keySet()
+            .forEach(x -> notes.addAll(getNotesAtBeat(x)));
+    return notes;
+  }
+
+  //@TODO
+  @Override
+  public List<IRepetition> getRepeats()  {
+    return this.repeats;
+  }
+
+  @Override
+  public void addRepeat(int start, List<Integer> ends) {
+    IRepetition repetition;
+    try {
+      repetition = new Repetition(start, ends);
+    } catch (IllegalArgumentException e)  {
+      return;
+    }
+    for (IRepetition r : repeats)  {
+      if (r.isOverlap(repetition))  {
+        return;
+      }
+    }
+    this.repeats.add(repetition);
+    this.repeats.sort(Repetition.RepeatComparator.smallToLargeEnding);
   }
 
   /**
@@ -184,8 +254,9 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
     }
 
     @Override
-    public CompositionBuilder<IBasicMusicEditor<INote>>
-        addNote(int start, int end, int instrument, int pitch, int volume) {
+    public CompositionBuilder<IBasicMusicEditor<INote>> addNote(int start,
+                                                                int end, int instrument,
+                                                                int pitch, int volume) {
       Note note = new NoteBuilder()
               .setNoteName(NoteName.toNoteName(pitch % 12))
               .setChannel(instrument)
