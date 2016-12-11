@@ -60,7 +60,8 @@ public class Repetition implements IRepetition {
   public boolean isOverlap(IRepetition repetition) {
     try  {
       Repetition r = (Repetition) repetition;
-      if (r.start >= this.ends.get(this.ends.size()) || r.ends.get(r.ends.size()) <= this.start)  {
+      if (r.start >= this.ends.get(this.ends.size() - 1) ||
+              r.ends.get(r.ends.size() - 1) <= this.start)  {
         return false;
       }
       return true;
