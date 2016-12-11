@@ -13,6 +13,7 @@ import cs3500.music.view.ViewFactory;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 
 import javax.sound.midi.InvalidMidiDataException;
 
@@ -40,9 +41,11 @@ public class MusicEditor {
 
     try {
       IView theView = ViewFactory.viewFactory(args[1], musicEditor);
+      musicEditor.addRepeat(2, Arrays.asList(8, 12));
       IMusicEditorController controller = new MusicEditorController(theView, musicEditor);
       controller.initializeView();
     } catch (Exception e) {
+      e.printStackTrace();
       return;
     }
   }

@@ -7,14 +7,14 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * For the purposes of creating a composite view, with a syncronized MIDI and Gui.
+ * For the purposes of creating a composite view, with a synchronized MIDI and Gui.
  */
 public class CompositeView implements IGuiView {
   private final IView guiView;
-  private final IView midiView;
+  private final IMidi midiView;
 
 
-  CompositeView(IView guiView, IView midiView) {
+  CompositeView(IView guiView, IMidi midiView) {
     this.guiView = guiView;
     this.midiView = midiView;
   }
@@ -71,10 +71,6 @@ public class CompositeView implements IGuiView {
         currentPosition = midiView.getCurrentTick();
         this.move(this.getCurrentTick());
         //System.out.println(currentPosition + "  " + isRunning());
-      }
-
-      if (this.getCurrentTick() == 20 ) {
-        midiView.setTickPosition(0);
       }
     }
   }

@@ -2,6 +2,7 @@ package cs3500.music.view;
 
 import cs3500.music.model.IBasicMusicEditor;
 import cs3500.music.model.INote;
+import cs3500.music.model.IRepetition;
 import cs3500.music.util.MusicUtils;
 import cs3500.music.util.Utils;
 
@@ -19,6 +20,7 @@ import javax.sound.midi.Synthesizer;
 import javax.sound.midi.Track;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
+import java.util.Iterator;
 import java.util.Objects;
 
 /**
@@ -28,11 +30,6 @@ public class MidiViewImpl implements IMidi, IView {
 
   private final IBasicMusicEditor<INote> musicEditor;
   private Sequencer ss;
-
-  //place holder, assuming that getTickPosition() will not produce a 0 at start,
-  //-1 mean that the midi is over.
-  // because thread can this at the same time
-  private volatile long currentPosition = 0;
 
   /**
    * Creates MidiViewImp, for testing.
@@ -123,6 +120,7 @@ public class MidiViewImpl implements IMidi, IView {
 
   @Override
   public void initialize() throws Exception {
+    playNote();
     initialize(0);
   }
 
@@ -188,6 +186,8 @@ public class MidiViewImpl implements IMidi, IView {
     }
   }
 
+
+
   @Override
   public void addKeyListener(KeyListener keyListener) {
     return;
@@ -238,12 +238,41 @@ public class MidiViewImpl implements IMidi, IView {
   }
 
   @Override
-  public void initialize(int playAt) throws Exception {
-    playNote();
+  public synchronized void initialize(int playAt) throws Exception {
     ss.setTickPosition(playAt);
     ss.start();
     ss.setTempoInMPQ(musicEditor.getTempo());
+    Iterator<IRepetition> repetitionIterator = musicEditor.getRepeats().iterator();
+    IRepetition startRep;
+    if (repetitionIterator.hasNext()) {
+      startRep = repetitionIterator.next();
+    } else {
+      return;
+    }
+    System.out.println("run here" + musicEditor.getRepeats().size());
+    System.out.println("yoooo" + repetitionIterator.hasNext());
+    while (ss.isRunning()) {
+      System.out.println("in while 1");
+      // start = |:           end = :|
+      Iterator<Integer> ends = startRep.getEnds().iterator();
+      int end = ends.next();
+      //
+      while (end == ss.getTickPosition() && ends.hasNext()) {
+        System.out.println("int while 2");
+        end = ends.next();
+        repeat(startRep.getStart());
+      }
+      //startRep = repetitionIterator.next();
+    }
   }
+
+  private void repeat(int at) {
+    ss.stop();
+    ss.setTickPosition(at);
+    ss.start();
+    ss.setTempoInMPQ(musicEditor.getTempo());
+  }
+
 
   @Override
   public void setTickPosition(long position) {
