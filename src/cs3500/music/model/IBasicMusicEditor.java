@@ -129,5 +129,11 @@ public interface IBasicMusicEditor<K> {
    */
   public List<IRepetition> getRepeats();
 
+  /**
+   * Adds a repeat with the given parameters.
+   * @param start   Where to start.
+   * @param end     Where to end
+   * @param skipAt  Where to skip
+   */
   public void addRepeat(int start, int end, int skipAt);
 }

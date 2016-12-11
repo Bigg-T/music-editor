@@ -39,4 +39,17 @@ public class Repetition implements IRepetition {
   public int getSkipAt() {
     return this.skipAt;
   }
+
+  @Override
+  public boolean isOverlap(IRepetition repetition) {
+    try  {
+      Repetition r = (Repetition) repetition;
+      if (r.start > this.start && r.start < this.end)  {
+        return false;
+      }
+      return true;
+    } catch (Exception e)  {
+      return false;
+    }
+  }
 }

@@ -29,5 +29,12 @@ public interface IRepetition {
    */
   public int getSkipAt();
 
+  /**
+   * Tells whether this conflicts with the given repetition.
+   * @param repetition The repetition in question
+   * @return           True if
+   */
+  public boolean isOverlap(IRepetition repetition);
+
 
 }

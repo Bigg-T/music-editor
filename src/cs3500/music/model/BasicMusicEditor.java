@@ -219,7 +219,13 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
 
   @Override
   public void addRepeat(int start, int end, int skipAt) {
-
+    IRepetition repetition = new Repetition(start, end, skipAt);
+    for (IRepetition r : repeats)  {
+      if (r.isOverlap(repetition))  {
+        return;
+      }
+    }
+    this.repeats.add(repetition);
   }
 
   /**
