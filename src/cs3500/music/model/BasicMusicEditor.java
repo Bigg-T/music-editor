@@ -32,6 +32,7 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
    */
   BasicMusicEditor(int tempo) {
     this.piece = new TreeMap<>();
+    this.repeats = new ArrayList<IRepetition>();
     this.tempo = tempo;
   }
 
