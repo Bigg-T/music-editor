@@ -285,7 +285,7 @@ public class MidiViewImpl implements IMidi, IView {
           iRep++;
         }
       }
-
+      break;
 //      System.out.println("in while 1");
 //      // start = |:           end = :|
 //      Iterator<Integer> ends = startRep.getEnds().iterator();
