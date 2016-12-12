@@ -28,6 +28,14 @@ Ex: p 6 0 s 1 d 2 c 1 v 5 *left click* adds a half note for middle C at beat 1
 - To play press enter.
 - To scroll, use the arrow keys.
 
+Adding Repeats:
+EXAMPLE: adding a Repetition with start: 0, ends : (20, 24), skip: 16
+keys: q 0 w 2 0 *shift* w 24 *shift* t
+q: edit start
+w: edit end
+*shift*: add end
+t: add repeat to model
+
 
 For the jar, the first argument should be the absolute file path for the file to use. The second argument should be the view to use 
   (console, visual, midi, composite).
