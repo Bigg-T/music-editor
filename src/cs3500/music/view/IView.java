@@ -86,4 +86,5 @@ public interface IView {
 
   public void setTickPosition(long position);
 
+  public void repeatView();
 }

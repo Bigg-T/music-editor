@@ -182,6 +182,11 @@ public class ConsoleView implements IView {
   }
 
   @Override
+  public void repeatView() {
+    return;
+  }
+
+  @Override
   public void update() {
     try {
       this.initialize();

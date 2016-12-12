@@ -98,6 +98,11 @@ public class GuiViewFrame extends JFrame implements IGuiView {
   }
 
   @Override
+  public void repeatView() {
+    return;
+  }
+
+  @Override
   public void update() {
     this.displayPanel.paintRec(scr.getBounds());
     displayPanel.update();

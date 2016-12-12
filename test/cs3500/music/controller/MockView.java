@@ -81,4 +81,9 @@ public class MockView implements IView {
   public void setTickPosition(long position) {
     return;
   }
+
+  @Override
+  public void repeatView() {
+    return;
+  }
 }

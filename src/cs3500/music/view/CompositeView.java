@@ -12,23 +12,24 @@ import java.util.concurrent.Executors;
 public class CompositeView implements IGuiView {
   private final IView guiView;
   private final IMidi midiView;
+  private ExecutorService executor;
 
   CompositeView(IView guiView, IMidi midiView) {
     this.guiView = guiView;
     this.midiView = midiView;
+    this.executor = Executors.newFixedThreadPool(5);
   }
-
-  private ExecutorService executor = Executors.newFixedThreadPool(2);
 
   @Override
   public void initialize() throws Exception {
     Runnable v1 = () -> this.createRunnable(guiView);
     Runnable v2 = () -> this.createRunnable(midiView);
-
+    Runnable moveLine = this::keepMoving;
     executor.submit(v1);
     executor.submit(v2);
+    //midiView.startView();
+    executor.submit(moveLine);
 
-    this.keepMoving();
     executor.shutdownNow();
   }
 
@@ -66,13 +67,15 @@ public class CompositeView implements IGuiView {
   /**
    * KeepMoving will keep the gui in sync. Each time midi move, it will call the gui to move.
    */
-  private synchronized void keepMoving() {
+  private void keepMoving() {
     long currentPosition = -1;
     System.out.println(executor.isShutdown());
     while (!executor.isTerminated()) {
       if (currentPosition != midiView.getCurrentTick()) {
         currentPosition = midiView.getCurrentTick();
         this.move(this.getCurrentTick());
+        //System.out.println("repeat size: " + midiView.repeatSize());
+        //midiView.startView();
         //System.out.println(currentPosition + "  " + isRunning());
       }
     }
@@ -98,6 +101,11 @@ public class CompositeView implements IGuiView {
   @Override
   public void setTickPosition(long position) {
     return;
+  }
+
+  @Override
+  public void repeatView() {
+    midiView.repeatView();
   }
 
   @Override

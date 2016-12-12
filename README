@@ -30,7 +30,7 @@ Ex: p 6 0 s 1 d 2 c 1 v 5 *left click* adds a half note for middle C at beat 1
 
 Adding Repeats:
 EXAMPLE: adding a Repetition with start: 0, ends : (20, 24), skip: 16
-keys: q 0 w 2 0 *shift* w 24 *shift* t
+keys: q 0 w 20 *shift* w 24 *shift* t
 q: edit start
 w: edit end
 *shift*: add end

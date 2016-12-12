@@ -8,7 +8,9 @@ public interface IMidi extends IView {
   /**
    *
    */
-  //public void startMidi();
+  public void startView();
+
+  public int repeatSize();
 
   /**
    * Initialize View.

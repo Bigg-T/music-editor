@@ -224,10 +224,16 @@ public class MidiViewImpl implements IMidi, IView {
     ss.setTickPosition(playAt);
     ss.start();
     ss.setTempoInMPQ(musicEditor.getTempo());
+    startView();
+  }
+
+  @Override
+  public synchronized void startView() {
     int iRep = 0;
     int rep = 0;
-
+    ss.start();
     while (ss.isRunning()) {
+      System.out.println("the sixe of the rep" + musicEditor.getRepeats().size());
       while (iRep < musicEditor.getRepeats().size()) {
         IRepetition repetition = musicEditor.getRepeats().get(iRep);
         if (repetition.getStart() == ss.getTickPosition()) {
@@ -235,6 +241,7 @@ public class MidiViewImpl implements IMidi, IView {
           iRep++;
         }
       }
+      break;
     }
   }
 
@@ -256,7 +263,7 @@ public class MidiViewImpl implements IMidi, IView {
    * @param repetition the Repetition object to repeat
    * @param rep the rep counter
    */
-  private void setRepetition(IRepetition repetition, int rep) {
+  private synchronized void setRepetition(IRepetition repetition, int rep) {
     while (rep < repetition.getEnds().size()) {
       if (repetition.getEnds().get(rep) == ss.getTickPosition()) {
         switch (rep) {
@@ -283,10 +290,20 @@ public class MidiViewImpl implements IMidi, IView {
   }
 
   @Override
+  public int repeatSize() {
+    return musicEditor.getRepeats().size();
+  }
+
+  @Override
   public void setTickPosition(long position) {
     ss.stop();
     ss.setTickPosition(position);
     ss.start();
     ss.setTempoInMPQ(musicEditor.getTempo());
+  }
+
+  @Override
+  public void repeatView() {
+    startView();
   }
 }
