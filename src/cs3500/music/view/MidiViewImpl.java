@@ -127,6 +127,7 @@ public class MidiViewImpl implements IMidi, IView {
     ss.setTickPosition(ss.getTickPosition());
     ss.start();
     ss.setTempoInMPQ(musicEditor.getTempo());
+    //startView();
   }
 
   @Override
