@@ -226,21 +226,22 @@ public class MidiViewImpl implements IMidi, IView {
     ss.start();
     ss.setTempoInMPQ(musicEditor.getTempo());
     startView();
+    System.out.println("Quite!!!!");
   }
 
   @Override
-  public synchronized void startView() {
+  public void startView() {
     int iRep = 0;
     int rep = 0;
-    ss.start();
     while (ss.isRunning()) {
-      System.out.println("the sixe of the rep" + musicEditor.getRepeats().size());
-      while (iRep < musicEditor.getRepeats().size()) {
-        IRepetition repetition = musicEditor.getRepeats().get(iRep);
-        if (repetition.getStart() == ss.getTickPosition()) {
-          setRepetition(repetition, rep);
-          iRep++;
-        }
+      System.out.println("the sixe of the rep" + musicEditor.getRepeats().size() + " irep "
+              + (iRep < musicEditor.getRepeats().size()) );
+      try {
+        IRepetition repetition = musicEditor.getRepeats().stream().findFirst()
+                .filter(x -> x.getEnds().get(x.getEnds().size() - 1) > ss.getTickPosition()).get();
+        setRepetition(repetition, iRep);
+      } catch (Exception e) {
+        continue;
       }
       break;
     }
@@ -262,9 +263,10 @@ public class MidiViewImpl implements IMidi, IView {
    * Repeat the based on the repetition information.
    *
    * @param repetition the Repetition object to repeat
-   * @param rep the rep counter
+   * @param irep the rep counter
    */
-  private synchronized void setRepetition(IRepetition repetition, int rep) {
+  private synchronized void setRepetition(IRepetition repetition, Integer irep) {
+    int rep = 0;
     while (rep < repetition.getEnds().size()) {
       if (repetition.getEnds().get(rep) == ss.getTickPosition()) {
         switch (rep) {
@@ -288,6 +290,7 @@ public class MidiViewImpl implements IMidi, IView {
         rep += 1;
       }
     }
+    irep += 1;
   }
 
   @Override

@@ -41,7 +41,8 @@ public class MusicEditor {
 
     try {
       IView theView = ViewFactory.viewFactory(args[1], musicEditor);
-      musicEditor.addRepeat(2, Arrays.asList(45, 55, 65));
+//      musicEditor.addRepeat(2, Arrays.asList(20, 25));
+//      musicEditor.addRepeat(25, Arrays.asList(40, 45));
       IMusicEditorController controller = new MusicEditorController(theView, musicEditor);
       controller.initializeView();
     } catch (Exception e) {
