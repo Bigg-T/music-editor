@@ -13,13 +13,13 @@ public class CompositeView implements IGuiView {
   private final IView guiView;
   private final IMidi midiView;
 
-
   CompositeView(IView guiView, IMidi midiView) {
     this.guiView = guiView;
     this.midiView = midiView;
   }
 
   private ExecutorService executor = Executors.newFixedThreadPool(2);
+
   @Override
   public void initialize() throws Exception {
     Runnable v1 = () -> this.createRunnable(guiView);
@@ -63,6 +63,9 @@ public class CompositeView implements IGuiView {
     midiView.resume();
   }
 
+  /**
+   * KeepMoving will keep the gui in sync. Each time midi move, it will call the gui to move.
+   */
   private synchronized void keepMoving() {
     long currentPosition = -1;
     System.out.println(executor.isShutdown());
