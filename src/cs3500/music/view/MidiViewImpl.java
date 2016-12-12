@@ -20,7 +20,6 @@ import javax.sound.midi.Synthesizer;
 import javax.sound.midi.Track;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
-import java.util.Iterator;
 import java.util.Objects;
 
 /**
@@ -95,22 +94,6 @@ public class MidiViewImpl implements IMidi, IView {
       ss.open();
       ss.setTempoInMPQ(musicEditor.getTempo());
       ss.setSequence(sequence);
-//      ss.start();
-//      ss.stop();
-//      ss.start();
-//      ss.setTempoInMPQ(musicEditor.getTempo());
-
-//      while (ss.isRunning()) {
-//        long currentPosition = ss.getTickPosition();
-//        if (currentPosition != this.currentPosition) {
-//          //System.out.println(this.currentPosition);
-//          this.currentPosition = currentPosition;
-//          //System.out.println(ss.getMicrosecondPosition());
-//        }
-//      }
-      //this.currentPosition = 0;
-      //System.out.println(this.currentPosition);
-      //ss.close();
     }
     catch (Exception e) {
       e.printStackTrace();
@@ -187,7 +170,6 @@ public class MidiViewImpl implements IMidi, IView {
   }
 
 
-
   @Override
   public void addKeyListener(KeyListener keyListener) {
     return;
@@ -242,16 +224,6 @@ public class MidiViewImpl implements IMidi, IView {
     ss.setTickPosition(playAt);
     ss.start();
     ss.setTempoInMPQ(musicEditor.getTempo());
-    Iterator<IRepetition> repetitionIterator = musicEditor.getRepeats().iterator();
-    IRepetition startRep;
-    if (musicEditor.getRepeats().size() > 0) {
-      startRep = musicEditor.getRepeats().get(0);
-    } else {
-      return;
-    }
-    System.out.println("run here" + musicEditor.getRepeats().size());
-    System.out.println("yoooo" + repetitionIterator.hasNext());
-
     int iRep = 0;
     int rep = 0;
 
@@ -259,49 +231,18 @@ public class MidiViewImpl implements IMidi, IView {
       while (iRep < musicEditor.getRepeats().size()) {
         IRepetition repetition = musicEditor.getRepeats().get(iRep);
         if (repetition.getStart() == ss.getTickPosition()) {
-          while (rep < repetition.getEnds().size()) {
-            if (repetition.getEnds().get(rep) == ss.getTickPosition()) {
-              switch (rep) {
-                case 0:
-                  System.out.println("size of " + repetition.getEnds().size() + " " + rep);
-                  setTick(repetition.getStart());
-                  break;
-                default:
-                  System.out.println("size of " + repetition.getEnds().size() + " " + rep);
-                  setTick(repetition.getStart());
-                  while (isRunning()) {
-                    //System.out.println("szzzzzzzzzzzzzzzspeciallllllllll");
-                    if (ss.getTickPosition() == repetition.getSkipAt()) {
-                      System.out.println("speciallllllllll");
-                      setTick(repetition.getEnds().get(rep - 1));
-                      break;
-                    }
-                  }
-                  break;
-              }
-              rep += 1;
-            }
-          }
+          setRepetition(repetition, rep);
           iRep++;
         }
       }
-      break;
-//      System.out.println("in while 1");
-//      // start = |:           end = :|
-//      Iterator<Integer> ends = startRep.getEnds().iterator();
-//      int end = startRep.getEnds().get(0);
-//
-//
-//      while (end == ss.getTickPosition() && ends.hasNext()) {
-//        System.out.println("int while 2");
-//        end = ends.next();
-//        repeat(startRep.getStart());
-//      }
-      //startRep = repetitionIterator.next();
     }
-
   }
 
+  /**
+   * Play the music composition at the give tick.
+   *
+   * @param at set music tick
+   */
   private void setTick(long at) {
     ss.stop();
     ss.setTickPosition(at);
@@ -309,6 +250,37 @@ public class MidiViewImpl implements IMidi, IView {
     ss.setTempoInMPQ(musicEditor.getTempo());
   }
 
+  /**
+   * Repeat the based on the repetition information.
+   *
+   * @param repetition the Repetition object to repeat
+   * @param rep the rep counter
+   */
+  private void setRepetition(IRepetition repetition, int rep) {
+    while (rep < repetition.getEnds().size()) {
+      if (repetition.getEnds().get(rep) == ss.getTickPosition()) {
+        switch (rep) {
+          case 0:
+            System.out.println("size of " + repetition.getEnds().size() + " " + rep);
+            setTick(repetition.getStart());
+            break;
+          default:
+            System.out.println("size of " + repetition.getEnds().size() + " " + rep);
+            setTick(repetition.getStart());
+            while (isRunning()) {
+              //does the skipping, if repeats share the starting
+              if (ss.getTickPosition() == repetition.getSkipAt()) {
+                System.out.println("speciallllllllll" + repetition.getSkipAt() + "" + repetition.getEnds().get(rep - 1));
+                setTick(repetition.getEnds().get(rep - 1));
+                break;
+              }
+            }
+            break;
+        }
+        rep += 1;
+      }
+    }
+  }
 
   @Override
   public void setTickPosition(long position) {
