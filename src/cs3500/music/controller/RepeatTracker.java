@@ -12,24 +12,18 @@ public class RepeatTracker {
 
   private List<Integer> ends;
 
-  private int skipAt;
-
   private int currentEnd;
 
   private boolean startEdit;
 
   private boolean endEdit;
 
-  private boolean skipEdit;
-
   public RepeatTracker() {
     this.ends = new ArrayList<Integer>();
     this.start = 0;
-    this.skipAt = 0;
     this.currentEnd = 0;
     this.endEdit = false;
     this.startEdit = false;
-    this.skipEdit = false;
   }
 
   /**
@@ -37,18 +31,17 @@ public class RepeatTracker {
    * @param toEdit What is to be edited
    */
   public void setEdit(String toEdit)  {
+    System.out.println("edit attempt ");
     this.startEdit = false;
     this.endEdit = false;
-    this.skipEdit = false;
     switch (toEdit)  {
       case "start":
         this.startEdit = true;
+        this.endEdit = false;
         break;
       case "end":
         this.endEdit = true;
-        break;
-      case "skip":
-        this.skipEdit = true;
+        this.startEdit = false;
         break;
       default:
         break;
@@ -73,7 +66,10 @@ public class RepeatTracker {
   }
 
   public void addCurrentEnd()  {
-
+    this.ends.add(this.currentEnd);
+    System.out.print("ends are ");
+    System.out.println(this.ends);
+    this.currentEnd = 0;
   }
 
   public int getStart()  {
@@ -83,10 +79,5 @@ public class RepeatTracker {
   public List<Integer> getEnds()  {
     return ends;
   }
-
-  public int getSkipAt()  {
-    return skipAt;
-  }
-
 
 }
