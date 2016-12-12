@@ -244,29 +244,58 @@ public class MidiViewImpl implements IMidi, IView {
     ss.setTempoInMPQ(musicEditor.getTempo());
     Iterator<IRepetition> repetitionIterator = musicEditor.getRepeats().iterator();
     IRepetition startRep;
-    if (repetitionIterator.hasNext()) {
-      startRep = repetitionIterator.next();
+    if (musicEditor.getRepeats().size() > 0) {
+      startRep = musicEditor.getRepeats().get(0);
     } else {
       return;
     }
     System.out.println("run here" + musicEditor.getRepeats().size());
     System.out.println("yoooo" + repetitionIterator.hasNext());
+
+    int iRep = 0;
+    int rep = 0;
+
     while (ss.isRunning()) {
-      System.out.println("in while 1");
-      // start = |:           end = :|
-      Iterator<Integer> ends = startRep.getEnds().iterator();
-      int end = ends.next();
-      //
-      while (end == ss.getTickPosition() && ends.hasNext()) {
-        System.out.println("int while 2");
-        end = ends.next();
-        repeat(startRep.getStart());
+      while (iRep < musicEditor.getRepeats().size()) {
+        IRepetition repetition = musicEditor.getRepeats().get(iRep);
+        if (repetition.getStart() == ss.getTickPosition()) {
+          while (rep < repetition.getEnds().size()) {
+            if (repetition.getEnds().get(rep) == ss.getTickPosition()) {
+              switch (rep) {
+                case 0:
+                  System.out.println("size of " + repetition.getEnds().size() + " " + rep);
+                  setTick(repetition.getStart());
+                default:
+                  System.out.println("size of " + repetition.getEnds().size() + " " + rep);
+                  if (ss.getTickPosition() == repetition.getSkipAt()) {
+                    System.out.println("speciallllllllll");
+                    setTick(repetition.getEnds().get(rep - 1));
+                  }
+              }
+              rep += 1;
+            }
+          }
+          iRep++;
+        }
       }
+
+//      System.out.println("in while 1");
+//      // start = |:           end = :|
+//      Iterator<Integer> ends = startRep.getEnds().iterator();
+//      int end = startRep.getEnds().get(0);
+//
+//
+//      while (end == ss.getTickPosition() && ends.hasNext()) {
+//        System.out.println("int while 2");
+//        end = ends.next();
+//        repeat(startRep.getStart());
+//      }
       //startRep = repetitionIterator.next();
     }
+
   }
 
-  private void repeat(int at) {
+  private void setTick(long at) {
     ss.stop();
     ss.setTickPosition(at);
     ss.start();
