@@ -265,12 +265,19 @@ public class MidiViewImpl implements IMidi, IView {
                 case 0:
                   System.out.println("size of " + repetition.getEnds().size() + " " + rep);
                   setTick(repetition.getStart());
+                  break;
                 default:
                   System.out.println("size of " + repetition.getEnds().size() + " " + rep);
-                  if (ss.getTickPosition() == repetition.getSkipAt()) {
-                    System.out.println("speciallllllllll");
-                    setTick(repetition.getEnds().get(rep - 1));
+                  setTick(repetition.getStart());
+                  while (isRunning()) {
+                    //System.out.println("szzzzzzzzzzzzzzzspeciallllllllll");
+                    if (ss.getTickPosition() == repetition.getSkipAt()) {
+                      System.out.println("speciallllllllll");
+                      setTick(repetition.getEnds().get(rep - 1));
+                      break;
+                    }
                   }
+                  break;
               }
               rep += 1;
             }
