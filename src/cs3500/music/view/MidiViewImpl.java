@@ -234,8 +234,10 @@ public class MidiViewImpl implements IMidi, IView {
     int iRep = 0;
     int rep = 0;
     while (ss.isRunning()) {
+      /*
       System.out.println("the sixe of the rep" + musicEditor.getRepeats().size() + " irep "
               + (iRep < musicEditor.getRepeats().size()) );
+      */
       try {
         IRepetition repetition = musicEditor.getRepeats().stream().findFirst()
                 .filter(x -> x.getEnds().get(x.getEnds().size() - 1) > ss.getTickPosition()).get();
@@ -280,7 +282,8 @@ public class MidiViewImpl implements IMidi, IView {
             while (isRunning()) {
               //does the skipping, if repeats share the starting
               if (ss.getTickPosition() == repetition.getSkipAt()) {
-                System.out.println("speciallllllllll" + repetition.getSkipAt() + "" + repetition.getEnds().get(rep - 1));
+                //System.out.println("speciallllllllll" + repetition.getSkipAt() + ""
+                // + repetition.getEnds().get(rep - 1));
                 setTick(repetition.getEnds().get(rep - 1));
                 break;
               }
