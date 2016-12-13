@@ -1,6 +1,7 @@
 package cs3500.music.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -67,8 +68,7 @@ public class RepeatTracker {
 
   public void addCurrentEnd()  {
     this.ends.add(this.currentEnd);
-    System.out.print("ends are ");
-    System.out.println(this.ends);
+    Collections.sort(this.ends);
     this.currentEnd = 0;
   }
 
@@ -80,4 +80,11 @@ public class RepeatTracker {
     return ends;
   }
 
+  public void reset()  {
+    this.ends = new ArrayList<Integer>();
+    this.start = 0;
+    this.currentEnd = 0;
+    this.endEdit = false;
+    this.startEdit = false;
+  }
 }
