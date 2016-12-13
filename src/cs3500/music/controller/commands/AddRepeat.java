@@ -20,8 +20,6 @@ public class AddRepeat implements Runnable {
 
   @Override
   public void run()  {
-    System.out.println(musicEditor.getRepeats().size());
     this.musicEditor.addRepeat(tracker.getStart(), tracker.getEnds());
-    System.out.println(musicEditor.getRepeats().size());
   }
 }
