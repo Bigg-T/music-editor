@@ -46,16 +46,6 @@ public class Repetition implements IRepetition {
   }
 
   @Override
-  public boolean getHasPlayed() {
-    return this.hasPlayed;
-  }
-
-  @Override
-  public void setHasPlayed(boolean hasPlayed) {
-    this.hasPlayed = hasPlayed;
-  }
-
-  @Override
   public int getSkipAt() {
     return this.skipAt;
   }

@@ -290,7 +290,6 @@ public class MidiViewImpl implements IMidi, IView {
         rep += 1;
       }
     }
-    repetition.setHasPlayed(true);
     irep += 1;
   }
 
