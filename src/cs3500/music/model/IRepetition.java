@@ -26,6 +26,11 @@ public interface IRepetition {
   public boolean getHasPlayed();
 
   /**
+   *
+   */
+  public void setHasPlayed(boolean hasPlayed);
+
+  /**
    * Gets the beat to skip at.
    * @return Beat to skip at
    */

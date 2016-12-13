@@ -1,6 +1,5 @@
 package cs3500.music.model;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -49,6 +48,11 @@ public class Repetition implements IRepetition {
   @Override
   public boolean getHasPlayed() {
     return this.hasPlayed;
+  }
+
+  @Override
+  public void setHasPlayed(boolean hasPlayed) {
+    this.hasPlayed = hasPlayed;
   }
 
   @Override

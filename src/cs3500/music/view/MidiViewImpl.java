@@ -20,6 +20,7 @@ import javax.sound.midi.Synthesizer;
 import javax.sound.midi.Track;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
+import java.util.Iterator;
 import java.util.Objects;
 
 /**
@@ -230,20 +231,16 @@ public class MidiViewImpl implements IMidi, IView {
   }
 
   @Override
-  public void startView() {
+  public synchronized void startView() {
     int iRep = 0;
-    int rep = 0;
     while (ss.isRunning()) {
-      /*
-      System.out.println("the sixe of the rep" + musicEditor.getRepeats().size() + " irep "
-              + (iRep < musicEditor.getRepeats().size()) );
-      */
-      try {
-        IRepetition repetition = musicEditor.getRepeats().stream().findFirst()
-                .filter(x -> x.getEnds().get(x.getEnds().size() - 1) > ss.getTickPosition()).get();
-        setRepetition(repetition, iRep);
-      } catch (Exception e) {
-        continue;
+      Iterator<IRepetition> repetition = musicEditor.getRepeats()
+              .stream()
+              .filter(x -> (x.getEnds().get(x.getEnds().size() - 1) > ss.getTickPosition()))
+              .iterator();
+      while (repetition.hasNext()) {
+        IRepetition iRepetition = repetition.next();
+        setRepetition(iRepetition, iRep);
       }
       break;
     }
@@ -265,7 +262,7 @@ public class MidiViewImpl implements IMidi, IView {
    * Repeat the based on the repetition information.
    *
    * @param repetition the Repetition object to repeat
-   * @param irep the rep counter
+   * @param irep       the rep counter
    */
   private synchronized void setRepetition(IRepetition repetition, Integer irep) {
     int rep = 0;
@@ -293,6 +290,7 @@ public class MidiViewImpl implements IMidi, IView {
         rep += 1;
       }
     }
+    repetition.setHasPlayed(true);
     irep += 1;
   }
 
