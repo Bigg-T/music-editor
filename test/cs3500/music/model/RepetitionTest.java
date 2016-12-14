@@ -44,6 +44,11 @@ public class RepetitionTest {
     assertEquals(true, r1.isOverlap(r3));
   }
 
+  @Test (expected = IllegalArgumentException.class)
+  public void testIllegal()  {
+    IRepetition rep = new Repetition(4, Arrays.asList(0));
+  }
+
   @Test
   public void testSorting()  {
     List<IRepetition> repetitions = new ArrayList<IRepetition>();
