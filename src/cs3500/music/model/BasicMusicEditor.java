@@ -3,6 +3,7 @@ package cs3500.music.model;
 import cs3500.music.util.CompositionBuilder;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.SortedMap;
@@ -211,7 +212,7 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
 
   @Override
   public List<IRepetition> getRepeats() {
-    return this.repeats;
+    return Collections.unmodifiableList(this.repeats);
   }
 
   @Override
