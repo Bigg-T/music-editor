@@ -3,8 +3,6 @@ package cs3500.music.model;
 import cs3500.music.util.CompositionBuilder;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.SortedMap;
@@ -14,7 +12,6 @@ import java.util.TreeMap;
  * The MusicEditor.
  */
 public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
-
 
   //Integer is a the starting beat of a note
   private TreeMap<Integer, PitchCollection> piece;
@@ -212,27 +209,28 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
     return notes;
   }
 
-  //@TODO
   @Override
-  public List<IRepetition> getRepeats()  {
+  public List<IRepetition> getRepeats() {
     return this.repeats;
   }
 
   @Override
-  public void addRepeat(int start, List<Integer> ends) {
+  public boolean addRepeat(int start, List<Integer> ends) {
     IRepetition repetition;
     try {
       repetition = new Repetition(start, ends);
-    } catch (IllegalArgumentException e)  {
-      return;
     }
-    for (IRepetition r : repeats)  {
-      if (r.isOverlap(repetition))  {
-        return;
+    catch (IllegalArgumentException e) {
+      return false;
+    }
+    for (IRepetition r : repeats) {
+      if (r.isOverlap(repetition)) {
+        return false;
       }
     }
     this.repeats.add(repetition);
     this.repeats.sort(Repetition.RepeatComparator.smallToLargeEnding);
+    return true;
   }
 
   /**

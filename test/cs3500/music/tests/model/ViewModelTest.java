@@ -1,8 +1,10 @@
 package cs3500.music.tests.model;
 
+import cs3500.music.controller.IMusicEditorController;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.SortedMap;
 
@@ -95,4 +97,15 @@ public class ViewModelTest {
     assertEquals(true, musicEditor.isViewEditor());
   }
 
+  @Test
+  public void testAddRepeat() throws Exception {
+    setUp();
+    assertEquals(false, musicEditor.addRepeat(0, Arrays.asList(30, 40)));
+  }
+
+  @Test
+  public void testAddRepeat2() throws Exception {
+    setUp();
+    assertEquals(false, musicEditor.addRepeat(20, Arrays.asList(35, 40)));
+  }
 }

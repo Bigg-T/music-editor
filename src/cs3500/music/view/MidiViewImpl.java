@@ -34,26 +34,11 @@ public class MidiViewImpl implements IMidi, IView {
   /**
    * Creates MidiViewImp, for testing.
    */
-  protected MidiViewImpl(IBasicMusicEditor<INote> musicEditor, Sequencer ss) {
+  MidiViewImpl(IBasicMusicEditor<INote> musicEditor, Sequencer ss) {
     Objects.requireNonNull(musicEditor, "Null music editor");
     Objects.requireNonNull(ss, "Null sequencer");
     this.musicEditor = Utils.requireNonNull(musicEditor, "Null MusicEditor");
     this.ss = ss;
-  }
-
-  /**
-   * Creates MidiViewImp.
-   */
-  protected MidiViewImpl(IBasicMusicEditor<INote> musicEditor) {
-    Objects.requireNonNull(musicEditor, "Null music editor");
-    this.musicEditor = Utils.requireNonNull(musicEditor, "Null MusicEditor");
-    try {
-      this.ss = MidiSystem.getSequencer();
-      Objects.requireNonNull(ss, "Null sequencer");
-    }
-    catch (MidiUnavailableException e) {
-      e.printStackTrace();
-    }
   }
 
   /**
@@ -227,61 +212,48 @@ public class MidiViewImpl implements IMidi, IView {
     ss.start();
     ss.setTempoInMPQ(musicEditor.getTempo());
     startView();
-    System.out.println("Quite!!!!");
+    //System.out.println("Quite!!!!");
   }
 
   @Override
   public synchronized void startView() {
-    int iRep = 0;
-    while (ss.isRunning()) {
+    if (ss.isRunning()) {
+      //filter out the repeats that has pasted
       Iterator<IRepetition> repetition = musicEditor.getRepeats()
               .stream()
               .filter(x -> (x.getEnds().get(x.getEnds().size() - 1) > ss.getTickPosition()))
               .iterator();
+      //set the iteration
       while (repetition.hasNext()) {
         IRepetition iRepetition = repetition.next();
-        setRepetition(iRepetition, iRep);
+        setRepetition(iRepetition);
       }
-      break;
     }
-  }
-
-  /**
-   * Play the music composition at the give tick.
-   *
-   * @param at set music tick
-   */
-  private void setTick(long at) {
-    ss.stop();
-    ss.setTickPosition(at);
-    ss.start();
-    ss.setTempoInMPQ(musicEditor.getTempo());
   }
 
   /**
    * Repeat the based on the repetition information.
    *
    * @param repetition the Repetition object to repeat
-   * @param irep       the rep counter
    */
-  private synchronized void setRepetition(IRepetition repetition, Integer irep) {
+  private synchronized void setRepetition(IRepetition repetition) {
     int rep = 0;
     while (rep < repetition.getEnds().size()) {
       if (repetition.getEnds().get(rep) == ss.getTickPosition()) {
         switch (rep) {
           case 0:
             System.out.println("size of " + repetition.getEnds().size() + " " + rep);
-            setTick(repetition.getStart());
+            setTickPosition(repetition.getStart());
             break;
           default:
             System.out.println("size of " + repetition.getEnds().size() + " " + rep);
-            setTick(repetition.getStart());
+            setTickPosition(repetition.getStart());
             while (isRunning()) {
               //does the skipping, if repeats share the starting
               if (ss.getTickPosition() == repetition.getSkipAt()) {
                 //System.out.println("speciallllllllll" + repetition.getSkipAt() + ""
                 // + repetition.getEnds().get(rep - 1));
-                setTick(repetition.getEnds().get(rep - 1));
+                setTickPosition(repetition.getEnds().get(rep - 1));
                 break;
               }
             }
@@ -290,12 +262,6 @@ public class MidiViewImpl implements IMidi, IView {
         rep += 1;
       }
     }
-    irep += 1;
-  }
-
-  @Override
-  public int repeatSize() {
-    return musicEditor.getRepeats().size();
   }
 
   @Override

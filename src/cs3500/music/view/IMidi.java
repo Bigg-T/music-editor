@@ -1,16 +1,14 @@
 package cs3500.music.view;
 
 /**
- * Created by tiger on 12/10/16.
+ * The midi interface.
  */
 public interface IMidi extends IView {
 
   /**
-   *
+   * T
    */
   public void startView();
-
-  public int repeatSize();
 
   /**
    * Initialize View.

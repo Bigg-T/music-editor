@@ -33,6 +33,8 @@ We support feature 1, 2, and 3. We created and IReapetition object what contain 
 If the repeat have multi-repetition, and share the start, then its will be in the same object. This make
 sense because one starting point can have multiple repeats.
 
+When adding repeats into the music piece, if the repeat is already past. The view will not show.
+
 Our model has method for the controller to call, but if information the controller gave is invalid,
 the model will throw an error.
 

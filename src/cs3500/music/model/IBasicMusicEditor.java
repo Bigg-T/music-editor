@@ -125,14 +125,18 @@ public interface IBasicMusicEditor<K> {
 
   /**
    * Gets all the repeats for this piece.
+   *
    * @return All repeats
    */
   public List<IRepetition> getRepeats();
 
   /**
    * Adds a repeat with the given parameters.
-   * @param start   Where to start.
-   * @param ends    Where to end
+   * Return true if the repeat is successfully added.
+   *
+   * @param start Where to start(s).
+   * @param ends  Where to end
+   * @return true if the repeat is successfully added.
    */
-  public void addRepeat(int start, List<Integer> ends);
+  public boolean addRepeat(int start, List<Integer> ends);
 }

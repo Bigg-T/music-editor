@@ -5,6 +5,8 @@ import cs3500.music.model.NoteBuilder;
 import cs3500.music.model.INote;
 import cs3500.music.model.NoteName;
 import cs3500.music.model.BasicMusicEditor;
+
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -154,6 +156,12 @@ public class BasicModelTest {
     assertEquals(false, musicEditor.isViewEditor());
   }
 
-
+  @Test
+  public void testAddRepeat() throws Exception {
+    setUp();
+    assertEquals(true, musicEditor.addRepeat(0, Arrays.asList(30, 40)));
+    assertEquals(false, musicEditor.addRepeat(20, Arrays.asList(35, 40)));
+    assertEquals(true, musicEditor.addRepeat(40, Arrays.asList(60, 65)));
+  }
 
 }

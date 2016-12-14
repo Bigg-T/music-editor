@@ -25,7 +25,7 @@ public class GuiViewFrame extends JFrame implements IGuiView {
   /**
    * Creates new GuiView.
    */
-  protected GuiViewFrame(IBasicMusicEditor<INote> musicEditor) {
+  GuiViewFrame(IBasicMusicEditor<INote> musicEditor) {
     displayPanel = new ConcreteGuiViewPanel(musicEditor);
     this.scr = new ScrollPane();
     scr.add(displayPanel);
