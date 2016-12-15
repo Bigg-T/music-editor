@@ -90,13 +90,21 @@ public class ConcreteGuiViewPanel extends JPanel implements Scrollable {
       for (int i = 0; i < repetition.getEnds().size(); i++) {
         int lineX = repetition.getEnds().get(i);
         g.setColor(Color.MAGENTA);
+        //draw the ending
         g.drawLine(doMathForX(lineX), y1, doMathForX(lineX), y2 + 30);
+        if (!(repetition.getEnds().size() == 1)) {
+          g.drawString(Integer.toString(i + 2), doMathForX(lineX) - 10, y2 + 40);
+        }
         g.drawOval(doMathForX(lineX) - 5, y2 + 20 , 5, 5);
         g.drawOval(doMathForX(lineX) - 5, y2 + 10 , 5, 5);
       }
       g.setColor(Color.MAGENTA);
-      g.drawLine(doMathForX(repetition.getSkipAt()), y1,
-              doMathForX(repetition.getSkipAt()), y2 + 30);
+      if (repetition.getEnds().size() > 1) {
+        g.drawLine(doMathForX(repetition.getSkipAt()), y1,
+                doMathForX(repetition.getSkipAt()), y2 + 30);
+        g.drawString(Integer.toString(1), doMathForX(repetition.getSkipAt()) - 10, y2 + 40);
+      }
+      //Draw the start
       g.drawLine(doMathForX(repetition.getStart()), y1,
               doMathForX(repetition.getStart()), y2 + 30);
       g.drawOval(doMathForX(repetition.getStart()) + 5, y2 + 10 , 5, 5);

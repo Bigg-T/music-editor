@@ -240,24 +240,16 @@ public class MidiViewImpl implements IMidi, IView {
     int rep = 0;
     while (rep < repetition.getEnds().size()) {
       if (repetition.getEnds().get(rep) == ss.getTickPosition()) {
-        switch (rep) {
-          case 0:
-            System.out.println("size of " + repetition.getEnds().size() + " " + rep);
-            setTickPosition(repetition.getStart());
+        System.out.println("size of " + repetition.getEnds().size() + " " + rep);
+        setTickPosition(repetition.getStart());
+        while (isRunning()) {
+          //does the skipping, if repeats share the starting
+          if (ss.getTickPosition() == repetition.getSkipAt()) {
+            //System.out.println("speciallllllllll" + repetition.getSkipAt() + ""
+            // + repetition.getEnds().get(rep - 1));
+            setTickPosition(repetition.getEnds().get(rep));
             break;
-          default:
-            System.out.println("size of " + repetition.getEnds().size() + " " + rep);
-            setTickPosition(repetition.getStart());
-            while (isRunning()) {
-              //does the skipping, if repeats share the starting
-              if (ss.getTickPosition() == repetition.getSkipAt()) {
-                //System.out.println("speciallllllllll" + repetition.getSkipAt() + ""
-                // + repetition.getEnds().get(rep - 1));
-                setTickPosition(repetition.getEnds().get(rep - 1));
-                break;
-              }
-            }
-            break;
+          }
         }
         rep += 1;
       }
