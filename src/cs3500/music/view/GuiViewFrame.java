@@ -25,7 +25,7 @@ public class GuiViewFrame extends JFrame implements IGuiView {
   /**
    * Creates new GuiView.
    */
-  protected GuiViewFrame(IBasicMusicEditor<INote> musicEditor) {
+  GuiViewFrame(IBasicMusicEditor<INote> musicEditor) {
     displayPanel = new ConcreteGuiViewPanel(musicEditor);
     this.scr = new ScrollPane();
     scr.add(displayPanel);
@@ -51,7 +51,7 @@ public class GuiViewFrame extends JFrame implements IGuiView {
     if (tick % 50 == 0) {
       scr.setScrollPosition((int) tick * 25, 0);
 
-      System.out.println(scr.getScrollPosition().getX() + " " + scr.getScrollPosition().getY());
+      //System.out.println(scr.getScrollPosition().getX() + " " + scr.getScrollPosition().getY());
     }
     this.displayPanel.paintRec(scr.getBounds());
     this.displayPanel.current(scr.getScrollPosition().getX());
@@ -61,6 +61,7 @@ public class GuiViewFrame extends JFrame implements IGuiView {
             getX());
     */
     this.displayPanel.move(tick);
+    this.update();
   }
 
   @Override
@@ -70,6 +71,7 @@ public class GuiViewFrame extends JFrame implements IGuiView {
 
   @Override
   public void resume() {
+    this.update();
     return;
   }
 
@@ -83,6 +85,21 @@ public class GuiViewFrame extends JFrame implements IGuiView {
   public void scrollVertical(int unit) {
     this.displayPanel.paintRec(scr.getBounds());
     scr.setScrollPosition(scr.getX(), scr.getY() + unit);
+  }
+
+  @Override
+  public boolean isRunning() {
+    return true;
+  }
+
+  @Override
+  public void setTickPosition(long position) {
+
+  }
+
+  @Override
+  public void repeatView() {
+    return;
   }
 
   @Override

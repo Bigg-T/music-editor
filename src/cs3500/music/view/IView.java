@@ -81,4 +81,10 @@ public interface IView {
    * @param unit Amount to be scrolled
    */
   public void scrollVertical(int unit);
+
+  public boolean isRunning();
+
+  public void setTickPosition(long position);
+
+  public void repeatView();
 }

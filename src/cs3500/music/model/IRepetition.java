@@ -20,12 +20,6 @@ public interface IRepetition {
   public List<Integer> getEnds();
 
   /**
-   * Tells whether the repetition has played.
-   * @return True if it has, false otherwise.
-   */
-  public boolean getHasPlayed();
-
-  /**
    * Gets the beat to skip at.
    * @return Beat to skip at
    */

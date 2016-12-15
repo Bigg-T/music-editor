@@ -1,10 +1,12 @@
 package cs3500.music.view;
 
 
+import cs3500.music.model.IRepetition;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.SortedMap;
@@ -71,7 +73,7 @@ public class ConcreteGuiViewPanel extends JPanel implements Scrollable {
     verticalLine(g, currentX - 15, currentX + 70);
     horizontalLine(g, baseRight, baseDown, currentX - 15, currentX + 70);
     drawPitch(g);
-
+    drawRepeats(g);
     g.setColor(LINE_COLOR);
     g.drawLine(x1, y1, x2, y2); // Draw the line
   }
@@ -79,6 +81,40 @@ public class ConcreteGuiViewPanel extends JPanel implements Scrollable {
   void update() {
     paintRec(rectangle);
     this.repaint(rectangle);
+  }
+
+  private void drawRepeats(Graphics g) {
+    Iterator<IRepetition> repList = musicEditor.getRepeats().iterator();
+    while (repList.hasNext()) {
+      IRepetition repetition = repList.next();
+      for (int i = 0; i < repetition.getEnds().size(); i++) {
+        int lineX = repetition.getEnds().get(i);
+        g.setColor(Color.MAGENTA);
+        //draw the ending
+        g.drawLine(doMathForX(lineX), y1, doMathForX(lineX), y2 + 30);
+        if (!(repetition.getEnds().size() == 1)) {
+          g.drawString(Integer.toString(i + 2), doMathForX(lineX) - 10, y2 + 40);
+        }
+        g.drawOval(doMathForX(lineX) - 5, y2 + 20 , 5, 5);
+        g.drawOval(doMathForX(lineX) - 5, y2 + 10 , 5, 5);
+      }
+      g.setColor(Color.MAGENTA);
+      if (repetition.getEnds().size() > 1) {
+        g.drawLine(doMathForX(repetition.getSkipAt()), y1,
+                doMathForX(repetition.getSkipAt()), y2 + 30);
+        g.drawString(Integer.toString(1), doMathForX(repetition.getSkipAt()) - 10, y2 + 40);
+      }
+      //Draw the start
+      g.drawLine(doMathForX(repetition.getStart()), y1,
+              doMathForX(repetition.getStart()), y2 + 30);
+      g.drawOval(doMathForX(repetition.getStart()) + 5, y2 + 10 , 5, 5);
+      g.drawOval(doMathForX(repetition.getStart()) + 5, y2 + 20 , 5, 5);
+    }
+
+  }
+
+  private int doMathForX(int rightX) {
+    return rightX * NOTEWIDTH + 50;
   }
 
   /**
@@ -136,10 +172,11 @@ public class ConcreteGuiViewPanel extends JPanel implements Scrollable {
   }
 
   void move(long tick) {
-    if (tick >= 4) {
+    if (tick >= 0) {
       //System.out.println(tick);
-      x1 += NOTEWIDTH;
-      x2 += NOTEHEIGHT;
+      x1 = (int) tick * NOTEWIDTH + 50;
+      x2 = (int) tick * NOTEHEIGHT + 50;
+      //System.out.println(x1+ " x2:" + x2);
       repaint();
     }
   }

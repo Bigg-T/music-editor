@@ -3,7 +3,10 @@ package cs3500.music.model;
 import cs3500.music.util.CompositionBuilder;
 
 import java.util.ArrayList;
+<<<<<<< HEAD
+=======
 import java.util.Arrays;
+>>>>>>> origin/master
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -32,6 +35,7 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
    */
   BasicMusicEditor(int tempo) {
     this.piece = new TreeMap<>();
+    this.repeats = new ArrayList<IRepetition>();
     this.tempo = tempo;
   }
 
@@ -211,6 +215,25 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
     return notes;
   }
 
+<<<<<<< HEAD
+  @Override
+  public List<IRepetition> getRepeats() {
+    return Collections.unmodifiableList(this.repeats);
+  }
+
+  @Override
+  public boolean addRepeat(int start, List<Integer> ends) {
+    IRepetition repetition;
+    try {
+      repetition = new Repetition(start, ends);
+    }
+    catch (IllegalArgumentException e) {
+      return false;
+    }
+    for (IRepetition r : repeats) {
+      if (r.isOverlap(repetition)) {
+        return false;
+=======
   //@TODO
   @Override
   public List<IRepetition> getRepeats()  {
@@ -228,10 +251,15 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
     for (IRepetition r : repeats)  {
       if (r.isOverlap(repetition))  {
         return;
+>>>>>>> origin/master
       }
     }
     this.repeats.add(repetition);
     this.repeats.sort(Repetition.RepeatComparator.smallToLargeEnding);
+<<<<<<< HEAD
+    return true;
+=======
+>>>>>>> origin/master
   }
 
   /**

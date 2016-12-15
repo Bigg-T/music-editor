@@ -41,6 +41,7 @@ public class MusicControllerGui implements IMusicEditorController {
    */
   ControlTracker ct;
 
+  RepeatTracker rt;
 
   /**
    * Constructs an instance of a Music editor controller using a GUI view.
@@ -64,16 +65,18 @@ public class MusicControllerGui implements IMusicEditorController {
    * Initializes standard controls for this controller.
    */
   void initStandard() {
-    this.keyHandler.addKeyPressed(48, new AddKeyNumber(this.ct, 0));
-    this.keyHandler.addKeyPressed(49, new AddKeyNumber(this.ct, 1));
-    this.keyHandler.addKeyPressed(50, new AddKeyNumber(this.ct, 2));
-    this.keyHandler.addKeyPressed(51, new AddKeyNumber(this.ct, 3));
-    this.keyHandler.addKeyPressed(52, new AddKeyNumber(this.ct, 4));
-    this.keyHandler.addKeyPressed(53, new AddKeyNumber(this.ct, 5));
-    this.keyHandler.addKeyPressed(54, new AddKeyNumber(this.ct, 6));
-    this.keyHandler.addKeyPressed(55, new AddKeyNumber(this.ct, 7));
-    this.keyHandler.addKeyPressed(56, new AddKeyNumber(this.ct, 8));
-    this.keyHandler.addKeyPressed(57, new AddKeyNumber(this.ct, 9));
+
+    this.keyHandler.addKeyPressed(48, new AddKeyNumber(this.ct, this.rt, 0));
+    this.keyHandler.addKeyPressed(49, new AddKeyNumber(this.ct, this.rt, 1));
+    this.keyHandler.addKeyPressed(50, new AddKeyNumber(this.ct, this.rt, 2));
+    this.keyHandler.addKeyPressed(51, new AddKeyNumber(this.ct, this.rt, 3));
+    this.keyHandler.addKeyPressed(52, new AddKeyNumber(this.ct, this.rt, 4));
+    this.keyHandler.addKeyPressed(53, new AddKeyNumber(this.ct, this.rt, 5));
+    this.keyHandler.addKeyPressed(54, new AddKeyNumber(this.ct, this.rt, 6));
+    this.keyHandler.addKeyPressed(55, new AddKeyNumber(this.ct, this.rt, 7));
+    this.keyHandler.addKeyPressed(56, new AddKeyNumber(this.ct, this.rt, 8));
+    this.keyHandler.addKeyPressed(57, new AddKeyNumber(this.ct, this.rt, 9));
+
     this.keyHandler.addKeyPressed(80, new SetEdit(this.ct, "pitch"));
     this.keyHandler.addKeyPressed(83, new SetEdit(this.ct, "start"));
     this.keyHandler.addKeyPressed(68, new SetEdit(this.ct, "duration"));

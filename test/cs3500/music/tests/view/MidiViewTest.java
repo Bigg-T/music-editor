@@ -15,6 +15,8 @@ import javax.sound.midi.Sequencer;
 import java.io.File;
 import java.io.FileReader;
 
+import static cs3500.music.view.ViewFactory.viewFactory;
+
 /**
  * Test the midiView.
  */
@@ -30,7 +32,7 @@ public class MidiViewTest {
     CompositionBuilder<IBasicMusicEditor<INote>> compBuilder =
             new BasicMusicEditor.BasicCompositionBuilder();
     IBasicMusicEditor<INote> musicEditor = MusicReader.parseFile(fr, compBuilder);
-    midiView = new MidiViewImpl(musicEditor, sequencer);
+    midiView = viewFactory("midi", musicEditor);//new MidiViewImpl(musicEditor, sequencer);
   }
 
   @Test

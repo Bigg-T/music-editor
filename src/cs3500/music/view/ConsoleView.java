@@ -27,7 +27,7 @@ public class ConsoleView implements IView {
    *
    * @param musicEditor the music model
    */
-  public ConsoleView(IBasicMusicEditor<INote> musicEditor,
+  ConsoleView(IBasicMusicEditor<INote> musicEditor,
                      Readable readable, Appendable appendable) {
     this.musicEditor = musicEditor;
     this.appendable = appendable;
@@ -168,6 +168,21 @@ public class ConsoleView implements IView {
 
   @Override
   public void scrollVertical(int unit) {
+    return;
+  }
+
+  @Override
+  public boolean isRunning() {
+    return false;
+  }
+
+  @Override
+  public void setTickPosition(long position) {
+    return;
+  }
+
+  @Override
+  public void repeatView() {
     return;
   }
 

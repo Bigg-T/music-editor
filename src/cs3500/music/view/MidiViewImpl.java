@@ -2,6 +2,7 @@ package cs3500.music.view;
 
 import cs3500.music.model.IBasicMusicEditor;
 import cs3500.music.model.INote;
+import cs3500.music.model.IRepetition;
 import cs3500.music.util.MusicUtils;
 import cs3500.music.util.Utils;
 
@@ -10,6 +11,7 @@ import javax.sound.midi.MidiChannel;
 import javax.sound.midi.MidiEvent;
 import javax.sound.midi.MidiMessage;
 import javax.sound.midi.MidiSystem;
+import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Receiver;
 import javax.sound.midi.Sequence;
 import javax.sound.midi.Sequencer;
@@ -18,26 +20,21 @@ import javax.sound.midi.Synthesizer;
 import javax.sound.midi.Track;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
+import java.util.Iterator;
 import java.util.Objects;
 
 /**
  * MIDI playback.
  */
-public class MidiViewImpl implements IView {
+public class MidiViewImpl implements IMidi, IView {
 
   private final IBasicMusicEditor<INote> musicEditor;
   private Sequencer ss;
-  private Sequence sequence;
-
-  //place holder, assuming that getTickPosition() will not produce a 0 at start,
-  //-1 mean that the midi is over.
-  // because thread can this at the same time
-  private volatile long currentPosition = 0;
 
   /**
-   * Creates MidiViewImp.
+   * Creates MidiViewImp, for testing.
    */
-  public MidiViewImpl(IBasicMusicEditor<INote> musicEditor, Sequencer ss) {
+  MidiViewImpl(IBasicMusicEditor<INote> musicEditor, Sequencer ss) {
     Objects.requireNonNull(musicEditor, "Null music editor");
     Objects.requireNonNull(ss, "Null sequencer");
     this.musicEditor = Utils.requireNonNull(musicEditor, "Null MusicEditor");
@@ -77,27 +74,12 @@ public class MidiViewImpl implements IView {
    */
 
   void playNote() throws InvalidMidiDataException {
-    this.sequence = model(this.musicEditor, new Sequence(Sequence.PPQ, 1));
+    Sequence sequence = model(this.musicEditor, new Sequence(Sequence.PPQ, 1));
 
     try {
       ss.open();
       ss.setTempoInMPQ(musicEditor.getTempo());
       ss.setSequence(sequence);
-      ss.start();
-      ss.setTempoInMPQ(musicEditor.getTempo());
-
-      while (ss.isRunning()) {
-        long currentPosition = ss.getTickPosition();
-        if (currentPosition != this.currentPosition) {
-          //System.out.println(this.currentPosition);
-          this.currentPosition = currentPosition;
-          //System.out.println(ss.getMicrosecondPosition());
-        }
-      }
-      //this.currentPosition = 0;
-      //System.out.println(this.currentPosition);
-      //ss.close();
-
     }
     catch (Exception e) {
       e.printStackTrace();
@@ -107,12 +89,13 @@ public class MidiViewImpl implements IView {
 
   @Override
   public void initialize() throws Exception {
-    this.playNote();
+    playNote();
+    initialize(0);
   }
 
   @Override
   public long getCurrentTick() {
-    return this.currentPosition;
+    return this.ss.getTickPosition();
   }
 
   @Override
@@ -127,8 +110,10 @@ public class MidiViewImpl implements IView {
 
   @Override
   public void resume() {
+    ss.setTickPosition(ss.getTickPosition());
     ss.start();
     ss.setTempoInMPQ(musicEditor.getTempo());
+    //startView();
   }
 
   @Override
@@ -139,6 +124,11 @@ public class MidiViewImpl implements IView {
   @Override
   public void scrollVertical(int unit) {
     return;
+  }
+
+  @Override
+  public boolean isRunning() {
+    return ss.isRunning();
   }
 
   @Override
@@ -155,12 +145,17 @@ public class MidiViewImpl implements IView {
   public void update() {
     try {
       //ss.setSequence(this.model(musicEditor, new Sequence(Sequence.PPQ, 1)));
+      playNote();
+      ss.setTickPosition(this.getCurrentTick());
+      ss.start();
       ss.setTempoInMPQ(musicEditor.getTempo());
+      //ss.setTempoInMPQ(musicEditor.getTempo());
     }
     catch (Exception e) {
       e.printStackTrace();
     }
   }
+
 
   @Override
   public void addKeyListener(KeyListener keyListener) {
@@ -183,7 +178,7 @@ public class MidiViewImpl implements IView {
           int channel = (note.getChannel() - 1) % 16;
           int volume = note.getVolume();
           //System.out.println(channel);
-          int startBeat = (note.getStartDuration()) + (4); //384 is the revolution
+          int startBeat = (note.getStartDuration()); //384 is the revolution
           //MusicUtils.toTrack(channel)];
 
           try {
@@ -209,5 +204,68 @@ public class MidiViewImpl implements IView {
       });
     });
     return sequence;
+  }
+
+  @Override
+  public synchronized void initialize(int playAt) throws Exception {
+    ss.setTickPosition(playAt);
+    ss.start();
+    ss.setTempoInMPQ(musicEditor.getTempo());
+    startView();
+    //System.out.println("Quite!!!!");
+  }
+
+  @Override
+  public synchronized void startView() {
+    if (ss.isRunning()) {
+      //filter out the repeats that has pasted
+      Iterator<IRepetition> repetition = musicEditor.getRepeats()
+              .stream()
+              .filter(x -> (x.getEnds().get(x.getEnds().size() - 1) > ss.getTickPosition()))
+              .iterator();
+      //set the iteration
+      while (repetition.hasNext()) {
+        IRepetition iRepetition = repetition.next();
+        setRepetition(iRepetition);
+      }
+    }
+  }
+
+  /**
+   * Repeat the based on the repetition information.
+   *
+   * @param repetition the Repetition object to repeat
+   */
+  private synchronized void setRepetition(IRepetition repetition) {
+    int rep = 0;
+    while (rep < repetition.getEnds().size()) {
+      if (repetition.getEnds().get(rep) == ss.getTickPosition()) {
+        System.out.println("size of " + repetition.getEnds().size() + " " + rep);
+        setTickPosition(repetition.getStart());
+        while (isRunning()) {
+          //does the skipping, if repeats share the starting
+          if (ss.getTickPosition() == repetition.getSkipAt()) {
+            //System.out.println("speciallllllllll" + repetition.getSkipAt() + ""
+            // + repetition.getEnds().get(rep - 1));
+            setTickPosition(repetition.getEnds().get(rep));
+            break;
+          }
+        }
+        rep += 1;
+      }
+    }
+  }
+
+  @Override
+  public void setTickPosition(long position) {
+    ss.stop();
+    ss.setTickPosition(position);
+    ss.start();
+    ss.setTempoInMPQ(musicEditor.getTempo());
+  }
+
+  @Override
+  public void repeatView() {
+    startView();
   }
 }

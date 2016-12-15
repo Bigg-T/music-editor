@@ -6,6 +6,7 @@ import cs3500.music.model.INote;
 import cs3500.music.util.CompositionBuilder;
 import cs3500.music.util.MusicReader;
 import cs3500.music.view.ConsoleView;
+import cs3500.music.view.IView;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,6 +16,8 @@ import java.io.FileReader;
 import java.io.Reader;
 import java.io.StringReader;
 
+import static cs3500.music.view.ViewFactory.viewFactory;
+
 /**
  * Testing the console.
  */
@@ -22,7 +25,7 @@ public class ConsoleTest {
 
   File f = null;
   Readable fr = null;
-  ConsoleView test;
+  IView test;
   IBasicMusicEditor<INote> musicEditor;
   private StringBuffer appendable;
   private Reader readable;
@@ -46,7 +49,7 @@ public class ConsoleTest {
     musicEditor = MusicReader.parseFile(fr, compBuilder);
     appendable = new StringBuffer();
 
-    test = new ConsoleView(musicEditor, readable, appendable);
+    test = viewFactory("console", musicEditor);//new ConsoleView(musicEditor, readable, appendable);
   }
 
   private void setReadable(String args) {

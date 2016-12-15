@@ -3,6 +3,7 @@ package cs3500.music.model;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -13,9 +14,9 @@ import static org.junit.Assert.*;
  */
 public class RepetitionTest {
 
-  IRepetition r1 = new Repetition(0, 4, 4);
-  IRepetition r2 = new Repetition(4, 8, 8);
-  IRepetition r3 = new Repetition(2, 6, 4);
+  IRepetition r1 = new Repetition(0, Arrays.asList(4));
+  IRepetition r2 = new Repetition(4, Collections.singletonList(8));
+  IRepetition r3 = new Repetition(2, Arrays.asList(6, 8));
 
   @Test
   public void testGetStart()  {
@@ -24,7 +25,8 @@ public class RepetitionTest {
 
   @Test
   public void testGetEnd()  {
-    assertEquals(8, r2.getEnd());
+
+    assertEquals(Arrays.asList(8), r2.getEnds());
   }
 
   @Test
@@ -40,6 +42,11 @@ public class RepetitionTest {
   @Test
   public void testIsOverlap2()  {
     assertEquals(true, r1.isOverlap(r3));
+  }
+
+  @Test (expected = IllegalArgumentException.class)
+  public void testIllegal()  {
+    IRepetition rep = new Repetition(4, Arrays.asList(0));
   }
 
   @Test

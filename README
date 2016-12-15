@@ -28,14 +28,32 @@ Ex: p 6 0 s 1 d 2 c 1 v 5 *left click* adds a half note for middle C at beat 1
 - To play press enter.
 - To scroll, use the arrow keys.
 
+Design Choice for HW9:
+We support feature 1, 2, and 3. We created and IRepetition object what contain the repeat information.
+If the repeat have multi-repetition, and share the start, then its will be in the same object. This make
+sense because one starting point can have multiple repeats.
+
+When adding repeats into the music piece, if the repeat is already past. The view will not show.
+
+Our model has method for the controller to call, but if information the controller gave is invalid,
+the model will throw an error.
+
+Midi view will process the information based on the repeats. Midi direct access to the IRepetition
+object, because there are no set methods and all getters return primitive which can't get mutate.
+
+When add repeats, make sure the view is pause.
+
 Adding Repeats:
 EXAMPLE: adding a Repetition with start: 0, ends : (20, 24), skip: 16
-keys: q 0 w 2 0 *shift* w 24 *shift* t
+keys: q 0 w 20 *shift* w 24 *shift* t
 q: edit start
 w: edit end
 *shift*: add end
 t: add repeat to model
 
 
-For the jar, the first argument should be the absolute file path for the file to use. The second argument should be the view to use 
+For the jar, the first argument should be the absolute file path for the file to use. The second
+argument should be the view to use
   (console, visual, midi, composite).
+
+  eg. java -jar [.jar file name] [.txt music file] [view type]
