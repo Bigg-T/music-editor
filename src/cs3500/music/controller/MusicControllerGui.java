@@ -43,7 +43,6 @@ public class MusicControllerGui implements IMusicEditorController {
 
   RepeatTracker rt;
 
-
   /**
    * Constructs an instance of a Music editor controller using a GUI view.
    *
@@ -66,6 +65,7 @@ public class MusicControllerGui implements IMusicEditorController {
    * Initializes standard controls for this controller.
    */
   void initStandard() {
+
     this.keyHandler.addKeyPressed(48, new AddKeyNumber(this.ct, this.rt, 0));
     this.keyHandler.addKeyPressed(49, new AddKeyNumber(this.ct, this.rt, 1));
     this.keyHandler.addKeyPressed(50, new AddKeyNumber(this.ct, this.rt, 2));
@@ -76,6 +76,7 @@ public class MusicControllerGui implements IMusicEditorController {
     this.keyHandler.addKeyPressed(55, new AddKeyNumber(this.ct, this.rt, 7));
     this.keyHandler.addKeyPressed(56, new AddKeyNumber(this.ct, this.rt, 8));
     this.keyHandler.addKeyPressed(57, new AddKeyNumber(this.ct, this.rt, 9));
+
     this.keyHandler.addKeyPressed(80, new SetEdit(this.ct, "pitch"));
     this.keyHandler.addKeyPressed(83, new SetEdit(this.ct, "start"));
     this.keyHandler.addKeyPressed(68, new SetEdit(this.ct, "duration"));

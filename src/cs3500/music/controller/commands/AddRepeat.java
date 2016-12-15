@@ -22,5 +22,6 @@ public class AddRepeat implements Runnable {
   public void run()  {
     this.musicEditor.addRepeat(tracker.getStart(), tracker.getEnds());
     this.tracker.reset();
+
   }
 }

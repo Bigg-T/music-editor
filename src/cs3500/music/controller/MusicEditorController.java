@@ -4,6 +4,7 @@ package cs3500.music.controller;
 import cs3500.music.controller.commands.ActionRunner;
 import cs3500.music.controller.commands.AddKeyNumber;
 import cs3500.music.controller.commands.AddRepeat;
+
 import cs3500.music.controller.commands.AddRepeatEnd;
 import cs3500.music.controller.commands.HorizontalScroller;
 import cs3500.music.controller.commands.JumpView;

@@ -32,6 +32,7 @@ public class RepeatTracker {
    * @param toEdit What is to be edited
    */
   public void setEdit(String toEdit)  {
+
     System.out.println("edit attempt ");
     this.startEdit = false;
     this.endEdit = false;
@@ -87,4 +88,5 @@ public class RepeatTracker {
     this.endEdit = false;
     this.startEdit = false;
   }
+
 }
