@@ -135,7 +135,6 @@ public interface IBasicMusicEditor<K> {
 
   /**
    * Adds a repeat with the given parameters.
-<<<<<<< HEAD
    * Return true if the repeat is successfully added.
    *
    * @param start Where to start(s).
@@ -143,10 +142,5 @@ public interface IBasicMusicEditor<K> {
    * @return true if the repeat is successfully added.
    */
   public boolean addRepeat(int start, List<Integer> ends);
-=======
-   * @param start   Where to start.
-   * @param ends    Where to end
-   */
-  public void addRepeat(int start, List<Integer> ends);
->>>>>>> origin/master
+
 }
