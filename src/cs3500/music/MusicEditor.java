@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
+import java.util.Arrays;
 import javax.sound.midi.InvalidMidiDataException;
 
 
@@ -42,8 +43,8 @@ public class MusicEditor {
 
     try {
       IView theView = ViewFactory.viewFactory(args[1], musicEditor);
-      //musicEditor.addRepeat(2, Arrays.asList(20, 25));
-      //musicEditor.addRepeat(25, Arrays.asList(40, 45));
+//      musicEditor.addRepeat(2, Arrays.asList(20, 25));
+//      musicEditor.addRepeat(25, Arrays.asList(40, 45));
       System.out.println(musicEditor.getRepeats().size());
       IMusicEditorController controller = new MusicEditorController(theView, musicEditor);
       controller.initializeView();
