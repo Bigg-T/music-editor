@@ -232,6 +232,7 @@ public final class BasicMusicEditor implements IBasicMusicEditor<INote> {
     }
     this.repeats.add(repetition);
     this.repeats.sort(Repetition.RepeatComparator.smallToLargeEnding);
+
     return true;
   }
 
